@@ -48,7 +48,6 @@ deps
 icloud
 panels
 tts
-www
 __*
 *.conf
 *.db
