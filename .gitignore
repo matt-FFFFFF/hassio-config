@@ -41,6 +41,7 @@ __pycache__
 *.pyc
 
 # Other
+production_auth.json
 components
 config
 custom_components
