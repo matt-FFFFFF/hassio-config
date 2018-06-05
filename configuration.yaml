@@ -16,10 +16,9 @@ homeassistant:
 # Show links to resources in log and frontend
 # introduction:
 
+# Enables logging
 logger:
   default: info
-  logs:
-    homeassistant.components.mqtt: debug
 
 # Enables the frontend
 frontend:
