@@ -52,6 +52,8 @@ tts
 __*
 *.conf
 *.db
+*.db-wal
+*.db-shm
 *.db-journal
 *.log
 *.moved
