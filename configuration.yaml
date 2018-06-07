@@ -1,42 +1,13 @@
 homeassistant:
-  # Name of the location where Home Assistant is running
   name: !secret homename
-  # Location required to calculate the time the sun rises and sets
   latitude: !secret latitude
   longitude: !secret longitude
-  # Impacts weather/sunrise data (altitude above sea level in meters)
-  elevation: 29
-  # metric for Metric, imperial for Imperial
+  elevation: !secret elevation
   unit_system: metric
-  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  # Time Zones: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: Europe/London
-  # Customization file
-  customize: !include customize.yaml
+  packages: !include_dir_named packages/
 
-# Show links to resources in log and frontend
-# introduction:
-
-# Enables logging
-logger:
-  default: info
-
-# Enables the frontend
-frontend:
-
-# Enables configuration UI
-config:
-
-http:
-  # Secrets are defined in the file secrets.yaml
-  api_password: !secret http_password
-  base_url: https://hassio.hardac.co.uk:8123
-  ssl_certificate: /ssl/fullchain.pem
-  ssl_key: /ssl/privkey.pem
-# Checks for available updates
-# Note: This component will send some information about your system to
-# the developers to assist with development of Home Assistant.
-# For more information, please see:
-# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
 updater:
   # Optional, allows Home Assistant developers to focus on popular components.
   # include_used_components: true
@@ -44,94 +15,20 @@ updater:
 # Discover some devices automatically
 discovery:
 
-# Allows you to issue voice commands from the frontend in enabled browsers
-conversation:
 
-# Enables support for tracking state changes over time
-history:
-
-# View all events in a logbook
-logbook:
-
-# Enables a map showing the location of tracked devices
-map:
-
-# Track the sun
-sun:
-
-# Sensors
-sensor:
-#  - platform: yr
-  - platform: metoffice
-    api_key: c0a2f109-42a3-410b-96fc-38738b755940
-    monitored_conditions:
-      - weather
-      - temperature
-      - feels_like_temperature
-      - wind_speed
-      - wind_direction
-      - wind_gust
-      - visibility
-      - visibility_distance
-      - uv
-      - precipitation
-      - humidity
-  - platform: systemmonitor
-    resources:
-      - type: disk_use_percent
-        arg: /home
-      - type: memory_free
-      - type: load_1m
-      - type: load_5m
-      - type: load_15m
 #  - platform: ring
 
-binary_sensor:
-  - platform: mqtt
-    name: Hallway Motion Sensor
-    state_topic: smartthings/Hallway Motion Sensor/motion/state
-    payload_on: active
-    payload_off: inactive
-    device_class: motion
-    retain: true
-  - platform: mqtt
-    name: Front Door Motion
-    state_topic: smartthings/Front Door/motion/state
-    payload_on: active
-    payload_off: inactive
-    device_class: motion
-    retain: true
-#  - platform: ring
-
-media_player:
-  - platform: cast
-
-# Text to speech
-tts:
-  - platform: google
-
-# Cloud
-cloud:
-
-group: !include groups.yaml
-automation: !include automations.yaml
-script: !include scripts.yaml
-
-# iOS
-ios:
-
-# MQTT
-mqtt:
-  broker: core-mosquitto
-  username: !secret mqtt_user
-  password: !secret mqtt_password
-
-# Nest:
-nest:
-  client_id: !secret nest_clientid
-  client_secret: !secret nest_clientsecret
-
-# Ring
-##ring:
-##  username: !secret ring_username
-##  password: !secret ring_password
+# Input selects
+input_select:
+  house_mode:
+    name: House mode
+    options:
+      - Dawn
+      - Day
+      - Dusk
+      - Night
+  presence:
+    name: Presence
+    options:
+      - Home
+      - Away

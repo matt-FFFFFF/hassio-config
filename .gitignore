@@ -72,6 +72,7 @@ home-assistant.*
 !home-assistant.service
 ip_bans.yaml
 known_devices.yaml
+entity_registry.yaml
 secrets.env
 secrets.yaml
 usps_cookies.pickle

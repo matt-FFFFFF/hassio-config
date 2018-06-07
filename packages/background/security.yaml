@@ -1,0 +1,25 @@
+
+sensor:
+  - platform: mqtt
+    name: Hallway Temperature
+    state_topic: smartthings/Hallway Motion Sensor/temperature
+    device_class: temperature
+    retain: true
+
+
+binary_sensor:
+  - platform: mqtt
+    name: Hallway Motion Sensor
+    state_topic: smartthings/Hallway Motion Sensor/motion/state
+    payload_on: active
+    payload_off: inactive
+    device_class: motion
+    retain: true
+
+  - platform: mqtt
+    name: Front Door Motion
+    state_topic: smartthings/Front Door/motion/state
+    payload_on: active
+    payload_off: inactive
+    device_class: motion
+    retain: true

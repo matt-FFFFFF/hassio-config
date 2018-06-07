@@ -1,0 +1,72 @@
+########################################################
+#                                                      #
+# This package contains automations that respond to    #
+# interactive commands with system/general information #
+#                                                      #
+# DEPENDS ON: Notifications                            #
+#                                                      #
+########################################################
+
+
+automation:
+  - alias: Telegram - Reply with Status
+    initial_state: on
+    trigger:
+      platform: event
+      event_type: telegram_command
+      event_data:
+        command: '/status'
+    action:
+      service: telegram_bot.send_message
+      data_template:
+        target: "{{ trigger.event.data.user_id }}"
+        message: "System is online!
+
+
+          Last system reboot was on {{ states('sensor.last_boot') }}.
+
+
+          Locations are showing as -
+
+          {% for state in states.device_tracker %}
+            {{- state.name }} - {{ state.state_with_unit }}
+
+          {% endfor %}
+
+          Guest mode is {{ states('input_boolean.guest_mode') }}."
+        keyboard: ["/occupancy", "/menu"]
+
+  - alias: Telegram - Reply with Occupancy
+    initial_state: on
+    trigger:
+      platform: event
+      event_type: telegram_command
+      event_data:
+        command: '/occupancy'
+    action:
+      service: telegram_bot.send_message
+      data_template:
+        target: "{{ trigger.event.data.user_id }}"
+        message: "Locations are showing as -
+
+          {% for state in states.device_tracker %}
+            {{- state.name }} - {{ state.state_with_unit }}
+
+          {% endfor %}
+
+          Guest mode is {{ states('input_boolean.guest_mode') }}."
+        keyboard: ["/away, /holiday, /guest", "/menu"]
+
+  - alias: Telegram - Reply with Menu
+    initial_state: on
+    trigger:
+      platform: event
+      event_type: telegram_command
+      event_data:
+        command: '/menu'
+    action:
+      service: telegram_bot.send_message
+      data_template:
+        target: "{{ trigger.event.data.user_id }}"
+        message: "Commands..."
+        keyboard: ["/occupancy", "/status"]

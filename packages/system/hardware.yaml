@@ -1,0 +1,46 @@
+###########################################
+#                                         #
+# This package contains the components,   #
+# and sensors for monitoring the hardware #
+# I have connected to my homeassistant    #
+#                                         #
+###########################################
+
+
+#homeassistant:
+#  customize:
+    #media_player.everywhere:
+      #friendly_name: Everywhere
+      #icon: mdi:play
+
+
+
+#zwave:
+  #usb_path: /dev/ttyACM0
+  #network_key: !secret zwave_network_key
+  #autoheal: false
+
+
+#hue:
+  #bridges:
+    #- host: !secret hue_hub_ip
+    #  allow_unreachable: true
+
+
+#light:
+  #platform: flux_led
+  #devices: !secret flux_led_devices
+
+
+media_player:
+  - platform: cast
+
+
+mqtt:
+  broker: core-mosquitto
+  username: !secret mqtt_user
+  password: !secret mqtt_password
+  discovery: true
+  discovery_prefix: homeassistant
+
+cloud:

@@ -1,0 +1,13 @@
+####################################################
+#                                                  #
+# This package automates the Nest HVAC controls    #
+# DEPENDS ON Occupancy                             #
+#                                                  #
+####################################################
+
+nest:
+  client_id: !secret nest_clientid
+  client_secret: !secret nest_clientsecret
+
+climate:
+  platform: nest

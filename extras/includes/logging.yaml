@@ -1,0 +1,18 @@
+############################################
+#                                          #
+#  This include defines what is logged in  #
+#  the systems logbook and history pages   #
+#                                          #
+############################################
+
+include:
+  domains:
+    - light
+    - binary_sensor
+    - device_tracker
+    - switch
+    - sensor
+
+exclude:
+  entities:
+    - binary_sensor.random_binary_sensor

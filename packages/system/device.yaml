@@ -1,0 +1,82 @@
+###########################################################
+#                                                         #
+# This package contains the components and sensors I use  #
+# to monitor the Homeassistant software and system itself #
+#                                                         #
+###########################################################
+
+recorder:
+  purge_interval: 3
+  purge_keep_days: 10
+
+logbook: !include ../../extras/includes/logging.yaml
+
+history: !include ../../extras/includes/logging.yaml
+
+sensor:
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /home
+      - type: memory_use_percent
+      - type: last_boot
+      - type: load_1m
+      - type: load_5m
+      - type: load_15m
+
+automation:
+  - alias: Device - Disk use alarm
+    initial_state: on
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.disk_use_percent_
+      above: 85
+    action:
+      service: script.notify
+      data:
+        tell: mf
+        no_say: 1
+        call_hdd_space: 1
+
+  - alias: Device - System load alarm
+    initial_state: on
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.load_15m
+        above: 4
+      - platform: numeric_state
+        entity_id: sensor.load_5m
+        above: 6
+      - platform: numeric_state
+        entity_id: sensor.load_1m
+        above: 8
+      - platform: numeric_state
+        entity_id: sensor.memory_use_percent
+        above: 85
+    action:
+      service: script.notify
+      data:
+        tell: matt
+        no_say: 1
+        call_system_load: 1
+        
+  - alias: Device - Power on
+    initial_state: on
+    trigger:
+      platform: homeassistant
+      event: start
+    action:
+      service: script.notify
+      data:
+        call_power_on: 1
+        tell: matt
+  
+  - alias: Let's Encrypt - Renewal
+    hide_entity: true
+    trigger:
+    - platform: time
+      at: 00:00:00
+    action:
+    - service: hassio.addon_restart
+      data:
+        addon: core_letsencrypt

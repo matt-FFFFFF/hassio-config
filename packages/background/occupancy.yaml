@@ -1,0 +1,144 @@
+####################################################
+#                                                  #
+# This package creates a device that monitors who  #
+# is at home, including a guest mode, and provides #
+# modes that assist with automations.              #
+#                                                  #
+####################################################
+
+homeassistant:
+  #customize_glob:
+    #automation.*:
+      #custom_ui_state_card: state-card-custom-ui
+      #confirm_controls_show_lock: true
+
+  customize:
+    #group.all_automations:
+      #custom_ui_state_card: state-card-custom-ui
+      #friendly_name: Automations
+      #icon: mdi:home-automation
+      #hidden: false
+      #hide_control: true
+      #confirm_controls_show_lock: true
+      #extra_badge:
+        #- entity_id: sensor.automation_on
+        #- entity_id: sensor.automation_all
+
+    group.phone_trackers:
+      state_card_mode: badges
+
+    sensor.home_status:
+      icon: mdi:home-map-marker
+
+    input_boolean.holiday_mode:
+      hide_control: true
+      extra_badge:
+        entity_id: input_boolean.holiday_mode
+
+
+ios:
+
+
+input_boolean:
+  away_mode:
+
+  guest_mode:
+    name: Guest mode
+    icon: mdi:human-handsup
+
+  holiday_mode:
+    name: Holiday mode
+    icon: mdi:airplane
+
+  bedtime_mode:
+    name: Bedtime mode
+    icon: mdi:sleep
+
+
+group:
+  Phone trackers:
+    - device_tracker.matthews_iphone
+
+
+alert:
+  guest_mode_alert:
+    name: Guest Mode has been on for a long time
+    done_message: Guest Mode de-activated
+    entity_id: input_boolean.guest_mode
+    repeat:
+      - 240
+      - 120
+    skip_first: true
+    notifiers:
+      - matt
+
+sensor:
+  platform: template
+  sensors:
+    home_status:
+      friendly_name: Home status
+      value_template: >
+        {% if is_state('group.phone_trackers' , 'home') or is_state('input_boolean.guest_mode' , 'on') %}Occupied
+        {% else %} Unoccupied {% endif %}
+
+
+automation:
+  - alias: Occupancy - Return home
+    initial_state: on
+    trigger:
+      platform: state
+      entity_id: group.phone_trackers
+      to: 'home'
+    action:
+      service: homeassistant.turn_off
+      entity_id:
+        - input_boolean.guest_mode
+        - input_boolean.away_mode
+        - input_boolean.holiday_mode
+
+  - alias: Occupancy - Nobody home
+    initial_state: on
+    trigger:
+      platform: state
+      entity_id: sensor.home_status
+      to: 'Unoccupied'
+      for:
+        minutes: 5
+    action:
+      - service: homeassistant.turn_on
+        entity_id:
+          - input_boolean.away_mode
+          - script.empty_bedroom
+          - script.empty_girls
+          - script.empty_boys
+
+  - alias: Occupancy - Holiday Mode
+    initial_state: on
+    trigger:
+      platform: state
+      entity_id: input_boolean.away_mode
+      to: 'on'
+      for:
+        hours: 24
+    action:
+      - service: homeassistant.turn_on
+        entity_id: input_boolean.holiday_mode
+      - service: homeassistant.turn_off
+        entity_id: input_boolean.away_mode
+
+  - alias: Occupancy - Verify ios matt
+    initial_state: on
+    trigger:
+      platform: time
+      minutes: '/30'
+      seconds: 00
+    condition:
+      - condition: time
+        after: '08:00:00'
+        before: '23:00:00'
+      - condition: template
+        value_template:  "{{ as_timestamp(now()) - as_timestamp(states.device_tracker.lauras_iphone.last_updated) > (61*60) }}"
+    action:
+      service: notify.ios_matthews_iphone
+      data:
+        message: "request_location_update"
