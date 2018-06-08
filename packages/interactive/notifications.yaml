@@ -11,7 +11,7 @@
 homeassistant:
   customize:
     binary_sensor.random_binary_sensor:
-      hidden: True
+      hidden: true
 
 tts:
   - platform: google
