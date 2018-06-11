@@ -2,11 +2,15 @@
 sensor:
   - platform: mqtt
     name: Hallway Temperature
-    state_topic: smartthings/Hallway Motion Sensor/temperature
+    state_topic: smartthings/Hallway Motion Sensor/temperature/status
     device_class: temperature
     retain: true
 
-
+camera:
+  - platform: ffmpeg
+    name: dafang1
+    input: -rtsp_transport tcp -i rtsp://172.30.1.60:8554/unicast
+    
 binary_sensor:
   - platform: mqtt
     name: Hallway Motion Sensor
