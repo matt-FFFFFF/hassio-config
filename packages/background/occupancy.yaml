@@ -137,7 +137,7 @@ automation:
         after: '08:00:00'
         before: '23:00:00'
       - condition: template
-        value_template:  "{{ as_timestamp(now()) - as_timestamp(states.device_tracker.lauras_iphone.last_updated) > (61*60) }}"
+        value_template:  "{{ as_timestamp(now()) - as_timestamp(states.device_tracker.matthews_iphone.last_updated) > (61*60) }}"
     action:
       service: notify.ios_matthews_iphone
       data:
