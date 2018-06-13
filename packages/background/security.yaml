@@ -1,11 +1,3 @@
-
-sensor:
-  - platform: mqtt
-    name: Hallway Temperature
-    state_topic: smartthings/Hallway Motion Sensor/temperature/status
-    device_class: temperature
-    retain: true
-
 camera:
   - platform: ffmpeg
     name: dafang1

@@ -1,0 +1,92 @@
+################################################
+#                                              #
+# This package creates a device that allows me #
+# to set a boolean to show the system in       #
+# "Maintenance Mode", and manage backing up,   #
+# upgrading and pulling config from Github     #
+#                                              #
+################################################
+
+
+homeassistant:
+  customize_glob:
+    weblink.*:
+      icon: mdi:web
+
+  customize:
+    script.zwave_on:
+      icon: mdi:check-circle-outline
+      custom_ui_state_card: state-card-script-custom-text
+      custom_text: Zwave On
+
+    script.zwave_off:
+      icon: mdi:close-octagon-outline
+      custom_ui_state_card: state-card-script-custom-text
+      custom_text: Zwave Off
+
+    script.zwave_include:
+      icon: mdi:plus-circle-outline
+      custom_ui_state_card: state-card-script-custom-text
+      custom_text: "Add New Device (Secure)"
+
+
+weblink:
+  entities:
+    - name: Github
+      url: https://github.com/matt-FFFFFF/hassio-config
+    - name: Configure Alexa
+      url: https://alexa.amazon.co.uk/spa/index.html#smart-home
+    - name: OneDrive
+      url: https://onedrive.live.com
+
+
+input_boolean:
+  maintenance_mode:
+    name: Maintenance mode
+    icon: mdi:auto-fix
+
+group:
+  Maintenance:
+    control: hidden
+    entities:
+      - input_boolean.maintenance_mode
+      - weblink.github
+      - weblink.onedrive
+
+  Configure external:
+      - weblink.configure_alexa
+
+  Zwave:
+    control: hidden
+    entities:
+      - script.zwave_on
+      - script.zwave_off
+      - script.zwave_include
+
+
+alert:
+  maintenance_mode_alert:
+    name: Maintenance Mode has been on for a long time
+    done_message: Maintenance Mode de-activated
+    entity_id: input_boolean.maintenance_mode
+    repeat:
+      - 60
+    skip_first: true
+    notifiers:
+      - matt
+
+script:
+  zwave_on:
+    alias: ' '
+    sequence:
+      - service: zwave.start_network
+
+  zwave_off:
+    alias: ' '
+    sequence:
+      - service: zwave.stop_network
+
+  zwave_include:
+    alias: ' '
+    sequence:
+      - service: zwave.add_node_secure

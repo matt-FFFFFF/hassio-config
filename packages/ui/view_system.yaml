@@ -1,0 +1,18 @@
+group:
+  system_view:
+    name: System
+    icon: mdi:raspberrypi
+    view: yes
+    entities: 
+      - group.system_performance
+
+  system_performance:
+    name: System Performance
+    entities:
+    - sensor.load_1m
+    - sensor.load_5m
+    - sensor.load_15m
+    - sensor.memory_use_percent
+    - sensor.disk_use_percent_home
+    - sensor.last_boot
+

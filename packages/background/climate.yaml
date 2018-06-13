@@ -11,3 +11,10 @@ nest:
 
 climate:
   platform: nest
+
+sensor:
+  - platform: mqtt
+    name: Hallway Temperature
+    state_topic: smartthings/Hallway Motion Sensor/temperature/state
+    device_class: temperature
+    retain: true
