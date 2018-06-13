@@ -5,6 +5,7 @@ group:
     view: yes
     entities: 
       - group.system_performance
+      - group.matthews_iphone_group
 
   system_performance:
     name: System Performance
@@ -15,4 +16,12 @@ group:
     - sensor.memory_use_percent
     - sensor.disk_use_percent_home
     - sensor.last_boot
+  
+  matthews_iphone_group:
+    name: Matt iPhone
+    entities:
+      - device_tracker.matthews_iphone
+      - sensor.matthews_iphone_battery_level
+      - sensor.matthews_iphone_battery_state
+
 

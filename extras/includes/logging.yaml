@@ -12,6 +12,10 @@ include:
     - device_tracker
     - switch
     - sensor
+    - climate
+    - media_player
+    - sun
+    - input_boolean
 
 exclude:
   entities:

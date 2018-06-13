@@ -7,11 +7,10 @@
 ###########################################
 
 
-#homeassistant:
-#  customize:
-    #media_player.everywhere:
-      #friendly_name: Everywhere
-      #icon: mdi:play
+homeassistant:
+  customize_glob:
+    media_player.*:
+      icon: mdi:play
 
 
 

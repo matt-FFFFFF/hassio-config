@@ -1,7 +1,7 @@
 group:
   environment_view:
     name: Environment
-    icon: mdi:temperature-celcius
+    icon: mdi:temperature-celsius
     view: yes
     entities: 
       - group.nest
@@ -30,3 +30,4 @@ group:
     - binary_sensor.front_door_motion
     - binary_sensor.wildown_gardens_away
     - sensor.wildown_gardens_eta
+    - sensor.home_status
