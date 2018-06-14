@@ -39,8 +39,8 @@ media_player:
 
 mqtt:
   broker: core-mosquitto
-  username: !secret mqtt_user
-  password: !secret mqtt_password
+  username: !secret mqtt_user_hassio
+  password: !secret mqtt_password_hassio
   discovery: true
   discovery_prefix: homeassistant
 
