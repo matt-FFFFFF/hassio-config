@@ -1,7 +1,7 @@
 group:
   environment_view:
     name: Environment
-    icon: mdi:temperature-celsius
+    icon: mdi:thermostat
     view: yes
     entities: 
       - group.nest
@@ -21,6 +21,8 @@ group:
     - sensor.hallway_thermostat_operation_mode
     - sensor.hallway_thermostat_target
     - sensor.hallway_thermostat_temperature
+    - binary_sensor.wildown_gardens_away
+    - sensor.wildown_gardens_eta
   
   sensors:
     name: Sensors
@@ -28,6 +30,4 @@ group:
     - sensor.hallway_temperature
     - binary_sensor.hallway_motion_sensor
     - binary_sensor.front_door_motion
-    - binary_sensor.wildown_gardens_away
-    - sensor.wildown_gardens_eta
     - sensor.home_status

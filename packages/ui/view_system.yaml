@@ -18,7 +18,7 @@ group:
     - sensor.last_boot
   
   matthews_iphone_group:
-    name: Matt iPhone
+    name: "Matthew's iPhone"
     entities:
       - device_tracker.matthews_iphone
       - sensor.matthews_iphone_battery_level
