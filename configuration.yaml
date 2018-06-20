@@ -14,21 +14,3 @@ updater:
 
 # Discover some devices automatically
 discovery:
-
-
-#  - platform: ring
-
-# Input selects
-input_select:
-  house_mode:
-    name: House mode
-    options:
-      - Dawn
-      - Day
-      - Dusk
-      - Night
-  presence:
-    name: Presence
-    options:
-      - Home
-      - Away
