@@ -17,5 +17,13 @@ sensor:
       - humidity
   - platform: moon
 
+# Override default home
+zone:
+  - name: Home
+    latitude: !secret latitude
+    longitude: !secret longitude
+    radius: 150
+    icon: mdi:home-variant
+
 binary_sensor:
   - platform: iss
