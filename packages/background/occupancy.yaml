@@ -38,7 +38,6 @@ device_tracker:
     max_gps_accuracy: 200
     waypoints: true
     mqtt_topic: "owntracks/#"
-    
 
 
 input_boolean:
@@ -59,7 +58,7 @@ input_boolean:
 
 group:
   Phone trackers:
-    - device_tracker.matthews_iphone
+    - device_tracker.mattiphoneowntrk_iphone
 
 
 alert:
@@ -127,20 +126,3 @@ automation:
         entity_id: input_boolean.holiday_mode
       - service: homeassistant.turn_off
         entity_id: input_boolean.away_mode
-
-  - alias: Occupancy - Verify ios matt
-    initial_state: on
-    trigger:
-      platform: time
-      minutes: '/30'
-      seconds: 00
-    condition:
-      - condition: time
-        after: '08:00:00'
-        before: '23:00:00'
-      - condition: template
-        value_template:  "{{ as_timestamp(now()) - as_timestamp(states.device_tracker.matthews_iphone.last_updated) > (61*60) }}"
-    action:
-      service: notify.ios_matthews_iphone
-      data:
-        message: "request_location_update"
