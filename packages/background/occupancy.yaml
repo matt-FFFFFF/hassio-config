@@ -42,6 +42,8 @@ device_tracker:
 
 input_boolean:
   away_mode:
+    name: Away mode
+    icon: mdi:car
 
   guest_mode:
     name: Guest mode
@@ -58,7 +60,7 @@ input_boolean:
 
 group:
   Phone trackers:
-    - device_tracker.mattiphoneowntrk_iphone
+    -  device_tracker.mattiphoneowntrk_iphone
 
 
 alert:
@@ -126,3 +128,4 @@ automation:
         entity_id: input_boolean.holiday_mode
       - service: homeassistant.turn_off
         entity_id: input_boolean.away_mode
+
