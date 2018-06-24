@@ -24,6 +24,7 @@ zone:
     longitude: !secret longitude
     radius: 150
     icon: mdi:home-variant
+    track_ios: false
 
 binary_sensor:
   - platform: iss

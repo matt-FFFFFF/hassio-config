@@ -18,3 +18,32 @@ sensor:
     state_topic: smartthings/Hallway Motion Sensor/temperature/state
     device_class: temperature
     retain: true
+
+automation:
+  - alias: Climate - away mode on
+    initial_state: on
+    trigger:
+      platform: state
+      entity_id: sensor.home_status
+      to: 'Unoccupied'
+    action:
+      - delay: '00:10:00'
+      - service: climate.set_away_mode
+        data:
+          entity_id: climate.hallway
+          away_mode: true
+
+automation:
+  - alias: Climate - away mode off
+    initial_state: on
+    trigger:
+      platform: state
+      entity_id: sensor.home_status
+      to: 'Occupied'
+    action:
+      - service: homeassistant.turn_off
+        entity_id: automation.climate__away_mode_on
+      - service: climate.set_away_mode
+        data:
+          entity_id: climate.hallway
+          away_mode: false
