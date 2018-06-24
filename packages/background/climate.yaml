@@ -33,7 +33,6 @@ automation:
           entity_id: climate.hallway
           away_mode: true
 
-automation:
   - alias: Climate - away mode off
     initial_state: on
     trigger:
