@@ -99,15 +99,15 @@ automation:
               'heat'
             {%- endif -%}
       - service_template: >-
-        {%- if ((states.binary_sensor.warmer_than_setpoint.state == 'on')
-          and
-        (states.climate.hallway.attributes.operation_mode == 'heat')) -%}
-          homeassistant.turn_on
-        {%- elif ((states.binary_sensor.warmer_than_setpoint.state == 'off')
-          and
-        (states.climate.hallway.attributes.operation_mode == 'eco')
-          and
-        (states.input_boolean.ha_owns_eco_mode.state == 'on')) -%}
-          homeassistant.turn_off
-        {%- endif -%}
-      entity_id: input_boolean.ha_owns_eco_mode
+          {%- if ((states.binary_sensor.warmer_than_setpoint.state == 'on')
+            and
+          (states.climate.hallway.attributes.operation_mode == 'heat')) -%}
+            homeassistant.turn_on
+          {%- elif ((states.binary_sensor.warmer_than_setpoint.state == 'off')
+            and
+          (states.climate.hallway.attributes.operation_mode == 'eco')
+            and
+          (states.input_boolean.ha_owns_eco_mode.state == 'on')) -%}
+            homeassistant.turn_off
+          {%- endif -%}
+        entity_id: input_boolean.ha_owns_eco_mode
