@@ -83,8 +83,23 @@ automation:
         entity_id: sensor.hallway_thermostat_operation_mode
         to: 'heat'
     action:
-      - service_template: >
-          {% if ((states.binary_sensor.warmer_than_setpoint.state == 'on')
+      - service: climate.set_operation_mode
+        data_template:
+          entity_id: climate.hallway
+          operation_mode: >-
+            {%- if ((states.binary_sensor.warmer_than_setpoint.state == 'on')
+              and
+            (states.climate.hallway.attributes.operation_mode == 'heat')) -%}
+              'eco'
+            {%- elif ((states.binary_sensor.warmer_than_setpoint.state == 'off')
+              and
+            (states.climate.hallway.attributes.operation_mode == 'eco')
+              and
+            (states.input_boolean.ha_owns_eco_mode.state == 'on')) -%}
+              'heat'
+            {%- endif -%}
+        - service_template: >-
+          {%- if ((states.binary_sensor.warmer_than_setpoint.state == 'on')
             and
           (states.climate.hallway.attributes.operation_mode == 'heat')) -%}
             homeassistant.turn_on
@@ -94,20 +109,5 @@ automation:
             and
           (states.input_boolean.ha_owns_eco_mode.state == 'on')) -%}
             homeassistant.turn_off
-          {%- endif %}
+          {%- endif -%}
         entity_id: input_boolean.ha_owns_eco_mode
-      - service: climate.set_operation_mode
-        data_template:
-          entity_id: climate.hallway
-          operation_mode: >
-            {% if ((states.binary_sensor.warmer_than_setpoint.state == 'on')
-              and
-            (states.climate.hallway.attributes.operation_mode == 'heat')) -%}
-              'eco'
-            {%- elif ((states.binary_sensor.warmer_than_setpoint.state == 'on')
-              and
-            (states.climate.hallway.attributes.operation_mode == 'eco')
-              and
-            (states.input_boolean.ha_owns_eco_mode.state == 'on')) -%}
-              'heat'
-            {%- endif %}
