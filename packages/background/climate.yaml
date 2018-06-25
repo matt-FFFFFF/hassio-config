@@ -74,7 +74,7 @@ automation:
       to: true
     condition:
       - condition: template
-        value_template: {{ states.climate.hallway.attributes.operation_mode == 'heat' }}
+        value_template: "{{ states.climate.hallway.attributes.operation_mode == 'heat' }}"
     action:
       - service: homeassistant.turn_on
         entity_id: input_boolean.ha_owns_eco_mode
@@ -91,7 +91,7 @@ automation:
       to: false
     condition:
       - condition: template
-        value_template: {{ states.climate.hallway.attributes.operation_mode == 'eco' }}
+        value_template: "{{ states.climate.hallway.attributes.operation_mode == 'eco' }}"
       - condition: state
         entity_id: input_boolean.ha_owns_eco_mode
     action:
