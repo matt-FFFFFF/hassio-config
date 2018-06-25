@@ -3,7 +3,7 @@ homeassistant:
     sensor.ring_hallway_volume:
       friendly_name: Hallway Ring Chime Volume
     sensor.ring_hallway_wifi_signal_category:
-      friendly_name: Hallway Ring Chime WiFi Singnal Category
+      friendly_name: Hallway Ring Chime WiFi Signal Category
     sensor.ring_hallway_wifi_signal_strength:
       friendly_name: Hallway Ring Chime WiFi Signal Strength
 
