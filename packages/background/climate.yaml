@@ -92,8 +92,8 @@ automation:
     condition:
       - condition: template
         value_template: "{{ states.climate.hallway.attributes.operation_mode == 'eco' }}"
-      - condition: state
-        entity_id: input_boolean.ha_owns_eco_mode
+      - condition: template
+        entity_id: "{{ states.binary_Sensor.iss.state == 'on' }}"
     action:
       - service: homeassistant.turn_off
         entity_id: input_boolean.ha_owns_eco_mode
