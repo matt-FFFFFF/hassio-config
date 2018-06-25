@@ -1,7 +1,7 @@
 camera:
   - platform: ffmpeg
     name: dafang1
-    input: -rtsp_transport tcp -i rtsp://172.30.1.60:8554/unicast
+    input: !secret camera1_input
     
 binary_sensor:
   - platform: mqtt
@@ -19,3 +19,12 @@ binary_sensor:
     payload_off: inactive
     device_class: motion
     retain: true
+
+
+ring:
+  username: !secret ring_user
+  password: !secret ring_password
+
+
+sensor:
+  - platform: ring
