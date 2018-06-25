@@ -27,7 +27,7 @@ sensor:
     sensors:
       warmer_than_setpoint:
         friendly_name: Outside warmer than heat setpoint
-        value_template: {{ if states.sensor.met_office_feels_like_temperature | float >= states.sensor.hallway_thermostat_target | float }}
+        value_template: {{ states.sensor.met_office_feels_like_temperature | float >= states.sensor.hallway_thermostat_target | float }}
 
 
 input_boolean:
