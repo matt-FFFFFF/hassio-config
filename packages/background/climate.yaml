@@ -23,6 +23,8 @@ sensor:
     device_class: temperature
     retain: true
   
+
+binary_sensor:
   - platform: template
     sensors:
       warmer_than_setpoint:
@@ -67,10 +69,9 @@ automation:
     initial_state: on
     trigger:
       platform: state
-      entity_id: sensor.met_office_feels_like_temperature
+      entity_id: binary_sensor.warmer_than_setpoint
+        to: true
     condition:
-      - condition: state
-        entity_id: sensor.warmer_than_setpoint
       - condition: template
         value_template: {{ states.climate.hallway.attributes.operation_mode == 'heat' }}
     action:
@@ -85,10 +86,9 @@ automation:
     initial_state: on
     trigger:
       platform: state
-      entity_id: sensor.met_office_feels_like_temperature
+      entity_id: binary_sensor.warmer_than_setpoint
+        to: false
     condition:
-      - condition: state
-        entity_id: {{ not sensor.warmer_than_setpoint }}
       - condition: template
         value_template: {{ states.climate.hallway.attributes.operation_mode == 'eco' }}
       - condition: state
