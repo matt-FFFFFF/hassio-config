@@ -20,6 +20,7 @@ group:
       - sensor.ring_front_door_last_ding
       - sensor.ring_front_door_last_activity
       - sensor.ring_front_door_battery
+      - sensor.wildown_gardens_security_state
   
   security_sensors:
     name: Security Sensors
