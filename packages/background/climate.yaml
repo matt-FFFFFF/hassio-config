@@ -1,7 +1,11 @@
 ####################################################
 #                                                  #
 # This package automates the Nest HVAC controls    #
-# DEPENDS ON Occupancy                             #
+#                                                  #
+# Automates:                                       #
+#   - away mode on house empty                     #
+#   - eco mode when warm weather                   #
+# DEPENDS ON Occupancy & Environment               #
 #                                                  #
 ####################################################
 
@@ -18,6 +22,22 @@ sensor:
     state_topic: smartthings/Hallway Motion Sensor/temperature/state
     device_class: temperature
     retain: true
+  
+
+binary_sensor:
+  - platform: template
+    sensors:
+      warmer_than_setpoint:
+        friendly_name: Outside warmer than heat setpoint
+        value_template: >-
+          {{ states.sensor.met_office_feels_like_temperature | float >= states.sensor.hallway_thermostat_target | float }}
+
+
+input_boolean:
+  ha_owns_eco_mode:
+    name: Home Assistant Owns Nest Eco Mode
+    icon: mdi:leaf
+
 
 automation:
   - alias: Climate - away mode on
@@ -45,3 +65,41 @@ automation:
         data:
           entity_id: climate.hallway
           away_mode: false
+
+  - alias: Climate - Enable eco mode when warm weather
+    initial_state: on
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.warmer_than_setpoint
+      - platform: state
+        entity_id: sensor.hallway_thermostat_operation_mode
+        to: 'heat'
+    action:
+      - service_template: >
+          {% if ((states.binary_sensor.warmer_than_setpoint.state == 'on')
+            and
+          (states.climate.hallway.attributes.operation_mode == 'heat')) -%}
+            homeassistant.turn_on
+          {%- elif ((states.binary_sensor.warmer_than_setpoint.state == 'off')
+            and
+          (states.climate.hallway.attributes.operation_mode == 'eco')
+            and
+          (states.input_boolean.ha_owns_eco_mode.state == 'on')) -%}
+            homeassistant.turn_off
+          {%- endif %}
+        entity_id: input_boolean.ha_owns_eco_mode
+      - service: climate.set_operation_mode
+        data_template:
+          entity_id: climate.hallway
+          operation_mode: >
+            {% if ((states.binary_sensor.warmer_than_setpoint.state == 'on')
+              and
+            (states.climate.hallway.attributes.operation_mode == 'heat')) -%}
+              'eco'
+            {%- elif ((states.binary_sensor.warmer_than_setpoint.state == 'on')
+              and
+            (states.climate.hallway.attributes.operation_mode == 'eco')
+              and
+            (states.input_boolean.ha_owns_eco_mode.state == 'on')) -%}
+              'heat'
+            {%- endif %}

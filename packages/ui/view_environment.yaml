@@ -29,3 +29,5 @@ group:
     entities:
     - sensor.hallway_temperature
     - sensor.home_status
+    - sensor.warmer_than_setpoint
+    - binary_sensor.ha_owns_eco_mode
