@@ -1,3 +1,12 @@
+homeassistant:
+  customize:
+    sensor.ring_hallway_volume:
+      friendly_name: Hallway Ring Chime Volume
+    sensor.ring_hallway_wifi_signal_category:
+      friendly_name: Hallway Ring Chime WiFi Singnal Category
+    sensor.ring_hallway_wifi_signal_strength:
+      friendly_name: Hallway Ring Chime WiFi Signal Strength
+
 camera:
   - platform: ffmpeg
     name: dafang1
@@ -7,14 +16,6 @@ binary_sensor:
   - platform: mqtt
     name: Hallway Motion Sensor
     state_topic: smartthings/Hallway Motion Sensor/motion/state
-    payload_on: active
-    payload_off: inactive
-    device_class: motion
-    retain: true
-
-  - platform: mqtt
-    name: Front Door Motion
-    state_topic: smartthings/Front Door/motion/state
     payload_on: active
     payload_off: inactive
     device_class: motion
