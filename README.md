@@ -14,7 +14,7 @@ sudo nano /etc/ssh/sshd_config
 ## Stuff That I Automate
 The following are things that I have automated:
 
-### Nest Thermostat
+### Nest Thermostat (See [Climate.md](packages/background/Climate.md))
 - [x] Occupancy home/away using [Owntracks](https://www.home-assistant.io/components/device_tracker.owntracks/)
 - [x] Nest home/away automation based on the above
 - [x] Nest Eco mode when the outside temperature is warmer than the setpoint

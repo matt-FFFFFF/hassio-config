@@ -84,7 +84,7 @@ automation:
         to: 'heat'
     condition:
       - condition: template
-        value_template: '{{ states.climate.hallway.attributes.operation_mode != 'off' }}'
+        value_template: "{{ states.climate.hallway.attributes.operation_mode != 'off' }}"
     action:
       - service: climate.set_operation_mode
         data_template:
@@ -93,13 +93,15 @@ automation:
             {%- if ((states.binary_sensor.warmer_than_setpoint.state == 'on')
               and
             (states.climate.hallway.attributes.operation_mode == 'heat')) -%}
-              '{{ states.climate.hallway.attributes.operation_list[2] }}'
+              {{ states.climate.hallway.attributes.operation_list[2] }}
             {%- elif ((states.binary_sensor.warmer_than_setpoint.state == 'off')
               and
             (states.climate.hallway.attributes.operation_mode == 'eco')
               and
+            (states.input_boolean.ha_owns_eco_mode.state == 'on')
+              and
             (states.input_boolean.ha_owns_eco_mode.state == 'on')) -%}
-              '{{ states.climate.hallway.attributes.operation_list[1] }}'
+              {{ states.climate.hallway.attributes.operation_list[1] }}
             {%- endif -%}
       - service_template: >-
           {%- if ((states.binary_sensor.warmer_than_setpoint.state == 'on')
