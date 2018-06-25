@@ -71,25 +71,3 @@ automation:
         call_power_on: 1
         tell: matt
   
-  - alias: Let's Encrypt - Renewal
-    trigger:
-      - platform: time
-        at: '00:00:00'
-    action:
-      service: hassio.addon_restart
-      data:
-        addon: core_letsencrypt
-  
-  - alias: Daily snapshot
-    trigger:
-      - platform: time
-        at: '00:30:00'
-    action:
-      - service: hassio.snapshot_full
-        data_template:
-          name: AutoBackup-Daily-{{ now().strftime ('%d-%m-%y') }}
-          password: !secret snapshot_password
-      - service: shell_command.delete_old_snapshots
-
-shell_command:
-  delete_old_snapshots: find /backup/* -mtime +30 -exec rm {} \;
