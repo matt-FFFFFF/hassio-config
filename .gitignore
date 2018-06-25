@@ -75,4 +75,4 @@ known_devices.yaml
 entity_registry.yaml
 secrets.env
 secrets.yaml
-usps_cookies.pickle
+*.pickle
