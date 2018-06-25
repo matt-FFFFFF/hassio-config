@@ -1,6 +1,6 @@
 group:
-  environment_view:
-    name: Environment
+  climate_view:
+    name: Climate
     icon: mdi:thermostat
     view: yes
     entities: 
@@ -29,5 +29,5 @@ group:
     entities:
     - sensor.hallway_temperature
     - sensor.home_status
-    - sensor.warmer_than_setpoint
-    - binary_sensor.ha_owns_eco_mode
+    - input_boolean.ha_owns_eco_mode
+    - binary_sensor.warmer_than_setpoint
