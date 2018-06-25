@@ -76,3 +76,4 @@ entity_registry.yaml
 secrets.env
 secrets.yaml
 *.pickle
+.config_entries.json
