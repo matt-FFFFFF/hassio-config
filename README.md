@@ -14,13 +14,9 @@ sudo nano /etc/ssh/sshd_config
 ```
 
 ## CI/CD
-I use GitHub & Visual Studio Team Services to provide CI/CD services.  I have automated the testing of new pull requests using the hosted Linux build agents.
+I use GitHub & Visual Studio Team Services to provide CI/CD services.  I have automated the testing of new pull requests using the docker image from Docker Hub & the hosted Linux build agents.
 
-
-|Current status: ![build status](https://matthewwhite.visualstudio.com/_apis/public/build/definitions/c79b9ad4-fab7-4063-aba0-49d888e1eec2/2/badge) |Column2  |
-|:---:|:---:|
-|Row1     |         |
-|Row2     |         |
+![build status](https://matthewwhite.visualstudio.com/_apis/public/build/definitions/c79b9ad4-fab7-4063-aba0-49d888e1eec2/2/badge)
 
 
 
