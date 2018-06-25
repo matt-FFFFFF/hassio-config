@@ -22,7 +22,14 @@ sensor:
     state_topic: smartthings/Hallway Motion Sensor/temperature/state
     device_class: temperature
     retain: true
-  
+
+
+input_number:
+  outside_temp_offset:
+    name: Outside Temperature Offset
+    min: 0
+    max: 10
+    step: 1
 
 binary_sensor:
   - platform: template
@@ -30,7 +37,9 @@ binary_sensor:
       warmer_than_setpoint:
         friendly_name: Outside warmer than heat setpoint
         value_template: >-
-          {{ states.sensor.met_office_temperature.state | float >= states.sensor.hallway_thermostat_target.state | float }}
+          {{ (states.sensor.met_office_temperature.state | float)
+            + (states.input_number.outside_temp_offset.state | int)
+            >= states.sensor.hallway_thermostat_target.state | float }}
 
 input_boolean:
   ha_owns_eco_mode:
