@@ -72,8 +72,8 @@ automation:
       - platform: state
         entity_id: binary_sensor.warmer_than_setpoint
       - platform: state
-        entity_id: input_boolean.away_mode
-        to: 'off'
+        entity_id: sensor.hallway_thermostat_operation_mode
+        to: 'heat'
     action:
       - service_template: >
           {% if ((states.binary_sensor.warmer_than_setpoint.state == 'on')
