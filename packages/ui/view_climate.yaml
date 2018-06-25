@@ -6,23 +6,24 @@ group:
     entities: 
       - group.nest
       - group.climate_sensors
+      - group.climate_controls
 
   nest:
     name: Nest
     entities:
-    - binary_sensor.hallway_thermostat_fan
-    - binary_sensor.hallway_thermostat_has_leaf
-    - binary_sensor.hallway_thermostat_is_locked
-    - binary_sensor.hallway_thermostat_is_using_emergency_heat
-    - binary_sensor.hallway_thermostat_online
-    - climate.hallway
-    - sensor.hallway_thermostat_humidity
-    - sensor.hallway_thermostat_hvac_state
-    - sensor.hallway_thermostat_operation_mode
-    - sensor.hallway_thermostat_target
-    - sensor.hallway_thermostat_temperature
-    - binary_sensor.wildown_gardens_away
-    - sensor.wildown_gardens_eta
+      - binary_sensor.hallway_thermostat_fan
+      - binary_sensor.hallway_thermostat_has_leaf
+      - binary_sensor.hallway_thermostat_is_locked
+      - binary_sensor.hallway_thermostat_is_using_emergency_heat
+      - binary_sensor.hallway_thermostat_online
+      - climate.hallway
+      - sensor.hallway_thermostat_humidity
+      - sensor.hallway_thermostat_hvac_state
+      - sensor.hallway_thermostat_operation_mode
+      - sensor.hallway_thermostat_target
+      - sensor.hallway_thermostat_temperature
+      - binary_sensor.wildown_gardens_away
+      - sensor.wildown_gardens_eta
   
   climate_sensors:
     name: Climate Sensors
@@ -31,3 +32,8 @@ group:
     - sensor.home_status
     - input_boolean.ha_owns_eco_mode
     - binary_sensor.warmer_than_setpoint
+
+  climate_controls:
+    name: Climate Controls
+    entities:
+      - input_number.outside_temp_offset
