@@ -98,7 +98,7 @@ automation:
               and
             (states.climate.hallway.attributes.operation_mode == 'eco')
               and
-            (states.input_boolean.ha_owns_eco_mode.state == 'on'))
+            (states.input_boolean.ha_owns_eco_mode.state == 'on')
               and
             (states.input_boolean.ha_owns_eco_mode.state == 'on')) -%}
               {{ states.climate.hallway.attributes.operation_list[1] }}
