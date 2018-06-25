@@ -84,7 +84,7 @@ automation:
         to: 'heat'
     condition:
       - condition: template
-        value_template: '{{ states.climate.hallway.attributes.operation_mode != 'off' }}'
+        value_template: "{{ states.climate.hallway.attributes.operation_mode != 'off' }}"
     action:
       - service: climate.set_operation_mode
         data_template:
