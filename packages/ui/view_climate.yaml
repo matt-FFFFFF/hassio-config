@@ -39,3 +39,4 @@ group:
       - input_number.outside_temp_offset
       - input_number.daytime_heat_setpoint
       - input_number.nighttime_heat_setpoint
+      - input_text.last_nest_mode
