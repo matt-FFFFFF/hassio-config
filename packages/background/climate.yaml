@@ -30,6 +30,22 @@ input_number:
     min: 0
     max: 10
     step: 1
+    unit_of_measurement: °C
+
+  daytime_heat_setpoint:
+    name: Daytime Heat Setpoint
+    min: 0
+    max: 32
+    step: 0.25
+    unit_of_measurement: °C
+
+  nighttime_heat_setpoint:
+    name: Nighttime Heat Setpoint
+    min: 0
+    max: 32
+    step: 0.25
+    unit_of_measurement: °C
+
 
 binary_sensor:
   - platform: template
@@ -41,9 +57,10 @@ binary_sensor:
             + (states.input_number.outside_temp_offset.state | int)
             >= states.sensor.hallway_thermostat_target.state | float }}
 
+
 input_boolean:
   ha_owns_eco_mode:
-    name: Home Assistant Owns Nest Eco Mode
+    name: Home Assistant Owns Nest Eco/Away Mode
     icon: mdi:leaf
 
 
@@ -51,28 +68,66 @@ automation:
   - alias: Climate - away mode on
     initial_state: on
     trigger:
-      platform: state
-      entity_id: input_boolean.away_mode
-      to: 'on'
-      for:
-        minutes: 5
+      - platform: state
+        entity_id: input_boolean.away_mode
+        to: 'on'
+        for:
+          minutes: 5
     action:
       - service: climate.set_away_mode
         data:
           entity_id: climate.hallway
           away_mode: true
+      - service: homeassistant.turn_on
+        data:
+          entity_id: input_boolean.ha_owns_eco_mode
 
   - alias: Climate - away mode off
     initial_state: on
     trigger:
-      platform: state
-      entity_id: input_boolean.away_mode
-      to: 'off'
+      - platform: state
+        entity_id: input_boolean.away_mode
+        to: 'off'
     action:
       - service: climate.set_away_mode
         data:
           entity_id: climate.hallway
           away_mode: false
+      - service: homeassistant.turn_off
+        data:
+          entity_id: input_boolean.ha_owns_eco_mode
+
+  - alias: Climate - Update HA setpoint value when external update
+    initial_state: on
+    trigger:
+      - platform: state
+        entity_id: sensor.hallway_thermostat_target
+    condition:
+      - condition: tempalte
+        value_template: {{ states.climate.hallway.attributes.operation_mode == 'heat' }}
+    action:
+      - service: input_number.set_value
+        data_template:
+          entity_id: >-
+            {%- if (states.input_boolean.bedtime_mode.state == 'on') -%}
+              input_number.nighttime_heat_setpoint
+            {%- else -%}
+              input_number.daytime_heat_setpoint
+            {%- endif -%}
+          value: {{sensor.hallway_thermostat_target | float}}
+
+  - alias: Climate - Reset homeassistant owns eco mode switch
+    initial_state: on
+    trigger:
+      - platform: state
+        entity_id: sensor.hallway_thermostat_operation_mode
+        from: 'eco'
+        for:
+          minutes: 5
+    action:
+      - service: homeassistant.turn_off
+        data:
+          entity_id: input_boolean.ha_owns_eco_mode
 
   - alias: Climate - Enable eco mode when warm weather
     initial_state: on
@@ -82,6 +137,8 @@ automation:
       - platform: state
         entity_id: sensor.hallway_thermostat_operation_mode
         to: 'heat'
+        for:
+          minutes: 5
     condition:
       - condition: template
         value_template: "{{ states.climate.hallway.attributes.operation_mode != 'off' }}"
