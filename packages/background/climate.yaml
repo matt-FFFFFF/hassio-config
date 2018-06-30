@@ -122,8 +122,6 @@ automation:
       - platform: state
         entity_id: sensor.hallway_thermostat_operation_mode
         from: 'eco'
-        for:
-          minutes: 5
     action:
       - service: homeassistant.turn_off
         data:
