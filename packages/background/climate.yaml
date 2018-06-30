@@ -176,9 +176,9 @@ automation:
           entity_id: climate.hallway
           temperature: >-
             {%- if (states.input_boolean.bedtime_mode.state == 'on') -%}
-              {{ states.nput_number.nighttime_heat_setpoint.state | float }}
+              {{ states.input_number.nighttime_heat_setpoint.state | float }}
             {%- else -%}
-              {{ states.nput_number.daytime_heat_setpoint.state | float }}
+              {{ states.input_number.daytime_heat_setpoint.state | float }}
             {%- endif -%}
 
   - alias: Climate - Update HA setpoint value when external update
