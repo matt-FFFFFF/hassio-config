@@ -114,7 +114,7 @@ automation:
             {%- else -%}
               input_number.daytime_heat_setpoint
             {%- endif -%}
-          value: '{{ sensor.hallway_thermostat_target | float }}'
+          value: '{{ states.sensor.hallway_thermostat_target.state | float }}'
 
   - alias: Climate - Reset homeassistant owns eco mode switch
     initial_state: on
