@@ -180,6 +180,12 @@ automation:
             {%- else -%}
               {{ states.input_number.daytime_heat_setpoint.state | float }}
             {%- endif -%}
+      - condition: template
+        value_template: "{{ states.input_text.last_nest_mode.state == 'eco' }}"
+      - service: homeassistant.turn_on
+        data:
+          entity_id: input_boolean.ha_owns_eco_mode
+
 
   - alias: Climate - Update HA setpoint value when external update
     initial_state: on
