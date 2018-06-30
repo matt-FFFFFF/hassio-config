@@ -13,6 +13,9 @@ logbook: !include ../../extras/includes/logging.yaml
 
 history: !include ../../extras/includes/logging.yaml
 
+logger:
+  default: info
+
 sensor:
   - platform: systemmonitor
     resources:
