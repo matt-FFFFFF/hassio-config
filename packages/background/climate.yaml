@@ -44,14 +44,14 @@ input_number:
     name: Daytime Heat Setpoint
     min: 0
     max: 32
-    step: 0.25
+    step: 0.5
     unit_of_measurement: °C
 
   nighttime_heat_setpoint:
     name: Nighttime Heat Setpoint
     min: 0
     max: 32
-    step: 0.25
+    step: 0.5
     unit_of_measurement: °C
 
 
