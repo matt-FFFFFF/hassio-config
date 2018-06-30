@@ -104,7 +104,7 @@ automation:
         entity_id: sensor.hallway_thermostat_target
     condition:
       - condition: tempalte
-        value_template: {{ states.climate.hallway.attributes.operation_mode == 'heat' }}
+        value_template: "{{ states.climate.hallway.attributes.operation_mode == 'heat' }}"
     action:
       - service: input_number.set_value
         data_template:
