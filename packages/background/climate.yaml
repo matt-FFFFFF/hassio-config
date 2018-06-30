@@ -26,7 +26,7 @@ sensor:
 
 input_text:
   last_nest_mode:
-    name: Last Next Mode
+    name: Last Nest Mode
     min: 0
     max: 4
     pattern: '^eco$|^heat$|^off$'
@@ -126,7 +126,7 @@ automation:
       - service: climate.set_operation_mode
         data_template:
           entity_id: climate.hallway
-          operation_mode: '{{ states.input_text.last_nest_mode }}'
+          operation_mode: '{{ states.input_text.last_nest_mode.state }}'
 
 
   - alias: Climate - Update HA setpoint value when external update
