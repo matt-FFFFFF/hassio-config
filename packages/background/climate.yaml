@@ -102,15 +102,15 @@ automation:
         entity_id: input_number.daytime_heat_setpoint
     condition:
       condition: and
-        conditions:
-          - condition: template
-            value_template: "{{ states.input_boolean.bedtime_mode.state == 'on' }}"
-          - condition: template
-            value_template: >-
-              '{{ states.input_number.daytime_heat_setpoint.state | float 
-                != states.climate.hallway.attributes.temperature | float }}'
-          - condition: template
-            value_template: "{{ states.climate.hallway.attributes.operation_mode == 'heat' }}"
+      conditions:
+        - condition: template
+          value_template: "{{ states.input_boolean.bedtime_mode.state == 'on' }}"
+        - condition: template
+          value_template: >-
+            '{{ states.input_number.daytime_heat_setpoint.state | float 
+              != states.climate.hallway.attributes.temperature | float }}'
+        - condition: template
+          value_template: "{{ states.climate.hallway.attributes.operation_mode == 'heat' }}"
     action:
       - service: climate.set_temperature
         data_template:
