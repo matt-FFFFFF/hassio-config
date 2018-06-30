@@ -24,6 +24,14 @@ sensor:
     retain: true
 
 
+input_text:
+  last_nest_mode:
+    name: Last Next Mode
+    min: 0
+    max: 4
+    pattern: '^eco$|^heat$|^off$'
+
+
 input_number:
   outside_temp_offset:
     name: Outside Temperature Offset
@@ -96,6 +104,30 @@ automation:
       - service: homeassistant.turn_off
         data:
           entity_id: input_boolean.ha_owns_eco_mode
+
+  - alias: Climate - Update last known Nest mode
+    initial_state: on
+    trigger:
+      - platform: state
+        entity_id: sensor.hallway_thermostat_operation_mode
+    action:
+      - service: input_text.set_value
+        data_template:
+          entity_id: input_text.last_nest_mode
+          value: '{{ states.sensor.hallway_thermostat_operation_mode.state }}'
+  
+  - alias: Climate - Set Nest mode on HA start
+    initial_state: on
+    trigger:
+      - platform: homeassistant
+        event: start
+    action:
+      - delay: '00:01:00'
+      - service: climate.set_operation_mode
+        data_template:
+          entity_id: climate.hallway
+          operation_mode: '{{ states.input_text.last_nest_mode }}'
+
 
   - alias: Climate - Update HA setpoint value when external update
     initial_state: on
