@@ -90,6 +90,19 @@ script:
     alias: ' '
     sequence:
       - service: zwave.add_node_secure
+    
+  github_pull:
+      alias: Github Pull
+      sequence:
+        - service: homeassistant.turn_on
+          data:
+            entity_id: input_boolean.maintenance_mode
+        - service: shell_command.github_pull
+  
+  restart_ha:
+    alias: Restart HA
+    sequence:
+      - service: homeassistant.restart
 
 automation:
   - alias: Let's Encrypt - Renewal
@@ -114,3 +127,5 @@ automation:
 
 shell_command:
   delete_old_snapshots: find /backup/* -mtime +30 -exec rm {} \;
+
+  github_pull: "cd /config && git checkout master && git fetch origin master && git reset --hard origin/master"

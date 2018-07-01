@@ -150,7 +150,7 @@ automation:
           entity_id: input_boolean.ha_owns_eco_mode
 
   - alias: Climate - Update last known Nest mode
-    initial_state: on
+    initial_state: off
     trigger:
       - platform: state
         entity_id: sensor.hallway_thermostat_operation_mode
@@ -160,7 +160,7 @@ automation:
           entity_id: input_text.last_nest_mode
           value: '{{ states.sensor.hallway_thermostat_operation_mode.state }}'
   
-  - alias: Climate - Set Nest mode on HA start
+  - alias: Climate - Initialise Nest on HA start
     initial_state: on
     trigger:
       - platform: homeassistant
@@ -180,6 +180,19 @@ automation:
             {%- else -%}
               {{ states.input_number.daytime_heat_setpoint.state | float }}
             {%- endif -%}
+      - delay: '00:00:15'
+      - service: automation.turn_on
+        data:
+          entity_id: automation.climate__update_last_known_nest_mode
+      - service: automation.trigger
+        data:
+          entity_id: automation.climate__update_last_known_nest_mode
+      - service: automation.turn_on
+        data:
+          entity_id: automation.climate__enable_eco_mode_when_warm_weather
+      - service: automation.trigger
+        data:
+          entity_id: automation.climate__enable_eco_mode_when_warm_weather
       - condition: template
         value_template: "{{ states.input_text.last_nest_mode.state == 'eco' }}"
       - service: homeassistant.turn_on
@@ -213,12 +226,13 @@ automation:
         entity_id: sensor.hallway_thermostat_operation_mode
         from: 'eco'
     action:
+      - delay: '00:00:10'
       - service: homeassistant.turn_off
         data:
           entity_id: input_boolean.ha_owns_eco_mode
 
   - alias: Climate - Enable eco mode when warm weather
-    initial_state: on
+    initial_state: off
     trigger:
       - platform: state
         entity_id: binary_sensor.warmer_than_setpoint
