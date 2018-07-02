@@ -1,7 +1,7 @@
 group:
   rooms_view:
     name: Rooms
-    icon: mdi:television
+    icon: mdi:floor-plan
     view: yes
     entities: 
       - group.lounge
