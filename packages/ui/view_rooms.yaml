@@ -11,4 +11,4 @@ group:
     entities:
      - sensor.lounge_tv_energy_usage
      - switch.lounge_tv_switch
-     - sensor.lounge_tv_operation_state
+     - binary_sensor.lounge_tv_operation_state
