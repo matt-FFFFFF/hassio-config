@@ -9,6 +9,7 @@ group:
 
   system_performance:
     name: System Performance
+    hide_control: true
     entities:
     - sensor.load_1m
     - sensor.load_5m

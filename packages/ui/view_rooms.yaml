@@ -1,13 +1,14 @@
 group:
   rooms_view:
     name: Rooms
-    icon: mdi:television
+    icon: mdi:floor-plan
     view: yes
     entities: 
       - group.lounge
 
   lounge:
     name: Lounge
+    hide_control: true
     entities:
      - sensor.lounge_tv_energy_usage
      - switch.lounge_tv_switch

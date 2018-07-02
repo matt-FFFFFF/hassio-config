@@ -10,6 +10,7 @@ group:
 
   nest:
     name: Nest
+    hide_control: true
     entities:
       - binary_sensor.hallway_thermostat_fan
       - binary_sensor.hallway_thermostat_has_leaf
@@ -27,6 +28,7 @@ group:
   
   climate_sensors:
     name: Climate Sensors
+    hide_control: true
     entities:
     - sensor.hallway_temperature
     - sensor.home_status
@@ -35,6 +37,7 @@ group:
 
   climate_controls:
     name: Climate Controls
+    hide_control: true
     entities:
       - input_number.outside_temp_offset
       - input_number.daytime_heat_setpoint
