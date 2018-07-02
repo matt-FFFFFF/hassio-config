@@ -1,0 +1,13 @@
+group:
+  rooms_view:
+    name: Rooms
+    icon: mdi:television
+    view: yes
+    entities: 
+      - group.lounge
+
+  lounge:
+    name: Lounge
+    entities:
+     - sensor.lounge_tv_energy_usage
+     - switch.lounge_tv_switch

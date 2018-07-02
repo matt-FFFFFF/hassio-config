@@ -13,6 +13,24 @@ homeassistant:
       icon: mdi:play
 
 
+sensor:
+  - platform: mqtt
+    name: Lounge TV Energy Usage
+    state_topic: smartthings/Lounge TV Outlet/power/state
+    unit_of_measurement: W
+    icon: mdi:power-socket-uk
+    retain: true
+
+switch:
+  - platform: mqtt
+    name: Lounge TV Switch
+    command_topic: 'smartthings/Lounge TV Outlet/switch/cmd'
+    state_topic: 'smartthings/Lounge TV Outlet/switch/state'
+    payload_on: 'on'
+    payload_off: 'off'
+    icon: mdi:power-socket-uk
+    retain: true
+
 
 #zwave:
   #usb_path: /dev/ttyACM0
