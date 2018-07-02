@@ -9,7 +9,6 @@ group:
 
   ring:
     name: Ring
-    hide_control: true
     entities:
       - sensor.ring_hallway_wifi_signal_strength
       - sensor.ring_hallway_wifi_signal_category
@@ -25,6 +24,5 @@ group:
   
   security_sensors:
     name: Security Sensors
-    hide_control: true
     entities:
       - binary_sensor.hallway_motion_sensor

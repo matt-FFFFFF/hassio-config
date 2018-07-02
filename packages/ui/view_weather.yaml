@@ -9,7 +9,6 @@ group:
 
   weather:
     name: Weather Forecast
-    hide_control: true
     entities:
       - sensor.met_office_feels_like_temperature
       - sensor.met_office_humidity
@@ -25,7 +24,6 @@ group:
   
   celestial_bodies:
     name: Celesial Bodies
-    hide_control: true
     entities:
     - sensor.moon
     - sun.sun
