@@ -35,15 +35,15 @@ binary_sensor:
   - platform: template
     sensors:
       lounge_tv_operation_state:
-      name: Lounge TV operation state
-      icon: mdi:television
-      device_class: power
-      value_template: >-
-        {%- if (states.sensor.lounge_tv_energy_usage.state | float < 50 ) -%}
-          off
-        {%- else -%}
-          on
-        {%- endif -%}
+        friendly_name: Lounge TV operation state
+        icon: mdi:television
+        device_class: power
+        value_template: >-
+          {%- if (states.sensor.lounge_tv_energy_usage.state | float < 50 ) -%}
+            off
+          {%- else -%}
+            on
+          {%- endif -%}
 
 
 #zwave:
