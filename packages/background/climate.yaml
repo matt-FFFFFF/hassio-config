@@ -266,7 +266,7 @@ automation:
         data:
           entity_id: input_boolean.ha_owns_eco_mode
 
-  - id: climate__enable_eco_mode_when_warm_warm_weather
+  - id: climate__enable_eco_mode_when_warm_weather
     alias: Climate - Set temp setpoint on heat & enable eco mode when warm weather
     initial_state: off
     trigger:
