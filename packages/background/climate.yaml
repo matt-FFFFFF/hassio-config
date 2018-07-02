@@ -5,6 +5,7 @@
 # Automates:                                       #
 #   - away mode on house empty                     #
 #   - eco mode when warm weather                   #
+#   - day/night temperature setpoints              #
 # DEPENDS ON Occupancy & Environment               #
 #                                                  #
 ####################################################
@@ -73,6 +74,40 @@ input_boolean:
 
 
 automation:
+  - id: climate__update_temperature_on_bedtime_mode_on
+    alias: Climate - Update temperature on bedtime mode on
+    initial_state: on
+    condition:
+      - condition: template
+        value_template: "{{ states.climate.hallway.attributes.operation_mode == 'heat'  }}"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.bedtime_mode
+        from: 'off'
+        to: 'on'
+    action:
+      - service: climate.set_temperature
+        data_template:
+          entity_id: climate.hallway
+          temperature: '{{ states.input_number.daytime_heat_setpoint.state | float  }}'
+
+  - id: climate__update_temperature_on_bedtime_mode_off
+    alias: Climate - Update temperature on bedtime mode off
+    initial_state: on
+    condition:
+      - condition: template
+        value_template: "{{ states.climate.hallway.attributes.operation_mode == 'heat'  }}"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.bedtime_mode
+        from: 'on'
+        to: 'off'
+    action:
+      - service: climate.set_temperature
+        data_template:
+          entity_id: climate.hallway
+          temperature: '{{ states.input_number.daytime_heat_setpoint.state | float  }}'
+
   - alias: Climate - update Nest on daytime heat setpoint change
     initial_state: on
     trigger:
