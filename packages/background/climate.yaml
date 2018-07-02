@@ -224,10 +224,10 @@ automation:
           entity_id: automation.climate__update_last_known_nest_mode
       - service: automation.turn_on
         data:
-          entity_id: automation.climate__enable_eco_mode_when_warm_weather
+          entity_id: climate__set_temp_setpoint_on_heat__enable_eco_mode_when_warm_weather
       - service: automation.trigger
         data:
-          entity_id: automation.climate__enable_eco_mode_when_warm_weather
+          entity_id: climate__set_temp_setpoint_on_heat__enable_eco_mode_when_warm_weather
       - condition: template
         value_template: "{{ states.input_text.last_nest_mode.state == 'eco' }}"
       - service: homeassistant.turn_on
