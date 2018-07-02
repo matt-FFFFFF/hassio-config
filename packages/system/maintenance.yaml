@@ -16,29 +16,29 @@ homeassistant:
   customize:
     script.zwave_on:
       icon: mdi:check-circle-outline
-      custom_ui_state_card: state-card-script-custom-text
       custom_text: Zwave On
 
     script.zwave_off:
       icon: mdi:close-octagon-outline
-      custom_ui_state_card: state-card-script-custom-text
       custom_text: Zwave Off
 
     script.zwave_include:
       icon: mdi:plus-circle-outline
-      custom_ui_state_card: state-card-script-custom-text
       custom_text: "Add New Device (Secure)"
+    
+    script.github_pull:
+      icon: mdi:github-box
+      custom_text: Github pull
+    
+    script.restart_ha:
+      icon: mdi:home-assistant
+      custom_text: Restart Home Assistant
 
 
 weblink:
   entities:
     - name: Github
       url: https://github.com/matt-FFFFFF/hassio-config
-    - name: Configure Alexa
-      url: https://alexa.amazon.co.uk/spa/index.html#smart-home
-    - name: OneDrive
-      url: https://onedrive.live.com
-
 
 input_boolean:
   maintenance_mode:
@@ -52,9 +52,8 @@ group:
       - input_boolean.maintenance_mode
       - weblink.github
       - weblink.onedrive
-
-  Configure external:
-      - weblink.configure_alexa
+      - script.github_pull
+      - script.restart_ha
 
   Zwave:
     control: hidden
@@ -62,6 +61,7 @@ group:
       - script.zwave_on
       - script.zwave_off
       - script.zwave_include
+      
 
 
 alert:
@@ -128,4 +128,4 @@ automation:
 shell_command:
   delete_old_snapshots: find /backup/* -mtime +30 -exec rm {} \;
 
-  github_pull: "bash -c cd /config && git checkout master && git fetch origin master && git reset --hard origin/master"
+  github_pull: /config/extras/bash_scripts/github_pull.sh
