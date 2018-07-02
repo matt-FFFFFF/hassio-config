@@ -1,6 +1,8 @@
 #!/bin/bash
+
 cd /config
-git checkout master
-git branch -D upload
-git fetch origin master
-git reset --hard origin/master
+
+/usr/bin/git checkout master
+##/usr/bin/git branch -D upload
+/usr/bin/git fetch origin master
+/usr/bin/git reset --hard origin/master
