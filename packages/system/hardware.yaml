@@ -38,11 +38,7 @@ binary_sensor:
         friendly_name: Lounge TV operation state
         device_class: power
         value_template: >-
-          {%- if (states.sensor.lounge_tv_energy_usage.state | float < 50 ) -%}
-            off
-          {%- else -%}
-            on
-          {%- endif -%}
+          {{ states.sensor.lounge_tv_energy_usage.state | float >= 50 }}
 
 
 #zwave:
