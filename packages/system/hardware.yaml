@@ -31,7 +31,7 @@ switch:
     icon: mdi:power-socket-uk
     retain: true
 
-binary_switch:
+binary_sensor:
   - platform: template
     sensors:
       lounge_tv_operation_state:
