@@ -31,6 +31,20 @@ switch:
     icon: mdi:power-socket-uk
     retain: true
 
+binary_switch:
+  - platform: template
+    sensors:
+      lounge_tv_operation_state:
+      name: Lounge TV operation state
+      icon: mdi:television
+      device_class: power
+      value_template: >-
+        {%- if (states.sensor.lounge_tv_energy_usage.state | float < 50 ) -%}
+          off
+        {%- else -%}
+          on
+        {%- endif -%}
+
 
 #zwave:
   #usb_path: /dev/ttyACM0
