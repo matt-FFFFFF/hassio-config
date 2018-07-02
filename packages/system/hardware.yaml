@@ -36,7 +36,6 @@ binary_sensor:
     sensors:
       lounge_tv_operation_state:
         friendly_name: Lounge TV operation state
-        icon: mdi:television
         device_class: power
         value_template: >-
           {%- if (states.sensor.lounge_tv_energy_usage.state | float < 50 ) -%}
