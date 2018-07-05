@@ -70,6 +70,10 @@ script:
           - condition: state
             entity_id: input_boolean.priority_message
             state: 'on'
+      - service: media_player.sonos_snapshot
+        data:
+          entity_id: "{{ media_player }}"
+          with_group: yes
       - service: media_player.volume_set
         data_template:
           entity_id: "{{ media_player }}"
@@ -85,6 +89,10 @@ script:
         data_template:
           entity_id: "{{ media_player }}"
           message: "{{ message|replace('\n',' ')|replace('   ',' ')|replace('  ',' ') }}"
+      - service: media_player.sonos_restore
+        data:
+          entity_id: "{{ media_player }}"
+          with_group: yes
 
   text:
     sequence:
