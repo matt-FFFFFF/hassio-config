@@ -46,7 +46,8 @@ input_boolean:
     icon: mdi:auto-fix
 
 group:
-  Maintenance:
+  maintenance:
+    name: Maintenance
     control: hidden
     entities:
       - input_boolean.maintenance_mode
