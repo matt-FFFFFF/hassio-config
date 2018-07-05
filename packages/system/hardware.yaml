@@ -19,7 +19,13 @@ sensor:
     state_topic: smartthings/Lounge TV Outlet/power/state
     unit_of_measurement: W
     icon: mdi:power-socket-uk
-    retain: true
+    retain: 
+    
+  - platform: time_date
+    diaplay_options:
+      - 'time'
+      - 'date'
+      - 'time_utc'
 
 switch:
   - platform: mqtt
@@ -40,6 +46,14 @@ binary_sensor:
         value_template: >-
           {{ states.sensor.lounge_tv_energy_usage.state | float >= 50 }}
 
+group:
+  date_time:
+    name: Date and Time
+    icon: mdi:calendar-clock
+    entities:
+      - sensor.time
+      - sensor.date
+      - sensor.time_utc
 
 #zwave:
   #usb_path: /dev/ttyACM0

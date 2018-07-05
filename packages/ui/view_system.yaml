@@ -6,6 +6,8 @@ group:
     entities: 
       - group.system_performance
       - group.phone_trackers
+      - group.date_time
+      - group.maintenance
 
   system_performance:
     name: System Performance
