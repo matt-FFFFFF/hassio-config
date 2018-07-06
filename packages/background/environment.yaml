@@ -1,3 +1,14 @@
+homeassistant:
+  customize:
+    sensor.met_office_temperature:
+      homebridge_hidden: false
+    sensor.met_office_wind_speed:
+      homebridge_hidden: false
+    sensor.met_office_wind_direction:
+      homebridge_hidden: false
+    sensor.met_office_wind_humidity:
+      homebridge_hidden: false
+
 sun:
 
 sensor:

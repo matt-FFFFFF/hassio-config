@@ -4,6 +4,7 @@
 # is at home, including a guest mode, and provides #
 # modes that assist with automations.              #
 #                                                  #
+#  Depends on: Hardware                            #
 ####################################################
 
 homeassistant:
@@ -19,19 +20,60 @@ homeassistant:
         - entity_id: sensor.automation_on
         - entity_id: sensor.automation_all
 
+    group.occupancy:
+      hide_control: true
+      icon: mdi:home-account
+    
     group.phone_trackers:
       state_card_mode: badges
 
     sensor.home_status:
       icon: mdi:home-map-marker
+      homebridge_hidden: false
 
     input_boolean.holiday_mode:
       hide_control: true
       extra_badge:
         entity_id: input_boolean.holiday_mode
 
+  
+  customize_glob:
+    input_boolean.*:
+      homebridge_hidden: false
+  
+    device_tracker.*:
+      homebridge_hidden: false
+
+
 
 #ios:
+
+input_text:
+  - weekday_bedtime_on:
+    name: Weekday bedtime mode off
+    min: 5
+    max: 5
+    icon: mdi:clock
+    pattern: '([0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]'
+  - weekday_bedtime_off:
+    name: Weekday bedtime mode off
+    min: 5
+    max: 5
+    icon: mdi:clock
+    pattern: '([0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]'
+  - weekend_bedtime_on:
+    name: Weekend bedtime mode on
+    min: 5
+    max: 5
+    icon: mdi:clock
+    pattern: '([0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]'
+  - weekend_bedtime_off:
+    name: Weekend bedtime mode on
+    min: 5
+    max: 5
+    icon: mdi:clock
+    pattern: '([0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]'
+
 
 device_tracker:
   - platform: owntracks
@@ -59,9 +101,21 @@ input_boolean:
 
 
 group:
-  Phone trackers:
-    -  device_tracker.mattiphoneowntrk_iphone
-
+  phone_trackers:
+    name: Phone Trackers
+    entities:
+      - device_tracker.mattiphoneowntrk_iphone
+  occupancy:
+    name: Occupancy Settings
+    entities:
+      - input_text.weekday_bedtime_on
+      - input_text.weekday_bedtime_off
+      - input_text.weekend_bedtime_on
+      - input_text.weekend_bedtime_off
+      - input_boolean.away_mode
+      - input_boolean.guest_mode
+      - input_boolean.holiday_mode
+      - input_boolean.bedtime_mode
 
 alert:
   guest_mode_alert:
@@ -124,8 +178,75 @@ automation:
       for:
         hours: 24
     action:
-      - service: homeassistant.turn_on
-        entity_id: input_boolean.holiday_mode
-      - service: homeassistant.turn_off
-        entity_id: input_boolean.away_mode
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.holiday_mode
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.away_mode
 
+  - alias: Occupancy - Weekday Bedtime Mode On
+    initial_state: on
+    trigger:
+      - platform: template
+        value_template: '{{ states.sensor.time.state == states.input_text.input_text.weekday_bedtime_on.state }}'
+    condition:
+      - condition: time
+          weekday:
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
+    action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.bedtime_mode
+
+  - alias: Occupancy - Weekday Bedtime Mode Off
+    initial_state: on
+    trigger:
+      - platform: template
+        value_template: '{{ states.sensor.time.state == states.input_text.input_text.weekday_bedtime_off.state }}'
+    condition:
+      - condition: time
+          weekday:
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
+    action:
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.bedtime_mode
+
+  - alias: Occupancy - Weekend Bedtime Mode On
+    initial_state: on
+    trigger:
+      - platform: template
+        value_template: '{{ states.sensor.time.state == states.input_text.input_text.weekend_bedtime_on.state }}'
+    condition:
+      - condition: time
+          weekday:
+            - sat
+            - sun
+    action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.bedtime_mode
+
+  - alias: Occupancy - Weekend Bedtime Mode Off
+    initial_state: on
+    trigger:
+      - platform: template
+        value_template: '{{ states.sensor.time.state == states.input_text.input_text.weekend_bedtime_off.state }}'
+    condition:
+      - condition: time
+          weekday:
+            - sat
+            - sun
+    action:
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.bedtime_mode

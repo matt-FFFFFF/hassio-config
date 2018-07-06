@@ -8,9 +8,21 @@
 
 
 homeassistant:
+  customize:
+    switch.lounge_tv_switch:
+      homebridge_hidden: false
+    
+    sensor.lounge_tv_energy_usage:
+      homebridge_hidden: false
+
+    sensor.lounge_tv_operation_state:
+      homebridge_hidden: false
+        
   customize_glob:
     media_player.*:
       icon: mdi:play
+      homebridge_hidden: false
+
 
 
 sensor:
@@ -22,7 +34,7 @@ sensor:
     retain: 
     
   - platform: time_date
-    diaplay_options:
+    display_options:
       - 'time'
       - 'date'
       - 'time_utc'
