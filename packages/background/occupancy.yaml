@@ -49,25 +49,28 @@ homeassistant:
 #ios:
 
 input_text:
-  - weekday_bedtime_on:
+  weekday_bedtime_on:
     name: Weekday bedtime mode off
     min: 5
     max: 5
     icon: mdi:clock
     pattern: '([0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]'
-  - weekday_bedtime_off:
+
+  weekday_bedtime_off:
     name: Weekday bedtime mode off
     min: 5
     max: 5
     icon: mdi:clock
     pattern: '([0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]'
-  - weekend_bedtime_on:
+
+  weekend_bedtime_on:
     name: Weekend bedtime mode on
     min: 5
     max: 5
     icon: mdi:clock
     pattern: '([0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]'
-  - weekend_bedtime_off:
+
+  weekend_bedtime_off:
     name: Weekend bedtime mode on
     min: 5
     max: 5
