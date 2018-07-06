@@ -36,7 +36,7 @@ homeassistant:
       extra_badge:
         entity_id: input_boolean.holiday_mode
 
-  
+
   customize_glob:
     input_boolean.*:
       homebridge_hidden: false
@@ -192,12 +192,12 @@ automation:
         value_template: '{{ states.sensor.time.state == states.input_text.input_text.weekday_bedtime_on.state }}'
     condition:
       - condition: time
-          weekday:
-            - mon
-            - tue
-            - wed
-            - thu
-            - fri
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
     action:
       - service: input_boolean.turn_on
         data:
@@ -210,12 +210,12 @@ automation:
         value_template: '{{ states.sensor.time.state == states.input_text.input_text.weekday_bedtime_off.state }}'
     condition:
       - condition: time
-          weekday:
-            - mon
-            - tue
-            - wed
-            - thu
-            - fri
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
     action:
       - service: input_boolean.turn_off
         data:
@@ -228,9 +228,9 @@ automation:
         value_template: '{{ states.sensor.time.state == states.input_text.input_text.weekend_bedtime_on.state }}'
     condition:
       - condition: time
-          weekday:
-            - sat
-            - sun
+        weekday:
+          - sat
+          - sun
     action:
       - service: input_boolean.turn_on
         data:
@@ -243,9 +243,9 @@ automation:
         value_template: '{{ states.sensor.time.state == states.input_text.input_text.weekend_bedtime_off.state }}'
     condition:
       - condition: time
-          weekday:
-            - sat
-            - sun
+        weekday:
+          - sat
+          - sun
     action:
       - service: input_boolean.turn_off
         data:
