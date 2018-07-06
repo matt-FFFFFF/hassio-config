@@ -98,7 +98,9 @@ script:
         - service: homeassistant.turn_on
           data:
             entity_id: input_boolean.maintenance_mode
-        - service: shell_command.github_pull
+        - service: hassio.addon_restart
+          data:
+            addon: core_git_pull
   
   restart_ha:
     alias: Restart HA

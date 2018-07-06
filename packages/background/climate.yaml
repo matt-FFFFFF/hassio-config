@@ -10,6 +10,15 @@
 #                                                  #
 ####################################################
 
+homeassistant:
+  customize:
+    sensor.hallway_temperature:
+      homebridge_hidden: false
+      
+  customize_glob:
+    climate.*:
+      homebridge_hidden: false
+
 nest:
   client_id: !secret nest_clientid
   client_secret: !secret nest_clientsecret
@@ -121,11 +130,6 @@ automation:
         - condition: template
           value_template: "{{ states.climate.hallway.attributes.operation_mode == 'heat' }}"
     action:
-      - delay: '00:00:10'
-      - condition: template
-        value_template: >-
-          '{{ states.input_number.daytime_heat_setpoint.state | float 
-            != states.climate.hallway.attributes.temperature | float }}'
       - service: climate.set_temperature
         data_template:
           entity_id: climate.hallway
@@ -147,15 +151,10 @@ automation:
       - service: homeassistant.turn_off
         data:
           entity_id: automation.climate__update_nest_on_nighttime_heat_setpoint_change
-      - delay: '00:00:10'
-      - condition: template
-        value_template: >-
-          '{{ states.input_number.nighttime_heat_setpoint.state | float 
-            != states.climate.hallway.attributes.temperature | float }}'
       - service: climate.set_temperature
         data_template:
           entity_id: climate.hallway
-          temperature: '{{ states.input_number.daytime_heat_setpoint.state | float }}'
+          temperature: '{{ states.input_number.nighttime_heat_setpoint.state | float }}'
 
   - alias: Climate - away mode on
     initial_state: on
