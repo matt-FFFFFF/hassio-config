@@ -5,6 +5,9 @@ group:
     view: yes
     entities: 
       - group.lounge
+      - group.kitchen
+      - group.occupancy
+      
 
   lounge:
     name: Lounge
@@ -12,3 +15,14 @@ group:
      - sensor.lounge_tv_energy_usage
      - switch.lounge_tv_switch
      - binary_sensor.lounge_tv_operation_state
+     - media_player.living_room_hifi
+  
+  kitchen:
+    name: Kitchen
+    entities:
+      - media_player.kitchen_sonos
+  
+  master_bedroom:
+    name: Master Bedroom
+    entities:
+      - media_player.bedroom_soundbar_speaker
