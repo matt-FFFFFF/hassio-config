@@ -193,7 +193,7 @@ automation:
     initial_state: on
     trigger:
       - platform: template
-        value_template: '{{ states.sensor.time.state == states.input_text.input_text.weekday_bedtime_on.state }}'
+        value_template: '{{ states.sensor.time.state == states.input_text.weekday_bedtime_on.state }}'
     condition:
       - condition: time
         weekday:
@@ -211,7 +211,7 @@ automation:
     initial_state: on
     trigger:
       - platform: template
-        value_template: '{{ states.sensor.time.state == states.input_text.input_text.weekday_bedtime_off.state }}'
+        value_template: '{{ states.sensor.time.state == states.input_text.weekday_bedtime_off.state }}'
     condition:
       - condition: time
         weekday:
@@ -229,7 +229,7 @@ automation:
     initial_state: on
     trigger:
       - platform: template
-        value_template: '{{ states.sensor.time.state == states.input_text.input_text.weekend_bedtime_on.state }}'
+        value_template: '{{ states.sensor.time.state == states.input_text.weekend_bedtime_on.state }}'
     condition:
       - condition: time
         weekday:
@@ -244,7 +244,7 @@ automation:
     initial_state: on
     trigger:
       - platform: template
-        value_template: '{{ states.sensor.time.state == states.input_text.input_text.weekend_bedtime_off.state }}'
+        value_template: '{{ states.sensor.time.state == states.input_text.weekend_bedtime_off.state }}'
     condition:
       - condition: time
         weekday:
