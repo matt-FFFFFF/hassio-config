@@ -144,6 +144,98 @@ sensor:
 
 
 automation:
+  - alias: Occupancy - Set Weekend Bedtime Mode When Lounge TV Turns Off
+    initial_state: on
+    trigger:
+      platform: state
+      entity_id: binary_sensor.lounge_tv_operation_state
+      from: 'on'
+      to: 'off'
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          weekday:
+            - fri
+            - sat
+        - condition: template
+          value_template: "{{ now().time() > strptime(states.input_text.weekend_bedtime_on.state, '%H:%M').time() }}"
+    action:
+      - service: input_boolean.turn_on
+        entity_id:
+          - input_boolean.bedtime_mode
+
+automation:
+  - alias: Occupancy - Set Weekend Bedtime Mode When Lounge TV Turns Off (late)
+    initial_state: on
+    trigger:
+      platform: state
+      entity_id: binary_sensor.lounge_tv_operation_state
+      from: 'on'
+      to: 'off'
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          weekday:
+            - sat
+            - sun
+        - condition: template
+          value_template: "{{ now().time() < strptime(states.input_text.weekend_bedtime_off.state, '%H:%M').time() }}"
+    action:
+      - service: input_boolean.turn_on
+        entity_id:
+          - input_boolean.bedtime_mode
+
+  - alias: Occupancy - Set Weekday Bedtime Mode When Lounge TV Turns Off
+    initial_state: on
+    trigger:
+      platform: state
+      entity_id: binary_sensor.lounge_tv_operation_state
+      from: 'on'
+      to: 'off'
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          weekday:
+            - sun
+            - mon
+            - tue
+            - wed
+            - thu
+        - condition: template
+          value_template: "{{ now().time() > strptime(states.input_text.weekend_bedtime_on.state, '%H:%M').time() }}"
+    action:
+      - service: input_boolean.turn_on
+        entity_id:
+          - input_boolean.bedtime_mode
+
+automation:
+  - alias: Occupancy - Set Weekday Bedtime Mode When Lounge TV Turns Off (late)
+    initial_state: on
+    trigger:
+      platform: state
+      entity_id: binary_sensor.lounge_tv_operation_state
+      from: 'on'
+      to: 'off'
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          weekday:
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
+        - condition: template
+          value_template: "{{ now().time() < strptime(states.input_text.weekend_bedtime_off.state, '%H:%M').time() }}"
+    action:
+      - service: input_boolean.turn_on
+        entity_id:
+          - input_boolean.bedtime_mode
+
   - alias: Occupancy - Return home
     initial_state: on
     trigger:
@@ -195,13 +287,18 @@ automation:
       - platform: template
         value_template: '{{ states.sensor.time.state == states.input_text.weekday_bedtime_on.state }}'
     condition:
-      - condition: time
-        weekday:
-          - mon
-          - tue
-          - wed
-          - thu
-          - fri
+      condition: and
+      conditions:    
+        - condition: time
+          weekday:
+            - sun
+            - mon
+            - tue
+            - wed
+            - thu
+        - condition: state
+          entity_id: binary_sensor.lounge_tv_operation_state
+          state: 'off'
     action:
       - service: input_boolean.turn_on
         data:
@@ -231,10 +328,15 @@ automation:
       - platform: template
         value_template: '{{ states.sensor.time.state == states.input_text.weekend_bedtime_on.state }}'
     condition:
-      - condition: time
-        weekday:
-          - sat
-          - sun
+      condition: and
+      conditions:
+        - condition: time
+          weekday:
+            - fri
+            - sat
+        - condition: state
+          entity_id: binary_sensor.lounge_tv_operation_state
+          state: 'off'
     action:
       - service: input_boolean.turn_on
         data:
