@@ -30,7 +30,7 @@ homeassistant:
 
     sensor.home_status:
       icon: mdi:home-map-marker
-      homebridge_hidden: false
+      homebridge_visible: true
 
     input_boolean.holiday_mode:
       hide_control: true
@@ -40,10 +40,10 @@ homeassistant:
 
   customize_glob:
     input_boolean.*:
-      homebridge_hidden: false
+      homebridge_visible: true
   
     device_tracker.*:
-      homebridge_hidden: false
+      homebridge_visible: true
 
 
 
@@ -109,6 +109,8 @@ group:
     name: Phone Trackers
     entities:
       - device_tracker.mattiphoneowntrk_iphone
+      - device_tracker.beliphoneowntrk_iphone
+      
   occupancy:
     name: Occupancy Settings
     entities:
