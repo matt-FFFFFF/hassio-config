@@ -109,6 +109,8 @@ group:
     name: Phone Trackers
     entities:
       - device_tracker.mattiphoneowntrk_iphone
+      - device_tracker.beliphoneowntrk_iphone
+      
   occupancy:
     name: Occupancy Settings
     entities:
