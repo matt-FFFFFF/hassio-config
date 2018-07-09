@@ -165,7 +165,6 @@ automation:
         entity_id:
           - input_boolean.bedtime_mode
 
-automation:
   - alias: Occupancy - Set Weekend Bedtime Mode When Lounge TV Turns Off (late)
     initial_state: on
     trigger:
@@ -211,7 +210,6 @@ automation:
         entity_id:
           - input_boolean.bedtime_mode
 
-automation:
   - alias: Occupancy - Set Weekday Bedtime Mode When Lounge TV Turns Off (late)
     initial_state: on
     trigger:
