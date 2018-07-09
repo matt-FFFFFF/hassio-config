@@ -13,11 +13,11 @@
 homeassistant:
   customize:
     sensor.hallway_temperature:
-      homebridge_hidden: false
+      homebridge_visible: true
 
   customize_glob:
     climate.*:
-      homebridge_hidden: false
+      homebridge_visible: true
 
 nest:
   client_id: !secret nest_clientid

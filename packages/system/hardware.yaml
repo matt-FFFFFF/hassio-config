@@ -10,18 +10,18 @@
 homeassistant:
   customize:
     switch.lounge_tv_switch:
-      homebridge_hidden: false
+      homebridge_visible: true
     
     sensor.lounge_tv_energy_usage:
-      homebridge_hidden: false
+      homebridge_visible: true
 
     sensor.lounge_tv_operation_state:
-      homebridge_hidden: false
+      homebridge_visible: true
         
   customize_glob:
     media_player.*:
       icon: mdi:play
-      homebridge_hidden: false
+      homebridge_visible: true
 
 
 
