@@ -14,7 +14,9 @@ logbook: !include ../../extras/includes/logging.yaml
 history: !include ../../extras/includes/logging.yaml
 
 logger:
-  default: info
+  default: warning
+#  logs:
+#    homeassistant.components.component: info
 
 sensor:
   - platform: systemmonitor
@@ -32,7 +34,7 @@ automation:
     initial_state: on
     trigger:
       platform: numeric_state
-      entity_id: sensor.disk_use_percent_
+      entity_id: sensor.disk_use_percent
       above: 85
     action:
       service: script.notify
