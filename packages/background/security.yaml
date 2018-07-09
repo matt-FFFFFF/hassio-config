@@ -10,13 +10,16 @@ homeassistant:
       friendly_name: Hallway Ring Chime WiFi Signal Strength
     
     binary_sensor.hallway_motion_sensor:
-      homebridge_hidden: false
+      homebridge_visible: true
      
     sensor.ring_front_door_last_motion:
-      homebridge_hidden: false
+      homebridge_visible: true
 
     sensor.ring_front_door_last_ding:
-      homebridge_hidden: false
+      homebridge_visible: true
+    
+    camera.front_door:
+      homebridge_visible: true
 
 
 camera:
