@@ -68,12 +68,24 @@ input_number:
 binary_sensor:
   - platform: template
     sensors:
-      warmer_than_setpoint:
-        friendly_name: Outside warmer than heat setpoint
+      warmer_than_current_setpoint:
+        friendly_name: Outside warmer than current setpoint
         value_template: >-
           {{ (states.sensor.met_office_temperature.state | float)
             + (states.input_number.outside_temp_offset.state | int)
             >= states.sensor.hallway_thermostat_target.state | float }}
+      warmer_than_day_setpoint:
+        friendly_name: Outside warmer than daytime setpoint
+        value_template: >-
+          {{ (states.sensor.met_office_temperature.state | float)
+            + (states.input_number.outside_temp_offset.state | int)
+            >= states.input_number.daytime_heat_setpoint.state | float }}
+      warmer_than_night_setpoint:
+        friendly_name: Outside warmer than nighttime setpoint
+        value_template: >-
+          {{ (states.sensor.met_office_temperature.state | float)
+            + (states.input_number.outside_temp_offset.state | int)
+            >= states.input_number.nighttime_heat_setpoint.state | float }}
 
 
 input_boolean:
@@ -81,41 +93,102 @@ input_boolean:
     name: Home Assistant Owns Nest Eco/Away Mode
     icon: mdi:leaf
 
-
 automation:
-  - id: climate__update_temperature_on_bedtime_mode_on
-    alias: Climate - Update temperature on bedtime mode on
+  - alias: Climate - Update temperature on bedtime mode on
     initial_state: on
     condition:
-      - condition: template
-        value_template: "{{ states.climate.hallway.attributes.operation_mode == 'heat'  }}"
+      condition: and
+      conditions:
+        - condition: template
+          value_template: "{{ (states.climate.hallway.attributes.operation_mode != 'off') }}"
+        - condition: template
+          value_template: >-
+            {{- not (
+            ((states.binary_sensor.warmer_than_night_setpoint.state == 'on')
+              and
+            (states.climate.hallway.attributes.operation_mode == 'eco'))) -}}
     trigger:
       - platform: state
         entity_id: input_boolean.bedtime_mode
         from: 'off'
         to: 'on'
     action:
+      - service: climate.set_operation_mode
+        data_template:
+          entity_id: climate.hallway
+          operation_mode: >-
+            {%- if (states.binary_sensor.warmer_than_night_setpoint.state == 'on') -%}
+              eco
+            {%- elif ((states.binary_sensor.warmer_than_night_setpoint.state == 'off')
+              and
+            (states.input_boolean.ha_owns_eco_mode.state == 'on')) -%}
+              heat
+            {%- endif -%}
+      - service_template: >-
+          {%- if (states.binary_sensor.warmer_than_night_setpoint.state == 'on') -%}
+            homeassistant.turn_on
+          {%- elif ((states.binary_sensor.warmer_than_night_setpoint.state == 'off')
+            and
+          (states.input_boolean.ha_owns_eco_mode.state == 'on')) -%}
+            homeassistant.turn_off
+          {%- endif -%}
+        entity_id: input_boolean.ha_owns_eco_mode
+      - delay: '00:00:10'
+      - condition: state
+        entity_id: 'sensor.hallway_thermostat_operation_mode'
+        state: 'heat'
       - service: climate.set_temperature
         data_template:
           entity_id: climate.hallway
-          temperature: '{{ states.input_number.daytime_heat_setpoint.state | float  }}'
+          temperature: '{{ states.input_number.nighttime_heat_setpoint.state | float }}'
 
-  - id: climate__update_temperature_on_bedtime_mode_off
-    alias: Climate - Update temperature on bedtime mode off
+  - alias: Climate - Update temperature on bedtime mode off
     initial_state: on
     condition:
-      - condition: template
-        value_template: "{{ states.climate.hallway.attributes.operation_mode == 'heat'  }}"
+      condition: and
+      conditions:
+        - condition: template
+          value_template: "{{ (states.climate.hallway.attributes.operation_mode != 'off') }}"
+        - condition: template
+          value_template: >-
+            {{- not (
+            ((states.binary_sensor.warmer_than_day_setpoint.state == 'on')
+              and
+            (states.climate.hallway.attributes.operation_mode == 'eco'))) -}}
     trigger:
       - platform: state
         entity_id: input_boolean.bedtime_mode
-        from: 'on'
-        to: 'off'
+        from: 'off'
+        to: 'on'
     action:
+      - service: climate.set_operation_mode
+        data_template:
+          entity_id: climate.hallway
+          operation_mode: >-
+            {%- if (states.binary_sensor.warmer_than_day_setpoint.state == 'on') -%}
+              eco
+            {%- elif ((states.binary_sensor.warmer_than_day_setpoint.state == 'off')
+              and
+            (states.input_boolean.ha_owns_eco_mode.state == 'on')) -%}
+              heat
+            {%- endif -%}
+      - service_template: >-
+          {%- if (states.binary_sensor.warmer_than_day_setpoint.state == 'on') -%}
+            homeassistant.turn_on
+          {%- elif ((states.binary_sensor.warmer_than_day_setpoint.state == 'off')
+            and
+          (states.input_boolean.ha_owns_eco_mode.state == 'on')) -%}
+            homeassistant.turn_off
+          {%- endif -%}
+        entity_id: input_boolean.ha_owns_eco_mode
+      - delay: '00:00:10'
+      - condition: state
+        entity_id: 'sensor.hallway_thermostat_operation_mode'
+        state: 'heat'
       - service: climate.set_temperature
         data_template:
           entity_id: climate.hallway
-          temperature: '{{ states.input_number.daytime_heat_setpoint.state | float  }}'
+          temperature: '{{ states.input_number.daytime_heat_setpoint.state | float }}'
 
   - alias: Climate - update Nest on daytime heat setpoint change
     initial_state: on
@@ -125,10 +198,12 @@ automation:
     condition:
       condition: and
       conditions:
-        - condition: template
-          value_template: "{{ states.input_boolean.bedtime_mode.state == 'off' }}"
-        - condition: template
-          value_template: "{{ states.climate.hallway.attributes.operation_mode == 'heat' }}"
+        - condition: state
+          entity_id: 'input_boolean.bedtime_mode'
+          state: 'off'
+        - condition: state
+          entity_id: 'sensor.hallway_thermostat_operation_mode'
+          state: 'heat'
     action:
       - service: climate.set_temperature
         data_template:
@@ -143,10 +218,12 @@ automation:
     condition:
       condition: and
       conditions:
-        - condition: template
-          value_template: "{{ states.input_boolean.bedtime_mode.state == 'on' }}"
-        - condition: template
-          value_template: "{{ states.climate.hallway.attributes.operation_mode == 'heat' }}"
+        - condition: state
+          entity_id: 'input_boolean.bedtime_mode'
+          state: 'on'
+        - condition: state
+          entity_id: 'sensor.hallway_thermostat_operation_mode'
+          state: 'heat'
     action:
       - service: homeassistant.turn_off
         data:
@@ -232,8 +309,9 @@ automation:
       - service: automation.trigger
         data:
           entity_id: automation.climate__set_temp_setpoint_on_heat__enable_eco_mode_when_warm_weather
-      - condition: template
-        value_template: "{{ states.input_text.last_nest_mode.state == 'eco' }}"
+      - condition: state
+        entity_id: 'input_text.last_nest_mode'
+        state: 'eco'
       - service: homeassistant.turn_on
         data:
           entity_id: input_boolean.ha_owns_eco_mode
@@ -245,8 +323,9 @@ automation:
       - platform: state
         entity_id: sensor.hallway_thermostat_target
     condition:
-      - condition: template
-        value_template: "{{ states.climate.hallway.attributes.operation_mode == 'heat' }}"
+      - condition: state
+        entity_id: 'sensor.hallway_thermostat_operation_mode'
+        state: 'heat'
     action:
       - service: input_number.set_value
         data_template:
@@ -269,12 +348,11 @@ automation:
         data:
           entity_id: input_boolean.ha_owns_eco_mode
 
-  - id: climate__enable_eco_mode_when_warm_weather
-    alias: Climate - Set temp setpoint on heat & enable eco mode when warm weather
+  - alias: Climate - Set temp setpoint on heat & enable eco mode when warm weather
     initial_state: off
     trigger:
       - platform: state
-        entity_id: binary_sensor.warmer_than_setpoint
+        entity_id: binary_sensor.warmer_than_current_setpoint
       - platform: state
         entity_id: sensor.hallway_thermostat_operation_mode
         to: 'heat'
@@ -288,11 +366,11 @@ automation:
         - condition: template
           value_template: >-
             {{- not (
-            ((states.binary_sensor.warmer_than_setpoint.state == 'on')
+            ((states.binary_sensor.warmer_than_current_setpoint.state == 'on')
               and
             (states.climate.hallway.attributes.operation_mode == 'eco'))
               or
-            ((states.binary_sensor.warmer_than_setpoint.state == 'off')
+            ((states.binary_sensor.warmer_than_current_setpoint.state == 'off')
               and
             (states.climate.hallway.attributes.operation_mode == 'heat' ))) -}}
     action:
@@ -300,25 +378,26 @@ automation:
         data_template:
           entity_id: climate.hallway
           operation_mode: >-
-            {%- if (states.binary_sensor.warmer_than_setpoint.state == 'on') -%}
+            {%- if (states.binary_sensor.warmer_than_current_setpoint.state == 'on') -%}
               eco
-            {%- elif ((states.binary_sensor.warmer_than_setpoint.state == 'off')
+            {%- elif ((states.binary_sensor.warmer_than_current_setpoint.state == 'off')
               and
             (states.input_boolean.ha_owns_eco_mode.state == 'on')) -%}
               heat
             {%- endif -%}
       - service_template: >-
-          {%- if (states.binary_sensor.warmer_than_setpoint.state == 'on') -%}
+          {%- if (states.binary_sensor.warmer_than_current_setpoint.state == 'on') -%}
             homeassistant.turn_on
-          {%- elif ((states.binary_sensor.warmer_than_setpoint.state == 'off')
+          {%- elif ((states.binary_sensor.warmer_than_current_setpoint.state == 'off')
             and
           (states.input_boolean.ha_owns_eco_mode.state == 'on')) -%}
             homeassistant.turn_off
           {%- endif -%}
         entity_id: input_boolean.ha_owns_eco_mode
       - delay: '00:00:10'
-      - condition: template
-        value_template: "{{ states.climate.hallway.attributes.operation_mode == 'heat' }}"
+      - condition: state
+        entity_id: 'sensor.hallway_thermostat_operation_mode'
+        state: 'heat'
       - service: climate.set_temperature
         data_template:
           entity_id: climate.hallway
