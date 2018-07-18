@@ -88,17 +88,23 @@ views:
           - switch.lounge_tv_switch
           - binary_sensor.lounge_tv_operation_state
 
-      - type: media-control
-        title: Living Room Chromecast
-        entity: media_player.living_room_hifi
-      
-      - type: media-control
-        title: Kitchen Sonos
-        entity: media_player.kitchen_sonos
-      
-      - type: media-control
-        title: Master Bedroom Chromecast
-        entity: media_player.bedroom_soundbar_speaker
+      - type: vertical-stack
+        cards:
+          - type: media-control
+            title: Living Room Chromecast
+            entity: media_player.living_room_hifi
+          
+          - type: media-control
+            title: Kitchen Sonos
+            entity: media_player.kitchen_sonos
+          
+          - type: media-control
+            title: Master Bedroom Chromecast
+            entity: media_player.bedroom_soundbar_speaker
+
+          - type: media-control
+            title: Master Bedroom TV
+            entity: media_player.bedroom_tv_ue40h6400
       
       - type: entities
         title: Occupancy
