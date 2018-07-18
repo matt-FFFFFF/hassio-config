@@ -22,7 +22,7 @@ sensor:
   - platform: systemmonitor
     resources:
       - type: disk_use_percent
-        arg: /home
+        arg: /config
       - type: memory_use_percent
       - type: last_boot
       - type: load_1m
@@ -39,7 +39,7 @@ automation:
     action:
       service: script.notify
       data:
-        tell: mf
+        tell: matt
         no_say: 1
         call_hdd_space: 1
 

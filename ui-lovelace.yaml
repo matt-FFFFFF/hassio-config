@@ -1,0 +1,178 @@
+title: !secret homename
+
+excluded_entities:
+
+views:
+  - title: System
+    icon: mdi:raspberrypi
+    id: system
+    cards:
+      - type: history-graph
+        title: System Resources
+        entities:
+          - sensor.load_1m
+          - sensor.load_5m
+          - sensor.load_15m
+          - sensor.memory_use_percent
+          - sensor.disk_use_percent_home
+
+      - type: entities
+        title: Maintenance
+        show_header_toggle: false
+        entities:
+          - input_boolean.maintenance_mode
+          - weblink.github
+          - script.github_pull
+          - script.restart_ha
+      
+      - type: glance
+        title: Date & Time
+        entities:
+          - sensor.time
+          - sensor.date
+          - sensor.time_utc
+          - sensor.last_boot
+  
+  - title: Climate
+    id: climate
+    icon: mdi:thermostat
+    cards:
+      - type: entities
+        show_header_toggle: false
+        title: Nest
+        entities:
+          - binary_sensor.hallway_thermostat_fan
+          - binary_sensor.hallway_thermostat_has_leaf
+          - binary_sensor.hallway_thermostat_is_locked
+          - binary_sensor.hallway_thermostat_is_using_emergency_heat
+          - binary_sensor.hallway_thermostat_online
+          - climate.hallway
+          - sensor.hallway_thermostat_humidity
+          - sensor.hallway_thermostat_hvac_state
+          - sensor.hallway_thermostat_operation_mode
+          - sensor.hallway_thermostat_target
+          - sensor.hallway_thermostat_temperature
+          - binary_sensor.wildown_gardens_away
+          - sensor.wildown_gardens_eta
+      
+      - type: entities
+        title: Climate Sensors
+        show_header_toggle: false
+        entities:
+          - sensor.hallway_temperature
+          - sensor.home_status
+          - input_boolean.ha_owns_eco_mode
+          - binary_sensor.warmer_than_current_setpoint
+          - binary_sensor.warmer_than_day_setpoint
+          - binary_sensor.warmer_than_night_setpoint
+          - sensor.met_office_temperature
+
+      - type: entities
+        title: Climate Controls
+        show_header_toggle: false
+        entities:
+          - input_number.outside_temp_offset
+          - input_number.daytime_heat_setpoint
+          - input_number.nighttime_heat_setpoint
+          - input_text.last_nest_mode
+  
+  - title: Rooms
+    id: rooms
+    icon: mdi:floor-plan
+    cards:
+      - type: entities
+        title: Lounge
+        show_header_toggle: false
+        entities:
+          - sensor.lounge_tv_energy_usage
+          - switch.lounge_tv_switch
+          - binary_sensor.lounge_tv_operation_state
+
+      - type: media-control
+        title: Living Room Chromecast
+        entity: media_player.living_room_hifi
+      
+      - type: media-control
+        title: Kitchen Sonos
+        entity: media_player.kitchen_sonos
+      
+      - type: media-control
+        title: Master Bedroom Chromecast
+        entity: media_player.bedroom_soundbar_speaker
+      
+      - type: entities
+        title: Occupancy
+        show_header_toggle: false
+        entities:
+          - input_text.weekday_bedtime_on
+          - input_text.weekday_bedtime_off
+          - input_text.weekend_bedtime_on
+          - input_text.weekend_bedtime_off
+          - input_boolean.away_mode
+          - input_boolean.guest_mode
+          - input_boolean.holiday_mode
+          - input_boolean.bedtime_mode
+      
+      - type: entities
+        title: Phone Trackers
+        show_header_toggle: false
+        entities:
+          - device_tracker.mattiphoneowntrk_iphone
+          - device_tracker.beliphoneowntrk_iphone
+  
+  - title: Weather
+    id: weather
+    icon: mdi:weather-partlycloudy
+    cards:
+      - type: entities
+        title: Met Office
+        show_header_toggle: false
+        entities:
+          - sensor.met_office_feels_like_temperature
+          - sensor.met_office_humidity
+          - sensor.met_office_probability_of_precipitation
+          - sensor.met_office_temperature
+          - sensor.met_office_uv
+          - sensor.met_office_visibility
+          - sensor.met_office_visibility_distance
+          - sensor.met_office_weather
+          - sensor.met_office_wind_direction
+          - sensor.met_office_wind_gust
+          - sensor.met_office_wind_speed
+      
+      - type: entities
+        title: Celestial Bodies
+        show_header_toggle: false
+        entities:
+          - sensor.moon
+          - sun.sun
+          - binary_sensor.iss
+  
+  - title: Security
+    icon: mdi:cctv
+    cards:
+      - type: entities
+        title: Ring
+        entities:
+          - sensor.ring_hallway_wifi_signal_strength
+          - sensor.ring_hallway_wifi_signal_category
+          - sensor.ring_hallway_volume
+          - sensor.ring_front_door_wifi_signal_strength
+          - sensor.ring_front_door_wifi_signal_category
+          - sensor.ring_front_door_volume
+          - sensor.ring_front_door_last_motion
+          - sensor.ring_front_door_last_ding
+          - sensor.ring_front_door_last_activity
+          - sensor.ring_front_door_battery
+          - binary_sensor.ring_front_door_ding
+          - binary_sensor.ring_front_door_motion
+      
+      - type: entities
+        title: Security Sensors
+        entities:
+          - binary_sensor.hallway_motion_sensor
+      
+      - type: glance
+        title: Cameras
+        entities:
+          - camera.front_door
