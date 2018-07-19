@@ -123,6 +123,8 @@ automation:
               and
             (states.input_boolean.ha_owns_eco_mode.state == 'on')) -%}
               heat
+            {%- else -%}
+              {{- states.sensor.hallway_thermostat_operation_mode.state -}}
             {%- endif -%}
       - service_template: >-
           {%- if (states.binary_sensor.warmer_than_night_setpoint.state == 'on') -%}
@@ -171,6 +173,8 @@ automation:
               and
             (states.input_boolean.ha_owns_eco_mode.state == 'on')) -%}
               heat
+            {%- else -%}
+              {{- states.sensor.hallway_thermostat_operation_mode.state -}}
             {%- endif -%}
       - service_template: >-
           {%- if (states.binary_sensor.warmer_than_day_setpoint.state == 'on') -%}
@@ -384,6 +388,8 @@ automation:
               and
             (states.input_boolean.ha_owns_eco_mode.state == 'on')) -%}
               heat
+            {%- else -%}
+              {{- states.sensor.hallway_thermostat_operation_mode.state -}}
             {%- endif -%}
       - service_template: >-
           {%- if (states.binary_sensor.warmer_than_current_setpoint.state == 'on') -%}
