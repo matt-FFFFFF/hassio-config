@@ -19,12 +19,15 @@ homeassistant:
     climate.*:
       homebridge_visible: true
 
+
 nest:
   client_id: !secret nest_clientid
   client_secret: !secret nest_clientsecret
 
+
 climate:
   platform: nest
+
 
 sensor:
   - platform: mqtt
@@ -389,7 +392,7 @@ automation:
       - service: climate.set_temperature
         data_template:
           entity_id: climate.hallway
-          temperature: {{ states.input_number.daytime_heat_setpoint.state | float }}
+          temperature: '{{ states.input_number.daytime_heat_setpoint.state | float }}'
 
   - alias: Climate - Set mode to heat and set temp when nighttime setpoint breaches offset temp
     initial_state: off
@@ -418,7 +421,7 @@ automation:
       - service: climate.set_temperature
         data_template:
           entity_id: climate.hallway
-          temperature: {{ states.input_number.nighttime_heat_setpoint.state | float }}
+          temperature: '{{ states.input_number.nighttime_heat_setpoint.state | float }}'
 
   - alias: Climate - Set mode to eco when daytime setpoint within offset temp
     initial_state: off
