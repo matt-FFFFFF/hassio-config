@@ -28,7 +28,7 @@ homeassistant:
     group.phone_trackers:
       state_card_mode: badges
 
-    sensor.home_status:
+    binary_sensor.home_occupancy:
       icon: mdi:home-map-marker
       homebridge_visible: true
 
@@ -135,16 +135,17 @@ alert:
     notifiers:
       - matt
 
-sensor:
+binary_sensor:
   platform: template
   sensors:
-    home_status:
-      friendly_name: Home status
-      value_template: >
-        {%- if is_state('group.phone_trackers' , 'home') or is_state('input_boolean.guest_mode' , 'on') -%} Occupied
-        {%- else -%} Unoccupied {%- endif -%}
-
-
+    home_occupied:
+      friendly_name: Home Occupied
+      device_class: occupancy
+      value_template: >-
+        {{- is_state('group.phone_trackers', 'home')
+          or 
+        is_state('input_boolean.guest_mode' , 'on') -}}
+ 
 automation:
   - alias: Occupancy - Set Weekend Bedtime Mode When Lounge TV Turns Off
     initial_state: on
@@ -206,7 +207,7 @@ automation:
             - wed
             - thu
         - condition: template
-          value_template: "{{ now().time() > strptime(states.input_text.weekend_bedtime_on.state, '%H:%M').time() }}"
+          value_template: "{{ now().time() > strptime(states.input_text.weekday_bedtime_on.state, '%H:%M').time() }}"
     action:
       - service: input_boolean.turn_on
         entity_id:
@@ -230,7 +231,7 @@ automation:
             - thu
             - fri
         - condition: template
-          value_template: "{{ now().time() < strptime(states.input_text.weekend_bedtime_off.state, '%H:%M').time() }}"
+          value_template: "{{ now().time() < strptime(states.input_text.weekday_bedtime_off.state, '%H:%M').time() }}"
     action:
       - service: input_boolean.turn_on
         entity_id:
@@ -253,17 +254,14 @@ automation:
     initial_state: on
     trigger:
       platform: state
-      entity_id: sensor.home_status
-      to: 'Unoccupied'
+      entity_id: binary_sensor.home_occuopancy
+      to: 'off'
       for:
         minutes: 5
     action:
       - service: homeassistant.turn_on
         entity_id:
           - input_boolean.away_mode
-          - script.empty_bedroom
-          - script.empty_girls
-          - script.empty_boys
 
   - alias: Occupancy - Holiday Mode
     initial_state: on
@@ -356,3 +354,5 @@ automation:
       - service: input_boolean.turn_off
         data:
           entity_id: input_boolean.bedtime_mode
+
+

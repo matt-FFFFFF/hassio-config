@@ -15,6 +15,7 @@ The following are things that I have automated:
 - [x] Nest day/night setpoints
 - [x] Ring doorbell integration
 
+
 ### SmartThings
 - [x] Integrated existing ST hub using Mosquitto MQTT
 
