@@ -61,8 +61,7 @@ group:
     entities:
       - script.zwave_on
       - script.zwave_off
-      - script.zwave_include
-      
+      - script.zwave_include    
 
 
 alert:
@@ -126,8 +125,3 @@ automation:
         data_template:
           name: AutoBackup-Daily-{{ now().strftime ('%d-%m-%y') }}
           password: !secret snapshot_password
-      - service: shell_command.delete_old_snapshots
-
-shell_command:
-  delete_old_snapshots: find /backup/* -mtime +30 -exec rm {} \;
-  truncate_log_file: truncate -s 0 /config/home-assistant.log
