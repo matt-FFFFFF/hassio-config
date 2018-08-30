@@ -16,11 +16,11 @@ homeassistant:
   customize:
     script.zwave_on:
       icon: mdi:check-circle-outline
-      custom_text: Zwave On
+      custom_text: Z-Wave On
 
     script.zwave_off:
       icon: mdi:close-octagon-outline
-      custom_text: Zwave Off
+      custom_text: Z-Wave Off
 
     script.zwave_include:
       icon: mdi:plus-circle-outline
@@ -56,7 +56,7 @@ group:
       - script.github_pull
       - script.restart_ha
 
-  Zwave:
+  Z-Wave:
     control: hidden
     entities:
       - script.zwave_on
@@ -77,17 +77,17 @@ alert:
 
 script:
   zwave_on:
-    alias: ' '
+    alias: Z-Wave Start Network
     sequence:
       - service: zwave.start_network
 
   zwave_off:
-    alias: ' '
+    alias: Z-Wave Stop Network
     sequence:
       - service: zwave.stop_network
 
   zwave_include:
-    alias: ' '
+    alias: Z-Wave Add Node (Secure)
     sequence:
       - service: zwave.add_node_secure
     

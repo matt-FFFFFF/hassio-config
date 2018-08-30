@@ -32,6 +32,15 @@ views:
           - sensor.date
           - sensor.time_utc
           - sensor.last_boot
+      
+      - type: entities
+        title: Z-Wave
+        show_header_toggle: false
+        entities:
+          - zwave.aeotec_zw090_zstick_gen5_eu
+          - script.zwave_on
+          - script.zwave_off
+          - script.zwave_include
   
   - title: Climate
     id: climate
