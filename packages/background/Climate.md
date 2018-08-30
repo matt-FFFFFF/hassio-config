@@ -9,29 +9,23 @@ This package will:
 ## Eco mode in Warm Weather
 Firstly, if the operation_mode is set to 'off' this automation will not trigger.
 
-## Logic
+### Logic
 It determines the current state and acts as follows:
     
-If
-
-- It's warmer outside them the setpoint (allowing for the offset)
-
+If  
+- It's warmer outside them the setpoint (allowing for the offset)  
     &
 - The operation_mode is 'Heat'
 
-Then
-- Set 'Eco' mode and set a flag incidating that it was Home Assistant that set it
+Then  
+- Set 'Eco' mode
 
 ### However
 If
 
-- It's colder outside them the setpoint (allowing for the offset)
-
+- It's colder outside them the setpoint (allowing for the offset)  
     &
 - The operation_mode is 'Eco'
 
-    &
-- It was Home Assistant that set Eco mode
-
 Then
-- Set 'Heat' mode and clear a flag incidating that it was Home Assistant that Eco
+- Set 'Heat' mode
