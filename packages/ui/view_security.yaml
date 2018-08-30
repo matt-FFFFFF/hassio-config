@@ -29,3 +29,4 @@ group:
     name: Security Sensors
     entities:
       - binary_sensor.hallway_motion_sensor
+      - binary_sensor.home_occupied
