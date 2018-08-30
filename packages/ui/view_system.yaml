@@ -16,7 +16,7 @@ group:
     - sensor.load_5m
     - sensor.load_15m
     - sensor.memory_use_percent
-    - sensor.disk_use_percent_home
+    - sensor.disk_use_percent_config
     - sensor.last_boot
   
 

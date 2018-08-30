@@ -14,7 +14,7 @@ views:
           - sensor.load_5m
           - sensor.load_15m
           - sensor.memory_use_percent
-          - sensor.disk_use_percent_home
+          - sensor.disk_use_percent_config
 
       - type: entities
         title: Maintenance
@@ -32,6 +32,15 @@ views:
           - sensor.date
           - sensor.time_utc
           - sensor.last_boot
+      
+      - type: entities
+        title: Z-Wave
+        show_header_toggle: false
+        entities:
+          - zwave.aeotec_zw090_zstick_gen5_eu
+          - script.zwave_on
+          - script.zwave_off
+          - script.zwave_include
   
   - title: Climate
     id: climate
@@ -61,7 +70,6 @@ views:
         entities:
           - sensor.hallway_temperature
           - sensor.home_status
-          - input_boolean.ha_owns_eco_mode
           - binary_sensor.warmer_than_current_setpoint
           - binary_sensor.warmer_than_day_setpoint
           - binary_sensor.warmer_than_night_setpoint
