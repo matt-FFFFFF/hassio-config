@@ -58,6 +58,7 @@ binary_sensor:
         value_template: >-
           {{ states.sensor.lounge_tv_energy_usage.state | float >= 50 }}
 
+
 group:
   date_time:
     name: Date and Time
@@ -67,27 +68,11 @@ group:
       - sensor.date
       - sensor.time_utc
 
+
 zwave:
   usb_path: /dev/ttyACM0
   network_key: !secret zwave_network_key
   autoheal: false
-
-
-#hue:
-  #bridges:
-    #- host: !secret hue_hub_ip
-    #  allow_unreachable: true
-
-
-#light:
-  #platform: flux_led
-  #devices: !secret flux_led_devices
-
-
-#media_player:
-#  - platform: cast
-#  - platform: sonos
-#    host: !secret sonos_kitchen_ip
 
 
 mqtt:
@@ -96,5 +81,3 @@ mqtt:
   password: !secret mqtt_password_hassio
   discovery: true
   discovery_prefix: homeassistant
-
-#cloud:
