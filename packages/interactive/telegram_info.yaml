@@ -20,21 +20,38 @@ automation:
       service: telegram_bot.send_message
       data_template:
         target: "{{ trigger.event.data.user_id }}"
-        message: "System is online!
-
+        message: >-
+          "System is online!
 
           Last system reboot was on {{ states('sensor.last_boot') }}.
-
 
           Locations are showing as -
 
           {% for state in states.device_tracker %}
             {{- state.name }} - {{ state.state_with_unit }}
-
           {% endfor %}
 
-          Guest mode is {{ states('input_boolean.guest_mode') }}."
+          Guest mode is {{ states('input_boolean.guest_mode') }}
+          Away mode is {{ states('input_boolean.away_mode') }}
+          Holiday mode is {{ states('input_boolean.holiday_mode') }}."
         keyboard: ["/occupancy", "/menu"]
+
+  - alias: Telegram - Reply with Climate
+    initial_state: on
+    trigger:
+      platform: event
+      event_type: telegram_command
+      event_data:
+        command: '/climate'
+    action:
+      service: telegram_bot.send_message
+      data_template:
+        target: "{{ trigger.event.data.user_id }}"
+        message: >-
+          "Hallway temperature is: {{ states('sensor.hallway_thermostat_temperature') }}
+          Operation mode is: {{ states('sensor.hallway_thermostat_operation_mode') }}
+          Humidity is: {{ states('sensor.hallway_thermostat_humidity') }}
+          Climate away mode: {{ states('binary_sensor.wildown_gardens_away') }}"
 
   - alias: Telegram - Reply with Occupancy
     initial_state: on
@@ -69,4 +86,4 @@ automation:
       data_template:
         target: "{{ trigger.event.data.user_id }}"
         message: "Commands..."
-        keyboard: ["/occupancy", "/status"]
+        keyboard: ["/occupancy", "/status", "/away", "/maintenance", "/climate"]
