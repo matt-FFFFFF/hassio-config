@@ -1,0 +1,47 @@
+#######################################################################
+#                                                                     #
+# This package monitors any devices that report their battery level   #
+# and creates a sensor for them, it then notifies me if the battery   #
+# level is below 20% so that I can change them                        #
+#                                                                     #
+#######################################################################
+
+
+homeassistant:
+  customize:
+    group.battery_alert:
+      state_card_mode: badges
+
+    sensor.hallway_motion_sensor_battery:
+      friendly_name: Hallway Motion Sensor Battery
+
+
+group:
+  battery alert:
+    - sensor.hallway_motion_sensor_battery
+
+  Batteries:
+    control: hidden
+    entities: group.battery_alert
+
+sensor:
+  - platform: mqtt
+    name: Hallway Motion Sensor Battery
+    state_topic: smartthings/Hallway Motion Sensor/Battery/state
+    device_class: battery
+    retain: true
+
+automation:
+  - alias: Battery alert - notification
+    initial_state: on
+    trigger:
+      - platform: numeric_state
+        entity_id:
+          - sensor.hallway_motion_sensor_battery
+        below: 21
+    action:
+      service: script.notify
+      data:
+        tell: matt
+        no_say: 1
+        message: "You have a low battery on one of your devices."
