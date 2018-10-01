@@ -6,15 +6,16 @@
 ###########################################################
 
 recorder:
-  purge_interval: 3
-  purge_keep_days: 10
+  purge_interval: 1
+  purge_keep_days: 180
+  db_url: !secret mariadb_url
 
 logbook: !include ../../extras/includes/logging.yaml
 
 history: !include ../../extras/includes/logging.yaml
 
 logger:
-  default: warning
+  default: critical
 #  logs:
 #    homeassistant.components.component: info
 
