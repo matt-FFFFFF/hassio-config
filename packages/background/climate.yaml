@@ -44,6 +44,9 @@ input_text:
     max: 4
     pattern: '^eco$|^heat$|^off$'
 
+input_boolean:
+  climate_hold:
+    name: Climate hold
 
 input_number:
   outside_temp_offset:

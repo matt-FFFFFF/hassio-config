@@ -20,3 +20,8 @@ include:
 exclude:
   entities:
     - binary_sensor.random_binary_sensor
+    - sensor.time
+    - sensor.time_utc
+    - sensor.date
+    - sensor.loungedimmer_interval
+    - sensor.loungedimmer_interval2
