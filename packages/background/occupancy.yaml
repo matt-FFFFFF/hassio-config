@@ -28,7 +28,7 @@ homeassistant:
     group.phone_trackers:
       state_card_mode: badges
 
-    binary_sensor.home_occupancy:
+    binary_sensor.home_occupied:
       icon: mdi:home-map-marker
       homebridge_visible: true
 
@@ -244,10 +244,10 @@ automation:
       entity_id: binary_sensor.home_occupied
       to: 'on'
     action:
-      service: homeassistant.turn_off
-      entity_id:
-        - input_boolean.away_mode
-        - input_boolean.holiday_mode
+      - service: input_boolean.turn_off
+        entity_id:
+          - input_boolean.away_mode
+          - input_boolean.holiday_mode
 
   - alias: Occupancy - Nobody home
     initial_state: on
@@ -258,7 +258,7 @@ automation:
       for:
         minutes: 5
     action:
-      - service: homeassistant.turn_on
+      - service: input_boolean.turn_on
         entity_id:
           - input_boolean.away_mode
 
