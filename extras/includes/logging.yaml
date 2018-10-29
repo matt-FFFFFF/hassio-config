@@ -24,4 +24,6 @@ exclude:
     - sensor.time_utc
     - sensor.date
     - sensor.loungedimmer_interval
-    - sensor.loungedimmer_interval2
+    - sensor.loungedimmer_interval_2
+    - sensor.loungedimmer_interval_3
+    - sensor.loungedimmer_interval_4

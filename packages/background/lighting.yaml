@@ -1,0 +1,7 @@
+homeassistant:
+  customize_glob:
+    sensor.loungedimmer_interval*:
+      hidden: true
+    sensor.loungedimmer_previous_reading*:
+      hidden: true
+
