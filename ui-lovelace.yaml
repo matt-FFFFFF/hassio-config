@@ -7,24 +7,68 @@ views:
     icon: mdi:raspberrypi
     id: system
     cards:
-      - type: history-graph
-        title: System Resources
-        entities:
-          - sensor.load_1m
-          - sensor.load_5m
-          - sensor.load_15m
-          - sensor.memory_use_percent
-          - sensor.disk_use_percent_config
+      - type: vertical-stack
+        cards:
+          - type: sensor
+            name: 1m load average
+            entity: sensor.load_1m
+            graph: line
+            accuracy: 1440
+            line_width: 1
+            line_color: "#3498db"
+          - type: sensor
+            name: 5m load average
+            entity: sensor.load_5m
+            graph: line
+            accuracy: 1440
+            line_width: 1
+            line_color: "#3498db"
+          - type: sensor
+            name: 15m load average
+            entity: sensor.load_15m
+            graph: line
+            accuracy: 1440
+            line_width: 1
+            line_color: "#3498db"
+      - type: gauge
+        title: Memory use
+        entity: sensor.memory_use_percent
+        unit_of_measurement: "%"
+        severity:
+          green: 0
+          yellow: 70
+          red: 85
+      - type: gauge
+        title: Disk space
+        entity: sensor.disk_use_percent_config
+        unit_of_measurement: "%"
+        severity:
+          green: 0
+          yellow: 70
+          red: 85
 
       - type: entities
-        title: Maintenance
+        title: Links
         show_header_toggle: false
         entities:
-          - input_boolean.maintenance_mode
-          - weblink.github
-          - script.github_pull
-          - script.restart_ha
-      
+          - type: weblink
+            url: https://github.com/matt-FFFFFF
+            icon: mdi:github-circle
+      - type: horizontal-stack
+        cards:
+        - type: entity-button
+          entity: script.github_pull
+          tap_action: call-service
+          service: script.turn_on
+        - type: entity-button
+          entity: script.restart_ha
+          tap_action: call-service
+          service: script.turn_on
+      - type: entities
+        entities:
+          - entity: input_boolean.maintenance_mode
+            name: Maintenance mode
+
       - type: glance
         title: Date & Time
         entities:
@@ -46,86 +90,125 @@ views:
     id: climate
     icon: mdi:thermostat
     cards:
-      - type: entities
+      - type: thermostat
+        entity: climate.hallway
+      - type: glance
         show_header_toggle: false
+        show_name: false
         title: Nest
         entities:
-          - binary_sensor.hallway_thermostat_fan
-          - binary_sensor.hallway_thermostat_has_leaf
-          - binary_sensor.hallway_thermostat_is_locked
-          - binary_sensor.hallway_thermostat_is_using_emergency_heat
-          - binary_sensor.hallway_thermostat_online
-          - climate.hallway
-          - sensor.hallway_thermostat_humidity
-          - sensor.hallway_thermostat_hvac_state
-          - sensor.hallway_thermostat_operation_mode
-          - sensor.hallway_thermostat_target
-          - sensor.hallway_thermostat_temperature
-          - binary_sensor.wildown_gardens_away
-          - sensor.wildown_gardens_eta
-      
-      - type: entities
-        title: Climate Sensors
-        show_header_toggle: false
+          - entity: binary_sensor.hallway_thermostat_has_leaf
+            name:
+            icon: mdi:leaf
+          - entity: binary_sensor.hallway_thermostat_online
+            name:
+            icon: mdi:wifi
+          - entity: sensor.hallway_thermostat_humidity
+            name:
+          - entity: sensor.hallway_thermostat_hvac_state
+            name:
+            icon: mdi:fire
+          - entity: binary_sensor.wildown_gardens_away
+            name:
+            icon: mdi:exit-run
+  
+      - type: glance
+        title: Temperatures
         entities:
-          - sensor.hallway_temperature
-          - sensor.home_status
-          - binary_sensor.warmer_than_current_setpoint
-          - binary_sensor.warmer_than_day_setpoint
-          - binary_sensor.warmer_than_night_setpoint
-          - sensor.met_office_temperature
+          - entity: sensor.hallway_thermostat_target
+            name: Target
+          - entity: sensor.hallway_thermostat_temperature
+            name: Actual
+      
+      - type: glance
+        title: Climate Sensors
+        show_header_toggle: true
+        entities:
+          - entity: sensor.hallway_temperature
+            name: Hallway
+          - entity: binary_sensor.home_occupied
+            name: Occupied
+
+          - entity: sensor.met_office_temperature
+            name: Met office
+      - type: horizontal-stack
+        cards:
+          - type: entity-button
+            entity: binary_sensor.warmer_than_current_setpoint
+            name: Warmer than current
+          - type: entity-button
+            entity: binary_sensor.warmer_than_day_setpoint
+            name: Warmer than day
+          - type: entity-button
+            entity: binary_sensor.warmer_than_night_setpoint
+            name: Warmer than night
 
       - type: entities
         title: Climate Controls
-        show_header_toggle: false
+        show_header_toggle: true
         entities:
-          - input_number.outside_temp_offset
-          - input_number.daytime_heat_setpoint
-          - input_number.nighttime_heat_setpoint
-          - input_text.last_nest_mode
+          - entity: input_number.outside_temp_offset
+          - entity: input_number.daytime_heat_setpoint
+          - entity: input_number.nighttime_heat_setpoint
+          - entity: input_text.last_nest_mode
   
   - title: Rooms
     id: rooms
     icon: mdi:floor-plan
+    panel: true
     cards:
-      - type: entities
-        title: Lounge
-        show_header_toggle: false
-        entities:
-          - sensor.lounge_tv_energy_usage
-          - switch.lounge_tv_switch
-          - binary_sensor.lounge_tv_operation_state
-
       - type: vertical-stack
         cards:
-          - type: media-control
-            title: Living Room Chromecast
-            entity: media_player.living_room_hifi
-          
-          - type: media-control
-            title: Kitchen Sonos
-            entity: media_player.kitchen_sonos
-          
-          - type: media-control
-            title: Master Bedroom Chromecast
-            entity: media_player.bedroom_soundbar_speaker
+          - type: glance
+            title: Occupancy
+            show_header_toggle: false
+            columns: 8
+            entities:
+              - input_text.weekday_bedtime_on
+              - input_text.weekday_bedtime_off
+              - input_text.weekend_bedtime_on
+              - input_text.weekend_bedtime_off
+              - input_boolean.away_mode
+              - input_boolean.guest_mode
+              - input_boolean.holiday_mode
+              - input_boolean.bedtime_mode
+          - type: horizontal-stack
+            cards:
+              - type: vertical-stack
+                cards:
+                  - type: markdown
+                    content: "## Lounge"
+                  - type: horizontal-stack
+                    cards:
+                      - type: light
+                        entity: light.loungedimmer
+                        name: MAIN LIGHT
+                      - type: entity-button
+                        entity: switch.lounge_lamp
+                        tap_action: toggle
+                        icon: mdi:lightbulb
+                  - type: media-control
+                    entity: media_player.lounge_tv
+                  - type: media-control
+                    entity: media_player.living_room_hifi
+              - type: vertical-stack
+                cards:
+                  - type: markdown
+                    content: "## Kitchen"
+                  - type: media-control
+                    title: Kitchen Sonos
+                    entity: media_player.kitchen_sonos
+              - type: vertical-stack
+                title: Master Bedroom
+                cards:
+                  - type: markdown
+                    content: "## Master Bedroom"
+                  - type: media-control
+                    title: Kitchen Sonos
+                    entity: media_player.bedroom_soundbar_speaker
 
-          - type: media-control
-            title: Master Bedroom TV
-            entity: media_player.bedroom_tv_ue40h6400
       
-      - type: entities
-        title: Occupancy
-        show_header_toggle: false
-        entities:
-          - input_text.weekday_bedtime_on
-          - input_text.weekday_bedtime_off
-          - input_text.weekend_bedtime_on
-          - input_text.weekend_bedtime_off
-          - input_boolean.away_mode
-          - input_boolean.guest_mode
-          - input_boolean.holiday_mode
-          - input_boolean.bedtime_mode
+
       
       - type: entities
         title: Phone Trackers
@@ -165,28 +248,49 @@ views:
   - title: Security
     icon: mdi:cctv
     cards:
-      - type: entities
-        title: Ring
-        entities:
-          - sensor.ring_hallway_wifi_signal_strength
-          - sensor.ring_hallway_wifi_signal_category
-          - sensor.ring_hallway_volume
-          - sensor.ring_front_door_wifi_signal_strength
-          - sensor.ring_front_door_wifi_signal_category
-          - sensor.ring_front_door_volume
-          - sensor.ring_front_door_last_motion
-          - sensor.ring_front_door_last_ding
-          - sensor.ring_front_door_last_activity
-          - sensor.ring_front_door_battery
-          - binary_sensor.ring_front_door_ding
-          - binary_sensor.ring_front_door_motion
-      
-      - type: entities
-        title: Security Sensors
-        entities:
-          - binary_sensor.hallway_motion_sensor
-      
       - type: glance
-        title: Cameras
+        title: Sensors
         entities:
-          - camera.front_door
+          - entity: sensor.ring_hallway_wifi_signal_category
+            name: Chime
+          - entity: sensor.ring_hallway_volume
+            name: Chime
+          - entity: sensor.ring_front_door_wifi_signal_category
+            name: Doorbell
+          - entity: sensor.ring_front_door_volume
+            name: Doorbell
+          - entity: sensor.ring_front_door_last_motion
+            name: Last motion
+          - entity: sensor.ring_front_door_last_ding
+            name: Last ding
+          - entity: sensor.ring_front_door_battery
+            name: Battery
+          - entity: binary_sensor.ring_front_door_ding
+            name: Bell
+      - type: glance
+        title: Motion
+        entities:
+          - entity: binary_sensor.ring_front_door_motion
+            name: Front Door
+          - entity: binary_sensor.hallway_motion_sensor
+            name: Outside
+      - type: picture-glance
+        title: Ring
+        camera_image: camera.front_door
+        entities:
+          - entity: sensor.ring_hallway_wifi_signal_category
+            name: Chime
+          - entity: sensor.ring_hallway_volume
+            name: Chime
+          - entity: sensor.ring_front_door_wifi_signal_category
+            name: Doorbell
+          - entity: sensor.ring_front_door_volume
+            name: Doorbell
+          - entity: sensor.ring_front_door_last_motion
+            name: Last motion
+          - entity: sensor.ring_front_door_last_ding
+            name: Last ding
+          - entity: sensor.ring_front_door_battery
+            name: Battery
+          - entity: binary_sensor.ring_front_door_ding
+            name: Bell
