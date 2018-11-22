@@ -23,6 +23,7 @@ homeassistant:
       icon: mdi:play
       homebridge_visible: true
 
+wake_on_lan:
 
 media_player:
   - platform: webostv
