@@ -27,6 +27,7 @@ wake_on_lan:
 
 media_player:
   - platform: webostv
+    name: Lounge TV
     host: !secret lounge_tv_ip
     turn_on_action:
       service: wake_on_lan.send_magic_packet
