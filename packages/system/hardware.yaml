@@ -36,8 +36,8 @@ media_player:
 
 sensor:
   - platform: mqtt
-    name: Lounge TV Energy Usage
-    state_topic: smartthings/Lounge TV Outlet/power/state
+    name: Lounge Lamp Energy Usage
+    state_topic: smartthings/Lounge Lamp/power/state
     unit_of_measurement: W
     icon: mdi:power-socket-uk
     retain: 
@@ -50,23 +50,13 @@ sensor:
 
 switch:
   - platform: mqtt
-    name: Lounge TV Switch
-    command_topic: 'smartthings/Lounge TV Outlet/switch/cmd'
-    state_topic: 'smartthings/Lounge TV Outlet/switch/state'
+    name: Lounge Lamp
+    command_topic: 'smartthings/Lounge Lamp/switch/cmd'
+    state_topic: 'smartthings/Lounge Lamp/switch/state'
     payload_on: 'on'
     payload_off: 'off'
-    icon: mdi:power-socket-uk
+    icon: mdi:lightbulb
     retain: true
-
-binary_sensor:
-  - platform: template
-    sensors:
-      lounge_tv_operation_state:
-        friendly_name: Lounge TV operation state
-        device_class: power
-        value_template: >-
-          {{ states.sensor.lounge_tv_energy_usage.state | float >= 50 }}
-
 
 group:
   date_time:
