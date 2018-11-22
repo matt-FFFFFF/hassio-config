@@ -24,6 +24,13 @@ homeassistant:
       homebridge_visible: true
 
 
+media_player:
+  - platform: webostv
+    host: !secret lounge_tv_ip
+    turn_on_action:
+      service: wake_on_lan.send_magic_packet
+      data:
+        mac: !secret lounge_tv_mac
 
 sensor:
   - platform: mqtt
