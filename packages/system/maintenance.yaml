@@ -34,12 +34,6 @@ homeassistant:
       icon: mdi:home-assistant
       custom_text: Restart Home Assistant
 
-
-weblink:
-  entities:
-    - name: Github
-      url: https://github.com/matt-FFFFFF/hassio-config
-
 input_boolean:
   maintenance_mode:
     name: Maintenance mode
