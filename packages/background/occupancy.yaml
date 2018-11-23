@@ -294,7 +294,7 @@ automation:
             - wed
             - thu
         - condition: state
-          entity_id: binary_sensor.lounge_tv_operation_state
+          entity_id: media_player.lounge_tv
           state: 'off'
     action:
       - service: input_boolean.turn_on
@@ -332,7 +332,7 @@ automation:
             - fri
             - sat
         - condition: state
-          entity_id: binary_sensor.lounge_tv_operation_state
+          entity_id: media_player.lounge_tv
           state: 'off'
     action:
       - service: input_boolean.turn_on
