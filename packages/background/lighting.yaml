@@ -4,4 +4,3 @@ homeassistant:
       hidden: true
     sensor.loungedimmer_previous_reading*:
       hidden: true
-
