@@ -16,6 +16,8 @@ include:
     - media_player
     - sun
     - input_boolean
+    - input_datetime
+    - input_text
 
 exclude:
   entities:

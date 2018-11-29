@@ -11,24 +11,10 @@ views:
         cards:
           - type: sensor
             name: 1m load average
-            entity: sensor.load_1m
+            entity: sensor.processor_use
             graph: line
-            accuracy: 1440
-            line_width: 1
-            line_color: "#3498db"
-          - type: sensor
-            name: 5m load average
-            entity: sensor.load_5m
-            graph: line
-            accuracy: 1440
-            line_width: 1
-            line_color: "#3498db"
-          - type: sensor
-            name: 15m load average
-            entity: sensor.load_15m
-            graph: line
-            accuracy: 1440
-            line_width: 1
+            accuracy: 720
+            line_width: 2
             line_color: "#3498db"
       - type: gauge
         title: Memory use
@@ -164,10 +150,10 @@ views:
             show_header_toggle: false
             columns: 8
             entities:
-              - input_text.weekday_bedtime_on
-              - input_text.weekday_bedtime_off
-              - input_text.weekend_bedtime_on
-              - input_text.weekend_bedtime_off
+              - input_datetime.weekday_bedtime_on
+              - input_datetime.weekday_bedtime_off
+              - input_datetime.weekend_bedtime_on
+              - input_datetime.weekend_bedtime_off
               - input_boolean.away_mode
               - input_boolean.guest_mode
               - input_boolean.holiday_mode

@@ -26,9 +26,7 @@ sensor:
         arg: /config
       - type: memory_use_percent
       - type: last_boot
-      - type: load_1m
-      - type: load_5m
-      - type: load_15m
+      - type: processor_use
 
 automation:
   - alias: Device - Disk use alarm
@@ -48,14 +46,10 @@ automation:
     initial_state: on
     trigger:
       - platform: numeric_state
-        entity_id: sensor.load_15m
-        above: 4
-      - platform: numeric_state
-        entity_id: sensor.load_5m
-        above: 6
-      - platform: numeric_state
-        entity_id: sensor.load_1m
-        above: 8
+        entity_id: sensor.processor_use
+        above: 80
+        for:
+          minutes: 5
       - platform: numeric_state
         entity_id: sensor.memory_use_percent
         above: 85
