@@ -16,7 +16,3 @@ map:
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
 
-weblink:
-  entities:
-    - name: Lovelace
-      url: /lovelace
