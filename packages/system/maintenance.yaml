@@ -104,7 +104,7 @@ automation:
   - alias: Let's Encrypt - Renewal
     trigger:
       - platform: time
-        at: '00:00:00'
+        at: '04:00:00'
     action:
       - service: hassio.addon_stop
         data:
@@ -124,8 +124,15 @@ automation:
     trigger:
       - platform: time
         at: '00:30:00'
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          weekday:
+            - sun
+
     action:
       - service: hassio.snapshot_full
         data_template:
-          name: AutoBackup-Daily-{{ now().strftime ('%d-%m-%y') }}
+          name: AutoBackup-Weekly-{{ now().strftime ('%d-%m-%y') }}
           password: !secret snapshot_password

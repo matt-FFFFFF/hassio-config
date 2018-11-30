@@ -123,7 +123,21 @@ binary_sensor:
           {{- is_state('group.phone_trackers', 'home')
             or 
           is_state('input_boolean.guest_mode' , 'on') -}}
- 
+ # - platform: bayesian
+ #   name: in_bed
+ #   prior: 0.25
+ #   probability_threshold: 0.95
+ #   observations:
+ #     - entity_id: media_player.lounge_tv
+ #       platform: state
+ #       to_state: 'off'
+ #       prob_given_true: 0.6
+ #       prob_given_false: 0.05
+ #     - entity_id: media_player.living_room_hifi
+ #       platform: state
+ #       to_state: 'off'
+ #       prob_given_true: 
+
 automation:
   - alias: Occupancy - Set Weekend Bedtime Mode When Lounge TV Turns Off
     initial_state: on

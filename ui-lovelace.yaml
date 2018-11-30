@@ -10,7 +10,7 @@ views:
       - type: vertical-stack
         cards:
           - type: sensor
-            name: 1m load average
+            name: Processor use
             entity: sensor.processor_use
             graph: line
             accuracy: 720
