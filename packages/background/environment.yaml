@@ -1,13 +1,9 @@
 homeassistant:
   customize:
     sensor.met_office_temperature:
-      homebridge_visible: true
     sensor.met_office_wind_speed:
-      homebridge_visible: true
     sensor.met_office_wind_direction:
-      homebridge_visible: true
     sensor.met_office_wind_humidity:
-      homebridge_visible: true
 
 sun:
 

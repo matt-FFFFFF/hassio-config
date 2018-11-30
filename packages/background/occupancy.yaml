@@ -30,7 +30,6 @@ homeassistant:
 
     binary_sensor.home_occupied:
       icon: mdi:home-map-marker
-      homebridge_visible: true
 
     input_boolean.holiday_mode:
       hide_control: true
@@ -40,12 +39,8 @@ homeassistant:
 
   customize_glob:
     input_boolean.*:
-      homebridge_visible: true
   
     device_tracker.*:
-      homebridge_visible: true
-
-
 
 #ios:
 

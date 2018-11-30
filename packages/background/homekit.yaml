@@ -1,0 +1,12 @@
+homekit:
+  filter:
+    include_domains:
+      - climate
+      - light
+      - media_player
+      - switch
+    include_entities:
+      - input_boolean.bedtime_mode
+      - input_boolean.away_mode
+      - input_boolean.holiday_mode
+# entity_config:

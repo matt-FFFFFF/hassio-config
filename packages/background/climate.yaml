@@ -13,11 +13,9 @@
 homeassistant:
   customize:
     sensor.hallway_temperature:
-      homebridge_visible: true
 
   customize_glob:
     climate.*:
-      homebridge_visible: true
 
 
 nest:
