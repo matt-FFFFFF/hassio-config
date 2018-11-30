@@ -10,22 +10,15 @@ homeassistant:
       friendly_name: Hallway Ring Chime WiFi Signal Strength
     
     binary_sensor.hallway_motion_sensor:
-      homebridge_visible: true
      
     sensor.ring_front_door_last_motion:
-      homebridge_visible: true
 
     sensor.ring_front_door_last_ding:
-      homebridge_visible: true
     
     camera.front_door:
-      homebridge_visible: true
 
 
 camera:
-  - platform: ffmpeg
-    name: dafang1
-    input: !secret camera1_input
   - platform: ring
     
 binary_sensor:
