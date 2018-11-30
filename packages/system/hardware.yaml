@@ -8,20 +8,9 @@
 
 
 homeassistant:
-  customize:
-    switch.lounge_tv_switch:
-      homebridge_visible: true
-    
-    sensor.lounge_tv_energy_usage:
-      homebridge_visible: true
-
-    sensor.lounge_tv_operation_state:
-      homebridge_visible: true
-        
   customize_glob:
     media_player.*:
       icon: mdi:play
-      homebridge_visible: true
 
 wake_on_lan:
 
