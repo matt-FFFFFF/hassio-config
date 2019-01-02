@@ -6,7 +6,6 @@
 #                                         #
 ###########################################
 
-
 homeassistant:
   customize_glob:
     media_player.*:
@@ -24,28 +23,11 @@ media_player:
         mac: !secret lounge_tv_mac
 
 sensor:
-  - platform: mqtt
-    name: Lounge Lamp Energy Usage
-    state_topic: smartthings/Lounge Lamp/power/state
-    unit_of_measurement: W
-    icon: mdi:power-socket-uk
-    retain: 
-    
   - platform: time_date
     display_options:
       - 'time'
       - 'date'
       - 'time_utc'
-
-switch:
-  - platform: mqtt
-    name: Lounge Lamp
-    command_topic: 'smartthings/Lounge Lamp/switch/cmd'
-    state_topic: 'smartthings/Lounge Lamp/switch/state'
-    payload_on: 'on'
-    payload_off: 'off'
-    icon: mdi:lightbulb
-    retain: true
 
 group:
   date_time:

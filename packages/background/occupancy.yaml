@@ -15,10 +15,6 @@ homeassistant:
       icon: mdi:home-automation
       hidden: false
       hide_control: true
-      confirm_controls_show_lock: true
-      extra_badge:
-        - entity_id: sensor.automation_on
-        - entity_id: sensor.automation_all
 
     group.occupancy:
       hide_control: true
@@ -35,12 +31,6 @@ homeassistant:
       hide_control: true
       extra_badge:
         entity_id: input_boolean.holiday_mode
-
-
-  customize_glob:
-    input_boolean.*:
-  
-    device_tracker.*:
 
 #ios:
 
@@ -61,16 +51,15 @@ input_datetime:
     has_date: false
     has_time: true
   weekend_bedtime_off:
-    name: Weekend bedtime on
+    name: Weekend bedtime off
     icon: mdi:clock
     has_date: false
     has_time: true
 
-device_tracker:
-  - platform: owntracks
-    max_gps_accuracy: 200
-    waypoints: true
-    mqtt_topic: "owntracks/#"
+owntracks:
+  max_gps_accuracy: 200
+  waypoints: true
+  mqtt_topic: "owntracks/#"
 
 input_boolean:
   away_mode:

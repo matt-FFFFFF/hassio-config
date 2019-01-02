@@ -11,12 +11,6 @@
 ####################################################
 
 homeassistant:
-  customize:
-    sensor.hallway_temperature:
-
-  customize_glob:
-    climate.*:
-
 
 nest:
   client_id: !secret nest_clientid
@@ -112,6 +106,9 @@ automation:
       conditions:
         - condition: template
           value_template: "{{ (states.climate.hallway.attributes.operation_mode != 'off') }}"
+        - condition: state
+          entity_id: 'binary_sensor.wildown_gardens_away'
+          state: 'off'
         - condition: template
           value_template: >-
             {{- not (
@@ -153,6 +150,9 @@ automation:
       conditions:
         - condition: template
           value_template: "{{ (states.climate.hallway.attributes.operation_mode != 'off') }}"
+        - condition: state
+          entity_id: 'binary_sensor.wildown_gardens_away'
+          state: 'off'
         - condition: template
           value_template: >-
             {{- not (
@@ -331,26 +331,6 @@ automation:
             (states.binary_sensor.warmer_than_night_setpoint.state == 'off')) -%}
               automation.climate__set_mode_to_heat_and_set_temp_when_nighttime_setpoint_breaches_offset_temp
             {%- endif -%}            
-
-  - alias: Climate - Update HA setpoint value when external update
-    initial_state: on
-    trigger:
-      - platform: state
-        entity_id: sensor.hallway_thermostat_target
-    condition:
-      - condition: state
-        entity_id: 'sensor.hallway_thermostat_operation_mode'
-        state: 'heat'
-    action:
-      - service: input_number.set_value
-        data_template:
-          entity_id: >-
-            {%- if (states.input_boolean.bedtime_mode.state == 'on') -%}
-              input_number.nighttime_heat_setpoint
-            {%- else -%}
-              input_number.daytime_heat_setpoint
-            {%- endif -%}
-          value: '{{ states.sensor.hallway_thermostat_target.state | float }}'
 
   - alias: Climate - Set mode to heat and set temp when daytime setpoint breaches offset temp
     initial_state: off
