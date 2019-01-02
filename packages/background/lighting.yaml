@@ -4,3 +4,20 @@ homeassistant:
       hidden: true
     sensor.loungedimmer_previous_reading*:
       hidden: true
+
+sensor:
+  - platform: mqtt
+    name: Lounge Lamp Energy Usage
+    state_topic: smartthings/Lounge Lamp/power/state
+    unit_of_measurement: W
+    icon: mdi:power-socket-uk
+
+switch:
+  - platform: mqtt
+    name: Lounge Lamp
+    command_topic: 'smartthings/Lounge Lamp/switch/cmd'
+    state_topic: 'smartthings/Lounge Lamp/switch/state'
+    payload_on: 'on'
+    payload_off: 'off'
+    icon: mdi:floor-lamp
+    retain: true

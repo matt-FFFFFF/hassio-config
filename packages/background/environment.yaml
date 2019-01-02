@@ -1,9 +1,3 @@
-homeassistant:
-  customize:
-    sensor.met_office_temperature:
-    sensor.met_office_wind_speed:
-    sensor.met_office_wind_direction:
-    sensor.met_office_wind_humidity:
 
 sun:
 
