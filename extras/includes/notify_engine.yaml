@@ -144,15 +144,13 @@ message: >
   {% endif -%}
 
   {%- if call_upgrade == 1 %}
-    Update for Home Assistant is available.  Latest version is {{ states('sensor.ha_upstream') }}
+    Update for Home Assistant is available.  Latest version is {{ states('updater.updater') }}
 
-    https://home-assistant.io/blog/
+    {{ state_attr('updater.updater', 'release_notes') }}
   {% endif -%}
 
   {% if call_tiles_update == 1 %}
     Update for UI Tiles is available. Latest version is {{ states('sensor.ui_tiles_version') }}
-
-    https://github.com/c727/home-assistant-tiles
   {% endif %}
 
   {%- if call_random_fact == 1 or is_state ('binary_sensor.random_binary_sensor' , 'on') %}
