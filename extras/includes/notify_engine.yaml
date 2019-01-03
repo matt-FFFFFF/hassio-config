@@ -23,11 +23,11 @@ media_player:  media_player.kitchen_sonos
 message: >
   {%- macro greeting() -%}
     {% if now().hour < 12 and now().hour > 6 %}
-      {% set greeting = ["Hello, " , "Good Morning, " , "Hey! "] %}
+      {% set greeting = ["Hello, ","Good Morning, ","Hey! "] %}
     {% elif now().hour >= 12 and now().hour < 17 %}
-      {% set greeting = ["Hey there! " , "Good afternoon, " , "Hi there, "] %}
+      {% set greeting = ["Hey there! ","Good afternoon, ","Hi there, "] %}
     {% else %}
-      {% set greeting = ["Hi, " , "Good evening, " , "Hello, "] %}
+      {% set greeting = ["Hi, ","Good evening, ","Hello, "] %}
     {% endif %}
     {{ greeting|random }}
   {%- endmacro -%}
@@ -70,7 +70,7 @@ message: >
   {%- endmacro -%}
 
   {%- macro hdd_space() -%}
-    Your harddrive is running out of Space! /home: {{ states('sensor.disk_use_percent_') }}%!
+    Your harddrive is running out of Space! /home: {{ states('sensor.disk_use_percent_home') }}%!
   {%- endmacro -%}
 
   {%- macro dark_inside() -%}
@@ -102,16 +102,12 @@ message: >
     {% endif %}
   {%- endmacro -%}
 
-  {%- macro uv_index() -%}
-    Outside, the UV index is {{ states('sensor.met_office_uv') }}
-  {%- endmacro -%}
-
   {%- macro wind_speed_direction() -%}
-    Outside, the wind speed is {{ states('sensor.met_office_wind_speed') }}, gusting {{ states('sensor.met_office_wind_gust') }} from the {{ states('sensor.met_office_wind_direction') }}
+    Outside, the wind speed is {{ state_attr('weather.met_office_bournemouth__southbourne_beach','wind_speed') }}, from the {{ state_attr('weather.met_office_bournemouth__southbourne_beach','wind_bearing') }}
   {%- endmacro -%}
 
   {%- macro outside_weather() -%}
-    Outside, it is going to be {{ states('sensor.met_office_weather') }}
+    Outside, it is going to be {{ states('weather.met_office_bournemouth__southbourne_beach') }}
   {%- endmacro -%}
 
   {%- macro bye() -%}
@@ -125,21 +121,21 @@ message: >
   {# ************************************* #}
 
 
-  {{- [greeting(), inform()]|random }}
+  {{- [greeting(), inform()]|random -}}
 
-  {%- if call_unknown == 1 %} {{- unknown() }} {% endif -%}
+  {%- if call_unknown == 1 %} {{- unknown() -}} {% endif -%}
 
-  {%- if call_error == 1 %} {{- error() }} {% endif -%}
+  {%- if call_error == 1 %} {{- error() -}} {% endif -%}
 
-  {%- if call_okay == 1 %} {{- okay () }} {% endif -%}
+  {%- if call_okay == 1 %} {{- okay () -}} {% endif -%}
 
-  {%- if call_system_load == 1 %} {{- system_load() }} {% endif -%}
+  {%- if call_system_load == 1 %} {{- system_load() -}} {% endif -%}
 
-  {%- if call_hdd_space == 1 %} {{- hdd_space() }} {% endif -%}
+  {%- if call_hdd_space == 1 %} {{- hdd_space() -}} {% endif -%}
 
-  {%- if call_dark_inside == 1 %} {{- dark_inside() }} {% endif -%}
+  {%- if call_dark_inside == 1 %} {{- dark_inside() -}} {% endif -%}
 
-  {%- if call_light_inside == 1 %} {{- light_inside() }} {% endif -%}
+  {%- if call_light_inside == 1 %} {{- light_inside() -}} {% endif -%}
 
   {{- message -}}
 
@@ -160,7 +156,7 @@ message: >
   {% endif %}
 
   {%- if call_random_fact == 1 or is_state ('binary_sensor.random_binary_sensor' , 'on') %}
-    Here is something interesting, {{- ([iss, moon, uv_index, wind_speed_direction, outside_weather]|random)() }}
+    Here is something interesting, {{- ([iss, moon, wind_speed_direction, outside_weather]|random)() }}
   {% endif -%}
 
   {%- if call_bye == 1 %} {{- bye() }} {% endif -%}
