@@ -8,14 +8,7 @@ homeassistant:
     
     sensor.ring_hallway_wifi_signal_strength:
       friendly_name: Hallway Ring Chime WiFi Signal Strength
-    
-    binary_sensor.hallway_motion_sensor:
-     
-    sensor.ring_front_door_last_motion:
 
-    sensor.ring_front_door_last_ding:
-    
-    camera.front_door:
 
 
 camera:
