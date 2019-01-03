@@ -119,7 +119,17 @@ automation:
       - service: hassio.addon_start
         data:
           addon: core_nginx_proxy
-  
+
+  - alias: Update Available Notification
+    trigger:
+      platform: state
+      entity_id: updater.updater
+    action:
+      service: script.notify
+      data:
+        tell: matt
+        call_upgrade: 1
+
   - alias: Daily snapshot
     trigger:
       - platform: time
@@ -130,7 +140,6 @@ automation:
         - condition: time
           weekday:
             - sun
-
     action:
       - service: hassio.snapshot_full
         data_template:
