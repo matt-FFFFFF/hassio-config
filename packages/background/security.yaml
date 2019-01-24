@@ -9,8 +9,6 @@ homeassistant:
     sensor.ring_hallway_wifi_signal_strength:
       friendly_name: Hallway Ring Chime WiFi Signal Strength
 
-
-
 camera:
   - platform: ring
     
@@ -24,7 +22,6 @@ binary_sensor:
     retain: true
     
   - platform: ring
-
 
 ring:
   username: !secret ring_user

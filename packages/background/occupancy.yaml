@@ -8,31 +8,24 @@
 ####################################################
 
 homeassistant:
-
   customize:
     group.all_automations:
       friendly_name: Automations
       icon: mdi:home-automation
       hidden: false
       hide_control: true
-
     group.occupancy:
       hide_control: true
       control: hidden
       icon: mdi:home-account
-    
     group.phone_trackers:
       state_card_mode: badges
-
     binary_sensor.home_occupied:
       icon: mdi:home-map-marker
-
     input_boolean.holiday_mode:
       hide_control: true
       extra_badge:
         entity_id: input_boolean.holiday_mode
-
-#ios:
 
 input_datetime:
   weekday_bedtime_on:
@@ -56,11 +49,6 @@ input_datetime:
     has_date: false
     has_time: true
 
-owntracks:
-  max_gps_accuracy: 200
-  waypoints: true
-  mqtt_topic: "owntracks/#"
-
 input_boolean:
   away_mode:
     name: Away mode
@@ -74,6 +62,11 @@ input_boolean:
   bedtime_mode:
     name: Bedtime mode
     icon: mdi:sleep
+
+owntracks:
+  max_gps_accuracy: 200
+  waypoints: true
+  mqtt_topic: "owntracks/#"
 
 group:
   phone_trackers:
@@ -107,20 +100,6 @@ binary_sensor:
           {{- is_state('group.phone_trackers', 'home')
             or 
           is_state('input_boolean.guest_mode' , 'on') -}}
- # - platform: bayesian
- #   name: in_bed
- #   prior: 0.25
- #   probability_threshold: 0.95
- #   observations:
- #     - entity_id: media_player.lounge_tv
- #       platform: state
- #       to_state: 'off'
- #       prob_given_true: 0.6
- #       prob_given_false: 0.05
- #     - entity_id: media_player.living_room_hifi
- #       platform: state
- #       to_state: 'off'
- #       prob_given_true: 
 
 automation:
   - alias: Occupancy - Set Weekend Bedtime Mode When Lounge TV Turns Off
@@ -218,7 +197,7 @@ automation:
             - thu
             - fri
         - condition: template
-          value_template: >-
+          value_template: >- 
             {{ states('sensor.time')
               <
             (states.input_datetime.weekday_bedtime_off.attributes.timestamp
@@ -374,4 +353,3 @@ automation:
       service: input_boolean.turn_off
       data:
         entity_id: input_boolean.guest_mode
-
