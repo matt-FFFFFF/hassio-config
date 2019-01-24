@@ -103,11 +103,11 @@ message: >
   {%- endmacro -%}
 
   {%- macro wind_speed_direction() -%}
-    Outside, the wind speed is {{ state_attr('weather.met_office_bournemouth__southbourne_beach','wind_speed') }}, from the {{ state_attr('weather.met_office_bournemouth__southbourne_beach','wind_bearing') }}
+    Outside, the wind speed is {{ state_attr('weather.met_office_bournemouth_southbourne_beach','wind_speed') }}, from the {{ state_attr('weather.met_office_bournemouth_southbourne_beach','wind_bearing') }}
   {%- endmacro -%}
 
   {%- macro outside_weather() -%}
-    Outside, it is going to be {{ states('weather.met_office_bournemouth__southbourne_beach') }}
+    Outside, it is going to be {{ states('weather.met_office_bournemouth_southbourne_beach') }}
   {%- endmacro -%}
 
   {%- macro bye() -%}
