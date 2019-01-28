@@ -73,7 +73,7 @@ binary_sensor:
           - input_number.outside_temp_offset
           - sensor.hallway_thermostat_target
         value_template: >-
-          {{ (states.sensor.met_office_temperature.state | float)
+          {{ state_attr('weather.met_office_bournemouth_southbourne_beach','temperature') | float
             + (states.input_number.outside_temp_offset.state | int)
             >= states.sensor.hallway_thermostat_target.state | float }}
       warmer_than_day_setpoint:
@@ -83,7 +83,7 @@ binary_sensor:
           - input_number.outside_temp_offset
           - input_number.daytime_heat_setpoint
         value_template: >-
-          {{ (states.sensor.met_office_temperature.state | float)
+          {{ state_attr('weather.met_office_bournemouth_southbourne_beach','temperature') | float
             + (states.input_number.outside_temp_offset.state | int)
             >= states.input_number.daytime_heat_setpoint.state | float }}
       warmer_than_night_setpoint:
@@ -93,7 +93,7 @@ binary_sensor:
           - input_number.outside_temp_offset
           - input_number.nighttime_heat_setpoint
         value_template: >-
-          {{ (states.sensor.met_office_temperature.state | float)
+          {{ state_attr('weather.met_office_bournemouth_southbourne_beach','temperature') | float
             + (states.input_number.outside_temp_offset.state | int)
             >= states.input_number.nighttime_heat_setpoint.state | float }}
 
