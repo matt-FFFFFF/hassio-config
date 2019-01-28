@@ -16,10 +16,8 @@ nest:
   client_id: !secret nest_clientid
   client_secret: !secret nest_clientsecret
 
-
 climate:
   platform: nest
-
 
 sensor:
   - platform: mqtt
@@ -27,7 +25,6 @@ sensor:
     state_topic: smartthings/Hallway Motion Sensor/temperature/state
     device_class: temperature
     retain: true
-
 
 input_text:
   last_nest_mode:
@@ -61,7 +58,6 @@ input_number:
     max: 32
     step: 0.5
     unit_of_measurement: °C
-
 
 binary_sensor:
   - platform: template
@@ -97,7 +93,6 @@ binary_sensor:
             + (states.input_number.outside_temp_offset.state | int)
             >= states.input_number.nighttime_heat_setpoint.state | float }}
 
-
 automation:
   - alias: Climate - Update temperature on bedtime mode on
     initial_state: on
@@ -127,9 +122,7 @@ automation:
           operation_mode: >-
             {%- if (states.binary_sensor.warmer_than_night_setpoint.state == 'on') -%}
               eco
-            {%- elif ((states.binary_sensor.warmer_than_night_setpoint.state == 'off')
-              and
-            (states.input_boolean.ha_owns_eco_mode.state == 'on')) -%}
+            {%- elif ((states.binary_sensor.warmer_than_night_setpoint.state == 'off')) -%}
               heat
             {%- else -%}
               {{- states.sensor.hallway_thermostat_operation_mode.state -}}
