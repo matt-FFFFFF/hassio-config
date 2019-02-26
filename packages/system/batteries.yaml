@@ -29,7 +29,6 @@ sensor:
     name: Hallway Motion Sensor Battery
     state_topic: smartthings/Hallway Motion Sensor/battery/state
     device_class: battery
-    retain: true
 
 automation:
   - alias: Battery alert - notification

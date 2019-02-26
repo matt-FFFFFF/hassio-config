@@ -24,7 +24,6 @@ sensor:
     name: Hallway Temperature
     state_topic: smartthings/Hallway Motion Sensor/temperature/state
     device_class: temperature
-    retain: true
 
 input_text:
   last_nest_mode:
