@@ -19,8 +19,7 @@ binary_sensor:
     payload_on: active
     payload_off: inactive
     device_class: motion
-    retain: true
-    
+
   - platform: ring
 
 ring:

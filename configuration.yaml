@@ -14,3 +14,9 @@ updater:
 
 # Discover some devices automatically
 discovery:
+
+# Add person component
+person:
+
+# Stay up to date with latest Home Assistant components, introduced in 0.88.1
+default_config:
