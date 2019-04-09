@@ -1,0 +1,20 @@
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - media_player.lounge_tv
+      include_domains:
+        - switch
+        - light
+        - climate
+    entity_config:
+      media_player.lounge_tv:
+        room: Living Room
+      light.loungedimmer:
+        room: Living Room
+      switch.lounge_lamp:
+        room: Living Room
+      switch.loungedimmer:
+        room: Living Room
+      climate.hallway:
+        room: Hallway
