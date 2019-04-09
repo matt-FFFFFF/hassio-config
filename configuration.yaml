@@ -6,6 +6,8 @@ homeassistant:
   unit_system: metric
   # Time Zones: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: Europe/London
+  auth_providers:
+    - type: homeassistant
   packages: !include_dir_named packages/
 
 updater:
