@@ -1,5 +1,4 @@
 http:
-  api_password: !secret api_password
   ip_ban_enabled: true
   login_attempts_threshold: 3
 #  ssl_certificate: !secret ssl_certificate
