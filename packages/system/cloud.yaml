@@ -11,12 +11,18 @@ cloud:
         - climate
     entity_config:
       media_player.lounge_tv:
-        room: Living Room
+        name: Lounge TV
+        room: Lounge
       light.loungedimmer:
-        room: Living Room
+        name: Lounge Light
+        aliases:
+          - Lounge Dimmer
+        room: Lounge
       switch.lounge_lamp:
-        room: Living Room
-      switch.loungedimmer:
-        room: Living Room
+        name: Lounge Lamp
+        room: Lounge
       climate.hallway:
+        name: Nest
+        aliases:
+          - Thermostat
         room: Hallway
