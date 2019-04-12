@@ -86,14 +86,14 @@ script:
       - service: zwave.add_node_secure
     
   github_pull:
-      alias: Github Pull
-      sequence:
-        - service: homeassistant.turn_on
-          data:
-            entity_id: input_boolean.maintenance_mode
-        - service: hassio.addon_restart
-          data:
-            addon: core_git_pull
+    alias: Github Pull
+    sequence:
+      - service: homeassistant.turn_on
+        data:
+          entity_id: input_boolean.maintenance_mode
+      - service: hassio.addon_restart
+        data:
+          addon: core_git_pull
   
   restart_ha:
     alias: Restart HA
@@ -101,6 +101,14 @@ script:
       - service: homeassistant.restart
 
 automation:
+  - alias: github_pull_webhook
+    trigger:
+      platform: webhook
+      webhook_id: 6e290ed425a4cede391488c8e7c6e06d87055120809c4c1376091eaf1d47eb30
+    action:
+      - service: script.turn_on
+        entity_id: script.github_pull
+
   - alias: Let's Encrypt - Renewal
     trigger:
       - platform: time
