@@ -19,22 +19,12 @@ nest:
 climate:
   platform: nest
 
-sensor:
-  - platform: mqtt
-    name: Hallway Temperature
-    state_topic: smartthings/Hallway Motion Sensor/temperature/state
-    device_class: temperature
-
 input_text:
   last_nest_mode:
     name: Last Nest Mode
     min: 0
     max: 4
     pattern: '^eco$|^heat$|^off$'
-
-input_boolean:
-  climate_hold:
-    name: Climate hold
 
 input_number:
   outside_temp_offset:
@@ -64,7 +54,7 @@ binary_sensor:
       warmer_than_current_setpoint:
         friendly_name: Outside warmer than current setpoint
         entity_id:
-          - sensor.met_office_temperature
+          - weather.met_office_bournemouth_southbourne_beach
           - input_number.outside_temp_offset
           - sensor.hallway_thermostat_target
         value_template: >-
@@ -74,7 +64,7 @@ binary_sensor:
       warmer_than_day_setpoint:
         friendly_name: Outside warmer than daytime 
         entity_id:
-          - sensor.met_office_temperature
+          - weather.met_office_bournemouth_southbourne_beach
           - input_number.outside_temp_offset
           - input_number.daytime_heat_setpoint
         value_template: >-
@@ -84,7 +74,7 @@ binary_sensor:
       warmer_than_night_setpoint:
         friendly_name: Outside warmer than nighttime setpoint
         entity_id:
-          - sensor.met_office_temperature
+          - weather.met_office_bournemouth_southbourne_beach
           - input_number.outside_temp_offset
           - input_number.nighttime_heat_setpoint
         value_template: >-
