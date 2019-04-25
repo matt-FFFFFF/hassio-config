@@ -7,6 +7,12 @@
 ###########################################
 
 homeassistant:
+  customize:
+    binary_sensor.lounge_multi_sensor_motion:
+      device_class: motion
+    sensor.lounge_multi_sensor_luminance:
+      device:class: illuminance
+  
   customize_glob:
     media_player.*:
       icon: mdi:play
