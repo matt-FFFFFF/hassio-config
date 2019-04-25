@@ -13,13 +13,6 @@ camera:
   - platform: ring
     
 binary_sensor:
-  - platform: mqtt
-    name: Hallway Motion Sensor
-    state_topic: smartthings/Hallway Motion Sensor/motion/state
-    payload_on: active
-    payload_off: inactive
-    device_class: motion
-
   - platform: ring
 
 ring:
