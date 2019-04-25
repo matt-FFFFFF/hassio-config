@@ -7,6 +7,14 @@ weather:
 
 sensor:
   - platform: moon
+  - platform: darksky
+    api_key: !secret darksky_api_key
+    forecast:
+      - 0
+    hourly_forecast:
+      - 0
+    monitored_conditions:
+      - cloud_cover
 
 # Override default home
 zone:
