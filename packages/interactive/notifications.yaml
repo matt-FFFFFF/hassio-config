@@ -14,7 +14,8 @@ homeassistant:
       hidden: true
 
 tts:
-  - platform: google
+  - platform: google_translate
+    language: en
 
 telegram_bot:
   platform: polling
