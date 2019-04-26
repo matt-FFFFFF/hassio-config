@@ -15,7 +15,7 @@ logbook: !include ../../extras/includes/logging.yaml
 history: !include ../../extras/includes/logging.yaml
 
 logger:
-  default: warn
+  default: info
 #  logs:
 #    homeassistant.components.component: info
 

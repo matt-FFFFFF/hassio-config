@@ -5,6 +5,9 @@ weather:
   - platform: metoffice
     api_key: !secret metoffice_api_key
 
+input_boolean:
+  dark:
+
 sensor:
   - platform: moon
 
@@ -36,6 +39,25 @@ sensor:
         unit_of_measurement: '%'
         device_class: 'illuminance'
 
+automation:
+  - alias: Environment - set dark mode
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.sunlight_pct
+        below: 22
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.dark
+
+  - alias: Environment - unset dark mode
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.sunlight_pct
+        above: 26
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.dark
+
 # Override default home
 zone:
   - name: Home
@@ -46,4 +68,4 @@ zone:
     track_ios: false
 
 binary_sensor:
-  - platform: iss      
+  - platform: iss   

@@ -5,7 +5,11 @@
 # level is below 20% so that I can change them                        #
 #                                                                     #
 #######################################################################
-
+homeassistant:
+  customize_glob:
+    sensor.*_battery:
+      device_class: battery
+      unit_of_measurement: '%'
 
 automation:
   - alias: Battery alert - notification

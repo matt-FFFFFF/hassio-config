@@ -3,10 +3,7 @@ cloud:
     filter:
       include_entities:
         - media_player.lounge_tv
-      exclude_entities:
-        - switch.loungedimmer
       include_domains:
-        - switch
         - light
         - climate
     entity_config:
@@ -18,7 +15,7 @@ cloud:
         aliases:
           - Lounge Dimmer
         room: Lounge
-      switch.lounge_lamp:
+      light.lounge_lamp:
         name: Lounge Lamp
         room: Lounge
       climate.hallway:

@@ -81,7 +81,7 @@ script:
         data_template:
           entity_id: "{{ media_player }}"
           is_volume_muted: false
-      - service: tts.google_say
+      - service: tts.google_translate_say
         data_template:
           entity_id: "{{ media_player }}"
           message: "{{ message|replace('\n',' ')|replace('   ',' ')|replace('  ',' ') }}"
