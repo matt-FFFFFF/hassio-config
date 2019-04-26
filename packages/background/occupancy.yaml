@@ -100,6 +100,36 @@ binary_sensor:
           {{- is_state('group.phone_trackers', 'home')
             or 
           is_state('input_boolean.guest_mode' , 'on') -}}
+  - platform: bayesian
+    name: Lounge Occupied
+    prior: 0.4
+    probability_threshold: 0.8
+    observations:
+      - entity_id: sensor.lounge_minutes_since_last_motion
+        prob_given_true: 0.8
+        prob_given_false: 0.2
+        platform: numeric_state
+        below: 60
+      - entity_id: media_player.lounge_tv
+        prob_given_true: 0.9
+        prob_given_false: 0.2
+        platform: state
+        to_state: 'playing'
+      - entity_id: media_player.lounge_hifi
+        prob_given_true: 0.9
+        prob_given_false: 0.2
+        platform: state
+        to_state: 'playing'
+
+sensor:
+  - platform: template
+    sensors:
+      lounge_minutes_since_last_motion:
+        unit_of_measurement: 'min'
+        entity_id:
+          - binary_sensor.lounge_multi_sensor_motion
+        icon_template: mdi:motion-sensor
+        value_template: '{{ (((as_timestamp(now()) | int) - (as_timestamp(states.binary_sensor.lounge_multi_sensor_motion.last_changed) | int)) / 60) | int }}'
 
 automation:
   - alias: Occupancy - Set Weekend Bedtime Mode When Lounge TV Turns Off
