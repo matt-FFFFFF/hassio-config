@@ -132,7 +132,7 @@ automation:
         entity_id: input_boolean.bedtime_mode
         to: 'on'
     condition:
-      - platform: state
+      - condition: state
         entity_id: binary_sensor.home_occupied
         state: 'on'
     action:
