@@ -39,25 +39,6 @@ input_boolean:
     name: Maintenance mode
     icon: mdi:auto-fix
 
-group:
-  maintenance:
-    name: Maintenance
-    control: hidden
-    entities:
-      - input_boolean.maintenance_mode
-      - weblink.github
-      - weblink.onedrive
-      - script.github_pull
-      - script.restart_ha
-
-  Z-Wave:
-    control: hidden
-    entities:
-      - script.zwave_on
-      - script.zwave_off
-      - script.zwave_include    
-
-
 alert:
   maintenance_mode_alert:
     name: Maintenance Mode has been on for a long time
