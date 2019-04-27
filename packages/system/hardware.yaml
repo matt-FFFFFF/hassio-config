@@ -35,16 +35,6 @@ sensor:
       - 'date'
       - 'time_utc'
 
-group:
-  date_time:
-    name: Date and Time
-    icon: mdi:calendar-clock
-    entities:
-      - sensor.time
-      - sensor.date
-      - sensor.time_utc
-
-
 zwave:
   usb_path: /dev/ttyACM0
   network_key: !secret zwave_network_key
