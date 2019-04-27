@@ -117,7 +117,7 @@ binary_sensor:
             <=
           (states('input_number.lounge_occupancy_idle_minutes') | float * 60)
           -}}
-        prob_given_true: 0.8
+        prob_given_true: 0.9
         prob_given_false: 0.4
       - platform: state
         entity_id: media_player.lounge_tv
