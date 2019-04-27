@@ -19,7 +19,6 @@ light:
     state_topic: 'smartthings/Lounge Lamp/switch/state'
     payload_on: 'on'
     payload_off: 'off'
-    icon: mdi:floor-lamp
     retain: true
 
 scene:

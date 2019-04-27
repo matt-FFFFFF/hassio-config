@@ -14,12 +14,6 @@ homeassistant:
       icon: mdi:home-automation
       hidden: false
       hide_control: true
-    group.occupancy:
-      hide_control: true
-      control: hidden
-      icon: mdi:home-account
-    group.phone_trackers:
-      state_card_mode: badges
     binary_sensor.home_occupied:
       icon: mdi:home-map-marker
     input_boolean.holiday_mode:
@@ -63,6 +57,14 @@ input_boolean:
     name: Bedtime mode
     icon: mdi:sleep
 
+input_number:
+  lounge_occupancy_idle_minutes:
+    initial: 30
+    min: 0
+    max: 120
+    step: 1
+    mode: box
+
 owntracks:
   max_gps_accuracy: 200
   waypoints: true
@@ -105,31 +107,26 @@ binary_sensor:
     prior: 0.4
     probability_threshold: 0.8
     observations:
-      - entity_id: sensor.lounge_minutes_since_last_motion
+      - platform: template
+        value_template: >-
+          {{- (as_timestamp(now())
+            - 
+          as_timestamp(states.binary_sensor.lounge_multi_sensor_motion.last_changed))
+            >=
+          (states('input_number.lounge_occupancy_idle_minutes') | float * 60)
+          -}}
         prob_given_true: 0.8
         prob_given_false: 0.2
-        platform: numeric_state
-        below: 60
-      - entity_id: media_player.lounge_tv
+      - platform: state
+        entity_id: media_player.lounge_tv
         prob_given_true: 0.9
         prob_given_false: 0.2
-        platform: state
         to_state: 'playing'
-      - entity_id: media_player.lounge_hifi
+      - platform: state
+        entity_id: media_player.lounge_hifi
         prob_given_true: 0.9
         prob_given_false: 0.2
-        platform: state
         to_state: 'playing'
-
-sensor:
-  - platform: template
-    sensors:
-      lounge_minutes_since_last_motion:
-        unit_of_measurement: 'min'
-        entity_id:
-          - binary_sensor.lounge_multi_sensor_motion
-        icon_template: mdi:motion-sensor
-        value_template: '{{ (((as_timestamp(now()) | int) - (as_timestamp(states.binary_sensor.lounge_multi_sensor_motion.last_changed) | int)) / 60) | int }}'
 
 automation:
   - alias: Occupancy - Set Weekend Bedtime Mode When Lounge TV Turns Off
