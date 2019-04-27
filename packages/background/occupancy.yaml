@@ -20,6 +20,8 @@ homeassistant:
       hide_control: true
       extra_badge:
         entity_id: input_boolean.holiday_mode
+    binary_sensor.lounge_occupied:
+      device_class: occupancy
 
 input_datetime:
   weekday_bedtime_on:
@@ -112,7 +114,7 @@ binary_sensor:
           {{- (as_timestamp(now())
             - 
           as_timestamp(states.binary_sensor.lounge_multi_sensor_motion.last_changed))
-            >=
+            <=
           (states('input_number.lounge_occupancy_idle_minutes') | float * 60)
           -}}
         prob_given_true: 0.8
