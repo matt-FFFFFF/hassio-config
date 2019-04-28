@@ -11,16 +11,19 @@
 
 no_show: '{{ no_show }}'
 no_say: '{{ no_say }}'
+room: '{{ room }}'
 
 
 who: >
   {% if tell == 'matt' %} notify.matt
   {% else %} {{ tell }} {% endif %}
 
-media_player:  media_player.kitchen_sonos
+media_player: >-
+  {%- if (room == 'lounge') %} media_player.lounge_speaker
+  {%- else -%} media_player.kitchen_sonos {%- endif -%}
 
 
-message: >
+message: >-
   {%- macro greeting() -%}
     {% if now().hour < 12 and now().hour > 6 %}
       {% set greeting = ["Hello, ","Good Morning, ","Hey! "] %}
@@ -85,6 +88,12 @@ message: >
       "It's time to turn off the lights. I will take care of it."]|random }}
   {%- endmacro -%}
 
+  {%- macro bedtime_mode() -%}
+    {{ ["I'm switching on bedtime mode in 10 minutes.",
+      "Good night, I will turn on bedtime mode in 10 minutes",
+      "Is that the time? in 10 minutes I'll turn on bedtime mode"]|random }}
+  {%- endmacro -%}
+
   {%- macro iss() -%}
     {% if is_state('binary_sensor.iss', 'on') %}
       The international space station is above us now. There are
@@ -95,11 +104,7 @@ message: >
   {%- endmacro -%}
 
   {%- macro moon() -%}
-    {% if states('sensor.moon') == 'Full moon' %}
-      There's a full moon tonight, check it out!
-    {% else %}
-      {{ outside_weather() }}
-    {% endif %}
+    {{- 'the moon is a ' + states('sensor.moon') | replace('_',' ') -}}
   {%- endmacro -%}
 
   {%- macro wind_speed_direction() -%}
@@ -137,6 +142,8 @@ message: >
 
   {%- if call_light_inside == 1 %} {{- light_inside() -}} {% endif -%}
 
+  {%- if call_bedtime_mode_on == 1 %} {{- bedtime_mode() -}} {% endif -%}
+
   {{- message -}}
 
   {%- if call_power_on == 1 %}
@@ -145,11 +152,9 @@ message: >
 
   {%- if call_upgrade == 1 %}
     Update for Home Assistant is available.  Latest version is {{ states('updater.updater') }}
-
-    {{ state_attr('updater.updater', 'release_notes') }}
   {% endif -%}
 
-  {% if call_tiles_update == 1 %}
+  {%- if call_tiles_update == 1 %}
     Update for UI Tiles is available. Latest version is {{ states('sensor.ui_tiles_version') }}
   {% endif %}
 

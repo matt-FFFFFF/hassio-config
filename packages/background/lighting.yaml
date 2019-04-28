@@ -38,7 +38,7 @@ scene:
         brightness: 255
       light.lounge_lamp:
         state: off
-  - name: Lounge TV
+  - name: Lounge lamp
     entities:
       light.loungedimmer:
         state: off
@@ -81,6 +81,8 @@ automation:
         entity_id: input_boolean.dark
         state: 'on'
     action:
+      - service: timer.cancel
+        entity_id: timer.lounge_light_motion
       - service: timer.start
         entity_id: timer.lounge_light_motion
       - condition: state
@@ -115,12 +117,15 @@ automation:
       - condition: state
         entity_id: binary_sensor.home_occupied
         state: 'on'
+      - condition: state
+        entity_id: binary_sensor.lounge_occupied
+        state: 'on'
     action:
       - service: scene.turn_on
         data_template:
           entity_id: >-
             {%- if (states.media_player.lounge_tv.state == 'playing') -%}
-              scene.lounge_tv
+              scene.lounge_lamp
             {%- else -%}
               scene.lounge_dim
             {%- endif -%}
@@ -135,7 +140,41 @@ automation:
         entity_id: binary_sensor.home_occupied
         state: 'on'
     action:
+      - service: script.notify
+        data:
+          call_bedtime_mode_on: 1
+          room: lounge
       - delay: '00:10:00'
+      - service: light.turn_off
+        entity_id: group.lounge_lights
+
+  - alias: Lighting - Lamp light when tv on
+    trigger:
+      - platform: state
+        entity_id: media_player.lounge_tv
+        to: 'playing'
+    condition:
+      - condition: state
+        entity_id: input_boolean.dark
+        state: 'on'
+      - condition: state
+        entity_id: light.loungedimmer
+        state: 'on'
+    action:
+      service: scene.turn_on
+      entity_id: scene.lounge_lamp
+
+  - alias: Lighting - Lounge lights off when unoccupied
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.lounge_occupied
+        to: 'off'
+    condition:
+      - condition: state
+        entity_id: input_boolean.bedtime_mode
+        state: 'off'
+    action:
+      - delay: '00:02:00'
       - service: light.turn_off
         entity_id: group.lounge_lights
 
