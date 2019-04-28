@@ -3,6 +3,7 @@ cloud:
     filter:
       include_entities:
         - media_player.lounge_tv
+        - input_boolean.bedtime_mode
       include_domains:
         - light
         - climate
@@ -23,3 +24,7 @@ cloud:
         aliases:
           - Thermostat
         room: Hallway
+      input_boolean.bedtime_mode:
+        name: Bedtime Mode
+        aliases:
+          - bedtime
