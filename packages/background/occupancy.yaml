@@ -126,7 +126,7 @@ binary_sensor:
         entity_id: binary_sensor.lounge_recent_motion
         to_state: 'on'
         prob_given_true: 0.99
-        prob_given_false: 0.4
+        prob_given_false: 0.2
       - platform: state
         entity_id: media_player.lounge_tv
         prob_given_true: 0.9

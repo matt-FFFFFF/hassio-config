@@ -13,13 +13,9 @@ group:
       - light.lounge_lamp
 
 light:
-  - platform: mqtt
+  - platform: switch
     name: Lounge Lamp
-    command_topic: 'smartthings/Lounge Lamp/switch/cmd'
-    state_topic: 'smartthings/Lounge Lamp/switch/state'
-    payload_on: 'on'
-    payload_off: 'off'
-    retain: true
+    entity_id: switch.lounge_lamp
 
 scene:
   - name: Lounge dim

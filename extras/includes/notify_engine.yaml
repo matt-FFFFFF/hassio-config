@@ -11,7 +11,6 @@
 
 no_show: '{{ no_show }}'
 no_say: '{{ no_say }}'
-room: '{{ room }}'
 
 
 who: >
@@ -90,8 +89,8 @@ message: >-
 
   {%- macro bedtime_mode() -%}
     {{ ["I'm switching on bedtime mode in 10 minutes.",
-      "Good night, I will turn on bedtime mode in 10 minutes",
-      "Is that the time? in 10 minutes I'll turn on bedtime mode"]|random }}
+      "I will turn on bedtime mode in 10 minutes",
+      "in 10 minutes I'll turn on bedtime mode"]|random }}
   {%- endmacro -%}
 
   {%- macro iss() -%}
