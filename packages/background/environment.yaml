@@ -2,11 +2,28 @@
 sun:
 
 weather:
-  - platform: metoffice
-    api_key: !secret metoffice_api_key
+  platform: metoffice
+  api_key: !secret metoffice_api_key
 
 input_boolean:
   dark:
+    icon: mdi:brightness-4
+
+input_number:
+  dark_set_level:
+    name: Dark set level
+    initial: 20
+    min: 0
+    max: 50
+    step: 1
+    mode: box
+  dark_unset_level:
+    name: Dark unset level
+    initial: 22
+    min: 0
+    max: 50
+    step: 1
+    mode: box
 
 sensor:
   - platform: moon
@@ -42,18 +59,18 @@ sensor:
 automation:
   - alias: Environment - set dark mode
     trigger:
-      - platform: numeric_state
-        entity_id: sensor.sunlight_pct
-        below: 22
+      - platform: template
+        value_template: >-
+          {{ states('sensor.sunlight_pct') <= states('input_number.dark_set_level') }}
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.dark
 
   - alias: Environment - unset dark mode
     trigger:
-      - platform: numeric_state
-        entity_id: sensor.sunlight_pct
-        above: 26
+      - platform: template
+        value_template: >-
+          {{ states('sensor.sunlight_pct') >= states('input_number.dark_unset_level') }}
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.dark

@@ -12,7 +12,7 @@ cloud:
         name: Lounge TV
         room: Lounge
       light.loungedimmer:
-        name: Lounge Light
+        name: Lounge Main Light
         aliases:
           - Lounge Dimmer
         room: Lounge
