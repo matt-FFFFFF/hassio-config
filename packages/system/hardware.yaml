@@ -17,6 +17,8 @@ homeassistant:
     media_player.*:
       icon: mdi:play
 
+stream:
+
 wake_on_lan:
 
 media_player:
