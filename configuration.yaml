@@ -9,6 +9,8 @@ homeassistant:
   auth_providers:
     - type: homeassistant
   packages: !include_dir_named packages/
+  whitelist_external_dirs:
+    - '/tmp'
 
 updater:
   reporting: true

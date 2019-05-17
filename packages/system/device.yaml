@@ -4,7 +4,6 @@
 # to monitor the Homeassistant software and system itself #
 #                                                         #
 ###########################################################
-
 recorder:
   purge_interval: 1
   purge_keep_days: 7
@@ -65,6 +64,10 @@ automation:
     trigger:
       platform: homeassistant
       event: start
+    condition:
+      - condition: state
+        entity_id: input_boolean.maintenance_mode
+        state: 'off'
     action:
       service: script.notify
       data:
