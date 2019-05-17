@@ -33,4 +33,4 @@ api:
   password: !secret api_password
 
 ota:
-  password: !secret ota_passwrd
+  password: !secret ota_password
