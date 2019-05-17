@@ -10,7 +10,6 @@
 #                                                  #
 ####################################################
 
-homeassistant:
 
 nest:
   client_id: !secret nest_clientid
