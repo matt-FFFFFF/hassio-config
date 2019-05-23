@@ -1,2 +1,2 @@
 mqtt_eventstream:
-  publish_topic: eventstream/azureiot
+  publish_topic: devices/ha/messages/events/
