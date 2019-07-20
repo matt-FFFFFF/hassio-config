@@ -88,9 +88,10 @@ automation:
       condition: and
       conditions:
         - condition: template
-          value_template: "{{ states('climate.hallway') != 'off') }}"
+          value_template: >-
+            {{ states('climate.hallway') != 'off' }}
         - condition: state
-          entity_id: 'binary_sensor.wildown_gardens_away'
+          entity_id: binary_sensor.wildown_gardens_away
           state: 'off'
         - condition: template
           value_template: >-
@@ -108,7 +109,7 @@ automation:
         data_template:
           entity_id: climate.hallway
           hvac_mode: >-
-            {%- if ( is_state('binary_sensor.warmer_than_night_setpoint', 'on') -%}
+            {%- if ( is_state('binary_sensor.warmer_than_night_setpoint', 'on' )) -%}
               eco
             {%- elif (( is_state('binary_sensor.warmer_than_night_setpoint', 'off' ))) -%}
               heat
@@ -131,9 +132,10 @@ automation:
       condition: and
       conditions:
         - condition: template
-          value_template: "{{ (states('climate.hallway') != 'off') }}"
+          value_template: >-
+            {{ (states('climate.hallway') != 'off') }}
         - condition: state
-          entity_id: 'binary_sensor.wildown_gardens_away'
+          entity_id: binary_sensor.wildown_gardens_away
           state: 'off'
         - condition: template
           value_template: >-
@@ -160,7 +162,7 @@ automation:
             {%- endif -%}
       - delay: '00:00:10'
       - condition: state
-        entity_id: 'climate.hallway'
+        entity_id: climate.hallway
         state: 'heat'
       - service: climate.set_temperature
         data_template:
@@ -177,10 +179,10 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: 'input_boolean.bedtime_mode'
+          entity_id: input_boolean.bedtime_mode
           state: 'off'
         - condition: state
-          entity_id: 'climate.hallway'
+          entity_id: climate.hallway
           state: 'heat'
     action:
       - service: climate.set_temperature
@@ -198,10 +200,10 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: 'input_boolean.bedtime_mode'
+          entity_id: input_boolean.bedtime_mode
           state: 'on'
         - condition: state
-          entity_id: 'climate.hallway'
+          entity_id: climate.hallway
           state: 'heat'
     action:
       - service: climate.set_temperature
@@ -329,13 +331,13 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: 'climate.hallway'
+          entity_id: climate.hallway
           state: 'eco'
         - condition: state
-          entity_id: 'input_boolean.bedtime_mode'
+          entity_id: input_boolean.bedtime_mode
           state: 'off'
         - condition: state
-          entity_id: 'input_boolean.away_mode'
+          entity_id: input_boolean.away_mode
           state: 'off'
     action:
       - service: climate.set_hvac_mode
@@ -344,7 +346,7 @@ automation:
           hvac_mode: 'heat'
       - delay: '00:00:10'
       - condition: state
-        entity_id: 'climate.hallway'
+        entity_id: climate.hallway
         state: 'heat'
       - service: climate.set_temperature
         data_template:
@@ -362,13 +364,13 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: 'climate.hallway'
+          entity_id: climate.hallway
           state: 'eco'
         - condition: state
-          entity_id: 'input_boolean.bedtime_mode'
+          entity_id: input_boolean.bedtime_mode
           state: 'on'
         - condition: state
-          entity_id: 'input_boolean.away_mode'
+          entity_id: input_boolean.away_mode
           state: 'off'
     action:
       - service: climate.set_hvac_mode
@@ -377,7 +379,7 @@ automation:
           hvac_mode: 'heat'
       - delay: '00:00:10'
       - condition: state
-        entity_id: 'climate.hallway'
+        entity_id: climate.hallway
         state: 'heat'
       - service: climate.set_temperature
         data_template:
@@ -395,13 +397,13 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: 'climate.hallway'
+          entity_id: climate.hallway
           state: 'heat'
         - condition: state
-          entity_id: 'input_boolean.bedtime_mode'
+          entity_id: input_boolean.bedtime_mode
           state: 'off'
         - condition: state
-          entity_id: 'input_boolean.away_mode'
+          entity_id: input_boolean.away_mode
           state: 'off'
     action:
       - service: climate.set_hvac_mode
@@ -419,13 +421,13 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: 'climate.hallway'
+          entity_id: climate.hallway
           state: 'heat'
         - condition: state
-          entity_id: 'input_boolean.bedtime_mode'
+          entity_id: input_boolean.bedtime_mode
           state: 'on'
         - condition: state
-          entity_id: 'input_boolean.away_mode'
+          entity_id: input_boolean.away_mode
           state: 'off'
     action:
       - service: climate.set_hvac_mode
@@ -443,10 +445,10 @@ automation:
       condition: or
       conditions:
         - condition: state
-          entity_id: 'input_boolean.away_mode'
+          entity_id: input_boolean.away_mode
           state: 'on'
         - condition: state
-          entity_id: 'input_boolean.holiday_mode'
+          entity_id: input_boolean.holiday_mode
           state: 'on'
     action:
       - service: climate.set_hvac_mode
