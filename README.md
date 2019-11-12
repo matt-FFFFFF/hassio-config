@@ -4,7 +4,7 @@ This is my Home Assistant configuration.
 
 ## My Setup
 
-I use a Raspberry Pi 3 B+ running Hassio & [Hassos](https://github.com/home-assistant/hassos).
+I use a laptop running VMware ESXi, on this I use the [Hassio](https://www.home-assistant.io/hassio/) OVA image.
 
 ## Stuff That I Automate
 
@@ -16,11 +16,11 @@ The following are things that I have automated:
 - [x] Nest home/away automation based on the above
 - [x] Nest Eco mode when the outside temperature is warmer than the setpoint
 - [x] Nest day/night setpoints
-- [x] Reflect Nest temperature changes into HA
 
 ### Lighting
 
 - [x] Basic Z-Wave dimmer
+- [x] Scenes
 
 ### SmartThings
 
@@ -37,9 +37,7 @@ The following are things that I have automated:
 
 ## CI/CD
 
-I use GitHub & Azure DevOps to provide CI/CD services.  I have automated the testing of new pull requests using the docker image from Docker Hub & the hosted Linux build agents.
-
-![build status](https://matthewwhite.visualstudio.com/_apis/public/build/definitions/c79b9ad4-fab7-4063-aba0-49d888e1eec2/2/badge)
+I use GitHub Actions to provide test services.
 
 ## Acknowledgements
 
