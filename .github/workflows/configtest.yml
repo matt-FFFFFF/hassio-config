@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: 
+    - master
+
+jobs:
+  testconfig:
+    name: Test HA configuration
+    runs-on: ubuntu-18.04
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Copy dummy secrets.yaml
+      run: cp ./extras/dummy_secrets/dummy_secrets.yaml ./secrets.yaml
+    - name: Create dummy certificate files
+      run: |
+        touch cert.pem
+        touch key.pem
+    - uses: azure/docker-login@v1
+      with:
+        username: '<username>'
+        password: '<password>'
+        #loginServer: '<login server>' # default: index.docker.io
+        #email: '<email id>'
