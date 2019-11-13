@@ -108,6 +108,7 @@ binary_sensor:
         entity_id:
           - binary_sensor.lounge_multi_sensor_motion
           - sensor.time
+          - input_number.lounge_occupancy_idle_minutes
         device_class: occupancy
         value_template: >-
           {{- (as_timestamp(now())
