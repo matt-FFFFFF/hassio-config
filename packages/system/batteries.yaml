@@ -65,7 +65,8 @@ automation:
       - *alerts_action
       - service: mqtt.publish
         data_template:
-          <<: *alerts_template
+          topic: "homeassistant/sensor/{{ trigger.event.data.new_state.object_id }}_battery/state"
+          retain: true
           payload: "{{ trigger.event.data.new_state.attributes.battery|int }}"
 
   - alias: Battery alert - Sensor (numeric)
@@ -79,5 +80,6 @@ automation:
       - *alerts_action
       - service: mqtt.publish
         data_template:
-          <<: *alerts_template
+          topic: "homeassistant/sensor/{{ trigger.event.data.new_state.object_id }}_battery/state"
+          retain: true
           payload: "{{ (trigger.event.data.new_state.attributes['Battery numeric']|int + 1) * 10 }}"
