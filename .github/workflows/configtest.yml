@@ -9,10 +9,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: ls & pwd
-      run: |
-        ls -l
-        pwd
     - name: Copy dummy secrets.yaml
       run: cp ./extras/dummy_secrets/dummy_secrets.yaml ./secrets.yaml
     - name: Create dummy certificate files
@@ -24,4 +20,4 @@ jobs:
     - name: Pull Home Assistant container image
       run: docker pull homeassistant/home-assistant
     - name: Run container with test config switch
-      run: docker run --rm --name ha --volume ./:/config homeassistant/home-assistant 'python -m homeassistant --config /config --script check_config'
+      run: docker run --rm --name ha --volume $(pwd):/config homeassistant/home-assistant 'python -m homeassistant --config /config --script check_config'
