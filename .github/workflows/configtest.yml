@@ -20,4 +20,4 @@ jobs:
     - name: Pull Home Assistant container image
       run: docker pull homeassistant/home-assistant
     - name: Run container with test config switch
-      run: docker run --rm --name ha --volume $(pwd):/config homeassistant/home-assistant 'python -m homeassistant --config /config --script check_config'
+      run: docker run --rm --name ha --volume $(pwd):/config homeassistant/home-assistant /usr/local/bin/python -m homeassistant --config /config --script check_config
