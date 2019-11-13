@@ -25,4 +25,4 @@ jobs:
     - name: Run container with test config switch
       run: docker run --rm --name ha --volume $(pwd):/config homeassistant/home-assistant /usr/local/bin/python -m homeassistant --config /config --script check_config
     - name: Home Assistant webhook
-      run: curl -X POST -H "Content-Type: application/json" --data "{ \"data\": \"GitHub Actions\" }" '${{ secrets.GIT_PULL_WEBHOOK_URL }}'
+      run: curl -X POST ${{ secrets.GIT_PULL_WEBHOOK_URL }}
