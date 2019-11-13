@@ -1,12 +1,9 @@
 name: configtest
 
-on:
-  push:
-    branches: 
-    - master
+on: push
 
 jobs:
-  testconfig:
+  runtest:
     name: Test HA configuration
     runs-on: ubuntu-18.04
 
