@@ -5,75 +5,8 @@ weather:
   platform: metoffice
   api_key: !secret metoffice_api_key
 
-input_boolean:
-  dark:
-    icon: mdi:brightness-4
-
-input_number:
-  dark_set_level:
-    name: Dark set level
-    initial: 20
-    min: 0
-    max: 50
-    step: 1
-    mode: box
-  dark_unset_level:
-    name: Dark unset level
-    initial: 22
-    min: 0
-    max: 50
-    step: 1
-    mode: box
-
 sensor:
   - platform: moon
-
-  - platform: darksky
-    api_key: !secret darksky_api_key
-    monitored_conditions:
-      - cloud_cover
-    
-  - platform: template
-    sensors:
-      sunlight_pct:
-        entity_id:
-          - sun.sun
-          - sensor.dark_sky_cloud_coverage
-        value_template: >-
-          {%- set elevation = state_attr('sun.sun','elevation') | float %}
-          {%- set cloud_coverage = states('sensor.dark_sky_cloud_coverage') | float %}
-          {%- set cloud_factor = (1 - (0.75 * ( cloud_coverage / 100) ** 3 )) %}
-          {%- set min_elevation = -6 %}
-          {%- set max_elevation = 64 %}
-          {%- set adjusted_elevation = elevation - min_elevation %}
-          {%- set adjusted_elevation = [adjusted_elevation,0] | max %}
-          {%- set adjusted_elevation = [adjusted_elevation,max_elevation - min_elevation] | min %}
-          {%- set adjusted_elevation = adjusted_elevation / (max_elevation - min_elevation) %}
-          {%- set adjusted_elevation = adjusted_elevation %}
-          {%- set adjusted_elevation = adjusted_elevation * 100 %}
-          {%- set brightness = adjusted_elevation * cloud_factor %}
-          {{ brightness | round }}
-        unit_of_measurement: '%'
-        device_class: 'illuminance'
-
-automation:
-  - alias: Environment - set dark mode
-    trigger:
-      - platform: template
-        value_template: >-
-          {{ states('sensor.sunlight_pct') <= states('input_number.dark_set_level') }}
-    action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.dark
-
-  - alias: Environment - unset dark mode
-    trigger:
-      - platform: template
-        value_template: >-
-          {{ states('sensor.sunlight_pct') >= states('input_number.dark_unset_level') }}
-    action:
-      - service: input_boolean.turn_off
-        entity_id: input_boolean.dark
 
 # Override default home
 zone:

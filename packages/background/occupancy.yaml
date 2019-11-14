@@ -245,44 +245,6 @@ automation:
         entity_id:
           - input_boolean.bedtime_mode
 
-  - alias: Occupancy - Return home
-    initial_state: on
-    trigger:
-      platform: state
-      entity_id: binary_sensor.home_occupied
-      to: 'on'
-    action:
-      - service: input_boolean.turn_off
-        entity_id:
-          - input_boolean.away_mode
-          - input_boolean.holiday_mode
-
-  - alias: Occupancy - Nobody home
-    initial_state: on
-    trigger:
-      platform: state
-      entity_id: binary_sensor.home_occupied
-      to: 'off'
-      for:
-        minutes: 5
-    action:
-      - service: input_boolean.turn_on
-        entity_id:
-          - input_boolean.away_mode
-
-  - alias: Occupancy - Holiday Mode
-    initial_state: on
-    trigger:
-      platform: state
-      entity_id: input_boolean.away_mode
-      to: 'on'
-      for:
-        hours: 24
-    action:
-      - service: input_boolean.turn_on
-        data:
-          entity_id: input_boolean.holiday_mode
-
   - alias: Occupancy - Weekday Bedtime Mode On
     initial_state: on
     trigger:
@@ -378,12 +340,3 @@ automation:
       - service: input_boolean.turn_off
         data:
           entity_id: input_boolean.bedtime_mode
-
-  - alias: Occupancy - Reset Guest mode at midnight
-    trigger:
-      - platform: time
-        at: '00:00:00'
-    action:
-      service: input_boolean.turn_off
-      data:
-        entity_id: input_boolean.guest_mode
