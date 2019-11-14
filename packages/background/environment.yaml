@@ -8,6 +8,10 @@ weather:
 sensor:
   - platform: moon
 
+input_boolean:
+  dark:
+    icon: mdi:brightness-4
+
 # Override default home
 zone:
   - name: Home
