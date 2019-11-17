@@ -150,7 +150,7 @@ message: >-
   {% endif -%}
 
   {%- if call_upgrade == 1 %}
-    Update for Home Assistant is available.  Latest version is {{ states('updater.updater') }}
+    Update for Home Assistant is available.  Latest version is {{ state_attr('binary_sensor.updater','newest_version') }}
   {% endif -%}
 
   {%- if call_tiles_update == 1 %}

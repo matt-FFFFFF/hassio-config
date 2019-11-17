@@ -22,7 +22,7 @@ scene:
     entities:
       light.loungedimmer: &dim
         state: on
-        transition: 2
+        #transition: 2
         brightness: 125
       light.lounge_lamp:
         state: off
@@ -30,7 +30,7 @@ scene:
     entities:
       light.loungedimmer: &bright
         state: on
-        transition: 4
+        #transition: 4
         brightness: 255
       light.lounge_lamp:
         state: off
@@ -38,6 +38,6 @@ scene:
     entities:
       light.loungedimmer:
         state: off
-        transition: 4
+        #transition: 4
       light.lounge_lamp:
         state: on
