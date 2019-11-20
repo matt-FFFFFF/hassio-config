@@ -157,7 +157,7 @@ message: >-
     Update for UI Tiles is available. Latest version is {{ states('sensor.ui_tiles_version') }}
   {% endif %}
 
-  {%- if call_random_fact == 1 or is_state ('binary_sensor.random_binary_sensor' , 'on') %}
+  {%- if call_random_fact == 1 %}
     Here is something interesting, {{- ([iss, moon, wind_speed_direction, outside_weather]|random)() }}
   {% endif -%}
 

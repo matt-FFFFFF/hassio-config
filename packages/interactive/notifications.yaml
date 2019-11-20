@@ -8,11 +8,6 @@
 #                                                 #
 ###################################################
 
-homeassistant:
-  customize:
-    binary_sensor.random_binary_sensor:
-      hidden: true
-
 tts:
   - platform: google_translate
     language: en
@@ -28,13 +23,6 @@ notify:
   - platform: telegram
     name: matt
     chat_id: !secret telegram_bot_chat_id_matt
-
-input_boolean:
-  priority_message:
-    initial: off
-
-binary_sensor:
-  platform: random
 
 script:
   notify:
@@ -67,9 +55,6 @@ script:
           - condition: state
             entity_id: input_boolean.bedtime_mode
             state: 'off'
-          - condition: state
-            entity_id: input_boolean.priority_message
-            state: 'on'
       - service: media_player.volume_set
         data_template:
           entity_id: "{{ media_player }}"

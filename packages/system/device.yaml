@@ -28,37 +28,6 @@ sensor:
       - type: processor_use
 
 automation:
-  - alias: Device - Disk use alarm
-    initial_state: on
-    trigger:
-      platform: numeric_state
-      entity_id: sensor.disk_use_percent
-      above: 85
-    action:
-      service: script.notify
-      data:
-        tell: matt
-        no_say: 1
-        call_hdd_space: 1
-
-  - alias: Device - System load alarm
-    initial_state: on
-    trigger:
-      - platform: numeric_state
-        entity_id: sensor.processor_use
-        above: 80
-        for:
-          minutes: 5
-      - platform: numeric_state
-        entity_id: sensor.memory_use_percent
-        above: 85
-    action:
-      service: script.notify
-      data:
-        tell: matt
-        no_say: 1
-        call_system_load: 1
-        
   - alias: Device - Power on
     initial_state: on
     trigger:
