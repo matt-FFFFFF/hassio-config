@@ -1,0 +1,43 @@
+sensor:
+  - platform: mqtt
+    name: OpenEVSE charging current
+    state_topic: emon/openevse/amp
+    unit_of_measurement: A
+
+  - platform: mqtt
+    name: OpenEVSE pilot
+    state_topic: emon/openevse/pilot
+    unit_of_measurement: A
+
+  - platform: mqtt
+    name: OpenEVSE Watt hours
+    state_topic: emon/openevse/wh
+    unit_of_measurement: Wh
+
+    # State - 1 Not Connected - 2 Connected - 3 Charging - 4 Error - 5 Error
+  - platform: mqtt
+    name: OpenEVSE state
+    state_topic: emon/openevse/state
+    value_template: |-
+      {{ {1: "Not connected", 2: "Connected", 3:"Charging", 4:"Error (4)", 5:"Error (5)"}[value | int ] | default("") }}
+
+  - platform: mqtt
+    name: OpenEVSE temperature
+    state_topic: emon/openevse/temp1
+    device_class: temperature
+    unit_of_measurement: °C
+    value_template: |-
+      {{ value | int / 10 }}
+
+  - platform: mqtt
+    name: OpenEVSE free RAM
+    state_topic: emon/openevse/freeram
+    unit_of_measurement: KB
+    value_template: |-
+      {{ (value | int / 1024) | round(1) }}
+
+  - platform: mqtt
+    name: OpenEVSE divert mode
+    state_topic: emon/openevse/divertmode
+    value_template: |-
+      {{ {1: "Normal", 2: "Eco"}[value | int ] | default("") }}
