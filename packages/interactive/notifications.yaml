@@ -12,17 +12,14 @@ tts:
   - platform: google_translate
     language: en
 
-telegram_bot:
-  platform: polling
-  api_key: !secret telegram_bot_api_key
-  parse_mode: html
-  allowed_chat_ids:
-    - !secret telegram_bot_chat_id_matt
-
 notify:
-  - platform: telegram
+  - platform: rest
     name: matt
-    chat_id: !secret telegram_bot_chat_id_matt
+    resource: http://a0d7b954-nodered.local.hass.io/endpoint/notify
+    method: POST_JSON
+    data:
+      chatId: !secret telegram_bot_chat_id_matt
+      platform: telegram
 
 script:
   notify:

@@ -19,7 +19,7 @@ sensor:
     name: OpenEVSE state
     state_topic: emon/openevse/state
     value_template: |-
-      {{ {1: "Not connected", 2: "Connected", 3:"Charging", 4:"Error (4)", 5:"Error (5)"}[value | int ] | default("") }}
+      {{ {1: "Not connected", 2: "Connected", 3: "Charging", 4: "Error (4)", 5: "Error (5)", 254: "Sleep", 255: "Disabled"}[value | int ] | default("Unknown") }}
 
   - platform: mqtt
     name: OpenEVSE temperature
@@ -41,3 +41,5 @@ sensor:
     state_topic: emon/openevse/divertmode
     value_template: |-
       {{ {1: "Normal", 2: "Eco"}[value | int ] | default("") }}
+
+# script: pause/resume charging ($F1) RAPI command. Or use $FD/$FE for disable/enable
