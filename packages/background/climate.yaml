@@ -14,10 +14,6 @@
 ## HVAC modes 'heat', 'off'
 ## Preset modes 'away', 'eco', 'none', 'Away and Eco'
 
-nest:
-  client_id: !secret nest_clientid
-  client_secret: !secret nest_clientsecret
-
 climate:
   platform: nest
 

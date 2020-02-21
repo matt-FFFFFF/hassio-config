@@ -12,14 +12,5 @@ input_boolean:
   dark:
     icon: mdi:brightness-4
 
-# Override default home
-zone:
-  - name: Home
-    latitude: !secret latitude
-    longitude: !secret longitude
-    radius: 150
-    icon: mdi:home-variant
-    track_ios: false
-
 binary_sensor:
   - platform: iss   

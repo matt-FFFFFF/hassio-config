@@ -70,13 +70,6 @@ owntracks:
   max_gps_accuracy: 200
   waypoints: true
   mqtt_topic: "owntracks/#"
-
-group:
-  phone_trackers:
-    name: Phone Trackers
-    entities:
-      - device_tracker.mattiphoneowntrk_iphone
-      - device_tracker.beliphoneowntrk_iphone
       
 alert:
   guest_mode_alert:
@@ -90,19 +83,26 @@ alert:
     notifiers:
       - matt
 
+group:
+  residents:
+    name: Residents
+    entities:
+      - person.belinda
+      - person.matt
+
 binary_sensor:
   - platform: template
     sensors:
       home_occupied:
         friendly_name: Home Occupied
         entity_id:
-          - group.phone_trackers
+          - group.residents
           - input_boolean.guest_mode
         device_class: occupancy
         value_template: >-
-          {{- is_state('group.phone_trackers', 'home')
+          {{- is_state('group.residents', 'home')
             or 
-          is_state('input_boolean.guest_mode' , 'on') -}}
+          is_state('input_boolean.guest_mode', 'on') -}}
       lounge_recent_motion:
         friendly_name: Lounge recent motion
         entity_id:

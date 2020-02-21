@@ -15,11 +15,11 @@ tts:
 notify:
   - platform: rest
     name: matt
-    resource: http://a0d7b954-nodered.local.hass.io/endpoint/notify
+    resource: !secret notificationurl
     method: POST_JSON
     data:
       chatId: !secret telegram_bot_chat_id_matt
-      platform: telegram
+      transport: telegram
 
 script:
   notify:

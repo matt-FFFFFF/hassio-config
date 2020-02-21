@@ -21,14 +21,14 @@ stream:
 
 wake_on_lan:
 
-media_player:
-  - platform: webostv
-    name: Lounge TV
+webostv:
+  - name: Lounge TV
     host: !secret lounge_tv_ip
     turn_on_action:
       service: wake_on_lan.send_magic_packet
       data:
         mac: !secret lounge_tv_mac
+
 
 sensor:
   - platform: time_date
@@ -36,19 +36,3 @@ sensor:
       - 'time'
       - 'date'
       - 'time_utc'
-
-zwave:
-  usb_path: /dev/ttyACM0
-  network_key: !secret zwave_network_key
-  autoheal: false
-
-
-mqtt:
-  broker: !secret hostname
-  port: 8883
-  tls_version: auto
-  certificate: /etc/ssl/certs/ca-certificates.crt
-  username: !secret mqtt_user_hassio
-  password: !secret mqtt_password_hassio
-  discovery: true
-  discovery_prefix: homeassistant
