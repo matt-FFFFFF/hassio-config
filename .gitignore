@@ -48,7 +48,6 @@ custom_components
 deps
 icloud
 panels
-tts
 __*
 *.conf
 *.db
@@ -77,3 +76,8 @@ secrets.env
 secrets.yaml
 *.pickle
 .config_entries.json
+
+# Extra dirs on HA server
+homebridge
+node-red
+tts
