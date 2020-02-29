@@ -13,4 +13,4 @@ input_boolean:
     icon: mdi:brightness-4
 
 binary_sensor:
-  - platform: iss   
+  - platform: iss
