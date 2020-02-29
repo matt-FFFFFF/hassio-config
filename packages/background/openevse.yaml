@@ -10,9 +10,11 @@ sensor:
     unit_of_measurement: A
 
   - platform: mqtt
-    name: OpenEVSE Watt hours
+    name: OpenEVSE kWh
     state_topic: emon/openevse/wh
-    unit_of_measurement: Wh
+    unit_of_measurement: kWh
+    value_template: |-
+      {{ value | int / 1000 }}
 
     # State - 1 Not Connected - 2 Connected - 3 Charging - 4 Error - 5 Error
   - platform: mqtt
