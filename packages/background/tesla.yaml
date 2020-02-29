@@ -95,8 +95,10 @@ sensor:
   - platform: mqtt
     name: tesla_odometer
     state_topic: "teslamate/export/cars/1/odometer"
-    unit_of_measurement: km
+    unit_of_measurement: mi
     icon: mdi:gauge
+    value_template: |-
+      {{ (value | float * 0.621371) | round(0) }}
 
   - platform: mqtt
     name: tesla_outside_temp
