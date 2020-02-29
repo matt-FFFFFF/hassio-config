@@ -30,6 +30,10 @@ The following are things that I have automated:
 
 - [x] Implemented Mosquitto using TLS and access control lists
 
+### Tesla
+
+- [x] TeslaMate integration usign my own addon https://github.com/matt-FFFFFF/hassio-addon-repository
+
 ## Todo
 
 - [ ] Mockupancy
