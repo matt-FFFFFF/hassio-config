@@ -36,3 +36,7 @@ sensor:
       - 'time'
       - 'date'
       - 'time_utc'
+
+  - platform: syncthru
+    resource: http://samsungclp410.home.hardac.co.uk
+    name: Samsung CLP-415N
