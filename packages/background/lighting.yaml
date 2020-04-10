@@ -15,29 +15,4 @@ group:
 light:
   - platform: switch
     name: Lounge Lamp
-    entity_id: switch.lounge_lamp
-
-scene:
-  - name: Lounge dim
-    entities:
-      light.loungedimmer: &dim
-        state: on
-        #transition: 2
-        brightness: 125
-      light.lounge_lamp:
-        state: off
-  - name: Lounge bright
-    entities:
-      light.loungedimmer: &bright
-        state: on
-        #transition: 4
-        brightness: 255
-      light.lounge_lamp:
-        state: off
-  - name: Lounge lamp
-    entities:
-      light.loungedimmer:
-        state: off
-        #transition: 4
-      light.lounge_lamp:
-        state: on
+    entity_id: switch.lounge_lamp_wall_plug_switch
