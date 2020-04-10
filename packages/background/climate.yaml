@@ -14,9 +14,6 @@
 ## HVAC modes 'heat', 'off'
 ## Preset modes 'away', 'eco', 'none', 'Away and Eco'
 
-climate:
-  platform: nest
-
 input_number:
   outside_temp_offset:
     name: Outside Temperature Offset
