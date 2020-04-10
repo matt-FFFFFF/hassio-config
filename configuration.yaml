@@ -17,3 +17,5 @@ person:
 
 # Stay up to date with latest Home Assistant components, introduced in 0.88.1
 default_config:
+
+scene: !include scenes.yaml
