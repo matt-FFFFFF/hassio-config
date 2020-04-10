@@ -3,6 +3,8 @@ sensor:
     name: OpenEVSE charging current
     state_topic: emon/openevse/amp
     unit_of_measurement: A
+    value_template: |-
+      {{ (value | float / 1000) | round(1) }}
 
   - platform: mqtt
     name: OpenEVSE pilot
