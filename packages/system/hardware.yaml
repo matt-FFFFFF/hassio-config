@@ -28,6 +28,7 @@ webostv:
       service: wake_on_lan.send_magic_packet
       data:
         mac: !secret lounge_tv_mac
+        broadcast_address: !secret lan_broadcast_address
 
 
 sensor:
