@@ -9,6 +9,20 @@ updater:
   reporting: true
   include_used_components: true
 
+
+http:
+  ip_ban_enabled: true
+  login_attempts_threshold: 3
+#  ssl_certificate: !secret ssl_certificate
+#  ssl_key: !secret ssl_key
+  base_url: !secret base_url
+  server_port: !secret server_port
+  server_host: !secret server_host
+  use_x_forwarded_for: true
+  trusted_proxies: !secret trusted_proxies
+
+config:
+
 # Discover some devices automatically
 discovery:
 
@@ -17,5 +31,13 @@ person:
 
 # Stay up to date with latest Home Assistant components, introduced in 0.88.1
 default_config:
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+map:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
 
 scene: !include scenes.yaml
