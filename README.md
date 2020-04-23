@@ -22,9 +22,9 @@ The following are things that I have automated:
 - [x] Basic Z-Wave dimmer
 - [x] Scenes
 
-### SmartThings
+### Teslamate
 
-- [x] Integrated existing ST hub using Mosquitto MQTT
+- [x] Created Teslamate [addon][https://github.com/matt-FFFFFF/hassio-addon-repository] for HA
 
 ### Mosquitto MQTT
 
@@ -32,7 +32,7 @@ The following are things that I have automated:
 
 ### Tesla
 
-- [x] TeslaMate integration usign my own addon https://github.com/matt-FFFFFF/hassio-addon-repository
+- [x] TeslaMate integration using my own addon https://github.com/matt-FFFFFF/hassio-addon-repository
 
 ## Todo
 
