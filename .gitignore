@@ -77,6 +77,10 @@ secrets.yaml
 *.pickle
 .config_entries.json
 
+# Defined un UI
+automations.yaml
+scenes.yaml
+
 # Extra dirs on HA server
 homebridge
 node-red
