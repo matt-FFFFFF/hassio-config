@@ -1,10 +1,6 @@
 
 sun:
 
-weather:
-  platform: metoffice
-  api_key: !secret metoffice_api_key
-
 sensor:
   - platform: moon
 
