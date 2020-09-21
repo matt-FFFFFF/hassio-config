@@ -2,20 +2,16 @@ homeassistant:
   auth_providers:
     - type: homeassistant
   packages: !include_dir_named packages/
-  whitelist_external_dirs:
+  allowlist_external_dirs:
     - '/tmp'
 
 updater:
   reporting: true
   include_used_components: true
 
-
 http:
   ip_ban_enabled: true
   login_attempts_threshold: 3
-#  ssl_certificate: !secret ssl_certificate
-#  ssl_key: !secret ssl_key
-  base_url: !secret base_url
   server_port: !secret server_port
   server_host: !secret server_host
   use_x_forwarded_for: true

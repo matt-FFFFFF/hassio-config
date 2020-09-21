@@ -95,9 +95,6 @@ binary_sensor:
     sensors:
       home_occupied:
         friendly_name: Home Occupied
-        entity_id:
-          - group.residents
-          - input_boolean.guest_mode
         device_class: occupancy
         value_template: >-
           {{- is_state('group.residents', 'home')
@@ -105,10 +102,6 @@ binary_sensor:
           is_state('input_boolean.guest_mode', 'on') -}}
       lounge_recent_motion:
         friendly_name: Lounge recent motion
-        entity_id:
-          - binary_sensor.lounge_multi_sensor_motion
-          - sensor.time
-          - input_number.lounge_occupancy_idle_minutes
         device_class: occupancy
         value_template: >-
           {{- (as_timestamp(now())
@@ -119,10 +112,6 @@ binary_sensor:
           -}}
       lounge_occupied:
         friendly_name: Lounge occupied
-        entity_id:
-          - media_player.lounge_tv
-          - media_player.lounge_hifi
-          - binary_sensor.lounge_recent_motion
         value_template: >-
           {{- is_state('media_player.lounge_tv','playing')
             or

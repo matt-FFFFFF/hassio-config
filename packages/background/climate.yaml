@@ -41,30 +41,18 @@ binary_sensor:
     sensors:
       warmer_than_current_setpoint:
         friendly_name: Outside warmer than current setpoint
-        entity_id:
-          - weather.met_office_bournemouth_southbourne_beach
-          - input_number.outside_temp_offset
-          - sensor.hallway_thermostat_target
         value_template: >-
           {{ state_attr('weather.met_office_bournemouth_southbourne_beach','temperature') | float
             + (states('input_number.outside_temp_offset') | int)
             >= states('sensor.hallway_thermostat_target') | float }}
       warmer_than_day_setpoint:
         friendly_name: Outside warmer than daytime 
-        entity_id:
-          - weather.met_office_bournemouth_southbourne_beach
-          - input_number.outside_temp_offset
-          - input_number.daytime_heat_setpoint
         value_template: >-
           {{ state_attr('weather.met_office_bournemouth_southbourne_beach','temperature') | float
             + (states('input_number.outside_temp_offset') | int)
             >= states('input_number.daytime_heat_setpoint') | float }}
       warmer_than_night_setpoint:
         friendly_name: Outside warmer than nighttime setpoint
-        entity_id:
-          - weather.met_office_bournemouth_southbourne_beach
-          - input_number.outside_temp_offset
-          - input_number.nighttime_heat_setpoint
         value_template: >-
           {{ state_attr('weather.met_office_bournemouth_southbourne_beach','temperature') | float
             + (states('input_number.outside_temp_offset') | int)
