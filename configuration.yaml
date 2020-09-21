@@ -13,7 +13,6 @@ http:
   ip_ban_enabled: true
   login_attempts_threshold: 3
   server_port: !secret server_port
-  server_host: !secret server_host
   use_x_forwarded_for: true
   trusted_proxies: !secret trusted_proxies
 
