@@ -3,6 +3,11 @@ sun:
 
 sensor:
   - platform: moon
+  - platform: rest
+    resource: https://api.carbonintensity.org.uk/intensity/
+    name: Great Britain carbon intensity
+    value_template: '{{ value_json.data[0].intensity.forecast }}'
+    unit_of_measurement: gCO2/kWh
 
 input_boolean:
   dark:
