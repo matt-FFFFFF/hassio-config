@@ -14,7 +14,7 @@ http:
   login_attempts_threshold: 3
   server_port: !secret server_port
   use_x_forwarded_for: true
-  trusted_proxies: !secret trusted_proxies
+  trusted_proxies: 172.30.33.0/24
 
 config:
 
